@@ -1,0 +1,39 @@
+<?php
+
+namespace OZiTAG\Tager\Backend\Blog\Resources;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+use Ozerich\FileStorage\Models\File;
+use OZiTAG\Tager\Backend\Mail\Models\TagerMailTemplate;
+use OZiTAG\Tager\Backend\Mail\Utils\TagerMailConfig;
+use OZiTAG\Tager\Backend\Seo\Models\SeoPage;
+
+class AdminPostResource extends JsonResource
+{
+    public function getCategories()
+    {
+        return [];
+    }
+
+    public function toArray($request)
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'urlAlias' => $this->url_alias,
+            'websiteUrl' => '/blog/' . $this->url_alias,
+            'date' => $this->date,
+            'status' => $this->status,
+            'excerpt' => $this->excerpt,
+            'body' => $this->body,
+            'image' => $this->image ? $this->image->getJson() : null,
+            'coverImage' => $this->coverImage ? $this->coverImage->getJson() : null,
+
+            'pageTitle' => $this->page_title,
+            'pageDescription' => $this->page_description,
+            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getJson() : null,
+
+            'categories' => $this->getCategories()
+        ];
+    }
+}

@@ -17,7 +17,7 @@ Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrator
     Route::get('/categories/{id}', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@viewCategory');
     Route::delete('/categories/{id}', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@removeCategory');
 
-    Route::get('/posts', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@posts');
+    Route::get('/posts', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@listPosts');
     Route::post('/posts', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@createPost');
     Route::put('/posts/{id}', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@updatePost');
     Route::get('/posts/{id}', \OZiTAG\Tager\Backend\Blog\Controllers\AdminController::class . '@viewPost');

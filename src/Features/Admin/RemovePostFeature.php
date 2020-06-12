@@ -2,7 +2,9 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\SuccessResource;
 
 class RemovePostFeature extends Feature
 {
@@ -15,5 +17,16 @@ class RemovePostFeature extends Feature
 
     public function handle()
     {
+        $model = $this->run(GetPostByIdJob::class, [
+            'id' => $this->id
+        ]);
+
+        if (!$model) {
+            abort(404, 'Post not found');
+        }
+
+        $model->delete();
+
+        return new SuccessResource();
     }
 }
