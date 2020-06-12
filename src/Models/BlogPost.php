@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
@@ -44,5 +45,15 @@ class BlogPost extends Model
     public function openGraphImage()
     {
         return $this->belongsTo(File::class, 'open_graph_image_id');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(
+            BlogCategory::class,
+            'tager_blog_post_categories',
+            'category_id',
+            'post_id'
+        );
     }
 }

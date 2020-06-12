@@ -4,7 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
-use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
+use OZiTAG\Tager\Backend\Blog\Resources\AdminPostResource;
 use OZiTAG\Tager\Backend\Core\Feature;
 
 class UpdatePostFeature extends Feature
@@ -41,7 +41,7 @@ class UpdatePostFeature extends Feature
 
         $this->run(SetPostCategoriesJob::class, [
             'post' => $model,
-            'categoryIds' => $request->categoryIds
+            'categoryIds' => $request->categories
         ]);
 
         return new AdminPostResource($model);

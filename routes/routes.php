@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'blog'], function () {
-    Route::get('/categories', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@categories');
-    Route::get('/categories/{alias}', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@viewCategory');
-    Route::get('/posts', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@posts');
-    Route::get('/posts/{alias}', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@viewPost');
-    Route::get('/categories/{id}/posts', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@postsByCategory');
+    Route::get('/blog/categories', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@categories');
+    Route::get('/blog/categories/{alias}', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@viewCategory');
+    Route::get('/blog/posts', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@posts');
+    Route::get('/blog/posts/{alias}', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@viewPost');
+    Route::get('/blog/categories/{id}/posts', \OZiTAG\Tager\Backend\Blog\Controllers\GuestController::class . '@postsByCategory');
 });
 
 Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrators', 'auth:api']], function () {

@@ -4,7 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
-use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;
+use OZiTAG\Tager\Backend\Blog\Resources\AdminCategoryResource;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 

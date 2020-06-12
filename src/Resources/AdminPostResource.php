@@ -1,6 +1,6 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Resources\Admin;
+namespace OZiTAG\Tager\Backend\Blog\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Ozerich\FileStorage\Models\File;
