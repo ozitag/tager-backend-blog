@@ -5,7 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Models;
 use Illuminate\Database\Eloquent\Model;
 use Ozerich\FileStorage\Models\File;
 
-class TagerBlogPost extends Model
+class BlogPost extends Model
 {
     protected $table = 'tager_blog_posts';
 

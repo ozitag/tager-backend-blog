@@ -5,7 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Models;
 use Illuminate\Database\Eloquent\Model;
 use Ozerich\FileStorage\Models\File;
 
-class TagerBlogPostCategory extends Model
+class BlogPostCategory extends Model
 {
     protected $table = 'tager_blog_post_categorids';
 
@@ -21,11 +21,11 @@ class TagerBlogPostCategory extends Model
 
     public function category()
     {
-        return $this->hasOne(TagerBlogCategory::class, 'category_id');
+        return $this->hasOne(BlogCategory::class, 'category_id');
     }
 
     public function post()
     {
-        return $this->hasOne(TagerBlogPost::class, 'post_id');
+        return $this->hasOne(BlogPost::class, 'post_id');
     }
 }

@@ -15,8 +15,8 @@ class TagerBlog extends Migration
     {
         Schema::create('tager_blog_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('url_alias');
             $table->string('name');
+            $table->string('url_alias');
             $table->string('page_title')->nullable();
             $table->text('page_description')->nullable();
             $table->unsignedBigInteger('open_graph_image_id')->nullable();
@@ -48,7 +48,7 @@ class TagerBlog extends Migration
             $table->foreign('image_id')->references('id')->on('files');
         });
 
-        Schema::create('tager_blog_post_categorids', function (Blueprint $table) {
+        Schema::create('tager_blog_post_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('post_id');
             $table->unsignedBigInteger('category_id');
 

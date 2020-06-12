@@ -8,5 +8,6 @@ class ListCategoriesFeature extends Feature
 {
     public function handle()
     {
+
     }
 }
