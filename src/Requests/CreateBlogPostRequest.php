@@ -1,6 +1,6 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Seo\Requests;
+namespace OZiTAG\Tager\Backend\Blog\Requests;
 
 use OZiTAG\Tager\Backend\Core\FormRequest;
 use Ozerich\FileStorage\Rules\FileRule;

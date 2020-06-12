@@ -7,6 +7,8 @@ use Ozerich\FileStorage\Models\File;
 
 class BlogCategory extends Model
 {
+    public $timestamps = null;
+
     protected $table = 'tager_blog_categories';
 
     /**
@@ -24,6 +26,6 @@ class BlogCategory extends Model
 
     public function openGraphImage()
     {
-        return $this->hasOne(File::class, 'open_graph_image_id');
+        return $this->belongsTo(File::class, 'open_graph_image_id');
     }
 }

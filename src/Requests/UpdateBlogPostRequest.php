@@ -1,6 +1,6 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Seo\Requests;
+namespace OZiTAG\Tager\Backend\Blog\Requests;
 
 class UpdateBlogPostRequest extends CreateBlogPostRequest
 {

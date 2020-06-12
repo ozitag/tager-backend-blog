@@ -30,16 +30,16 @@ class BlogPost extends Model
 
     public function coverImage()
     {
-        return $this->hasOne(File::class, 'cover_image_id');
+        return $this->belongsTo(File::class, 'cover_image_id');
     }
 
     public function image()
     {
-        return $this->hasOne(File::class, 'image_id');
+        return $this->belongsTo(File::class, 'image_id');
     }
 
     public function openGraphImage()
     {
-        return $this->hasOne(File::class, 'open_graph_image_id');
+        return $this->belongsTo(File::class, 'open_graph_image_id');
     }
 }
