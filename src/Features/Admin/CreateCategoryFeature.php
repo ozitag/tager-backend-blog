@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
-use Ozerich\FileStorage\Storage\FileStorage;
+use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
@@ -12,7 +12,7 @@ use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 
 class CreateCategoryFeature extends Feature
 {
-    public function handle(CreateBlogCategoryRequest $request, CategoryRepository $categoryRepository, FileStorage $fileStorage)
+    public function handle(CreateBlogCategoryRequest $request, CategoryRepository $categoryRepository, Storage $fileStorage)
     {
         $alias = $this->run(GetCategoryUrlAliasJob::class, [
             'name' => $request->name

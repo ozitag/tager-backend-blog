@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
-use Ozerich\FileStorage\Storage\FileStorage;
+use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
@@ -18,7 +18,7 @@ class UpdateCategoryFeature extends Feature
         $this->id = $id;
     }
 
-    public function handle(UpdateBlogCategoryRequest $request, FileStorage $fileStorage)
+    public function handle(UpdateBlogCategoryRequest $request, Storage $fileStorage)
     {
         $model = $this->run(GetCategoryByIdJob::class, ['id' => $this->id]);
         if (!$model) {

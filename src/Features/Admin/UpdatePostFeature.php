@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
-use Ozerich\FileStorage\Storage\FileStorage;
+use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
@@ -20,7 +20,7 @@ class UpdatePostFeature extends Feature
         $this->id = $id;
     }
 
-    public function handle(UpdateBlogPostRequest $request, FileStorage $fileStorage)
+    public function handle(UpdateBlogPostRequest $request, Storage $fileStorage)
     {
         $model = $this->run(GetPostByIdJob::class, [
             'id' => $this->id

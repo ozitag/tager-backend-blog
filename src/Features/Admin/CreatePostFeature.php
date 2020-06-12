@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
-use Ozerich\FileStorage\Storage\FileStorage;
+use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
@@ -13,7 +13,7 @@ use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
 
 class CreatePostFeature extends Feature
 {
-    public function handle(CreateBlogPostRequest $request, PostRepository $postRepository, FileStorage $fileStorage)
+    public function handle(CreateBlogPostRequest $request, PostRepository $postRepository, Storage $fileStorage)
     {
         $alias = $this->run(GetPostUrlAliasJob::class, [
             'name' => $request->title
