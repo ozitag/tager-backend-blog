@@ -13,7 +13,7 @@ class TagerBackendBlogServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        //
     }
 
     /**
@@ -26,5 +26,9 @@ class TagerBackendBlogServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
+
+        $this->publishes([
+            __DIR__ . '/../config.php' => config_path('tager-blog.php'),
+        ]);
     }
 }
