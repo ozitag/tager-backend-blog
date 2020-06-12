@@ -12,7 +12,7 @@ class CreateBlogPostRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'excerpt' => 'string',
+            'excerpt' => 'string|nullable',
             'body' => 'required|string',
             'date' => 'date',
             'image' => ['nullable', 'numeric', new FileRule()],
