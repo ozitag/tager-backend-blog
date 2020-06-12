@@ -11,21 +11,21 @@ class TagerBlogConfig
 
     private static function getStorageScenario($id)
     {
-        return self::config('fileStorageScenarios.' . $id);
+        return self::config('file_storage_scenarios.' . $id);
     }
 
     public static function getPostCoverScenario()
     {
-        return self::getStorageScenario('post-cover');
+        return self::getStorageScenario('post_cover');
     }
 
     public static function getPostImageScenario()
     {
-        return self::getStorageScenario('post-image');
+        return self::getStorageScenario('post_image');
     }
 
     public static function getOpenGraphScenario()
     {
-        return self::getStorageScenario('open-graph');
+        return self::getStorageScenario('open_graph');
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'fileStorageScenarios' => [
-        'post-cover' => '',
-        'post-image' => '',
-        'open-graph' => ''
+    'file_storage_scenarios' => [
+        'post_cover' => '',
+        'post_image' => '',
+        'open_graph' => ''
     ]
 ];
