@@ -14,7 +14,7 @@ class GuestCategoryFullResource extends GuestCategoryResource
         return array_merge(parent::toArray($request), [
             'pageTitle' => $this->page_title,
             'pageDescription' => $this->page_description,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getJson() : null
+            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getShortJson() : null
         ]);
     }
 }

@@ -35,12 +35,12 @@ class AdminPostResource extends JsonResource
             'status' => $this->status,
             'excerpt' => $this->excerpt,
             'body' => $this->body,
-            'image' => $this->image ? $this->image->getJson() : null,
-            'coverImage' => $this->coverImage ? $this->coverImage->getJson() : null,
+            'image' => $this->image ? $this->image->getShortJson() : null,
+            'coverImage' => $this->coverImage ? $this->coverImage->getShortJson() : null,
 
             'pageTitle' => $this->page_title,
             'pageDescription' => $this->page_description,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getJson() : null,
+            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getShortJson() : null,
 
             'categories' => $this->getCategoriesJson()
         ];

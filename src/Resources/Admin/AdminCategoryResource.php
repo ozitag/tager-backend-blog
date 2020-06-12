@@ -18,7 +18,7 @@ class AdminCategoryResource extends JsonResource
             'urlAlias' => $this->url_alias,
             'pageTitle' => $this->page_title,
             'pageDescription' => $this->page_description,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getJson() : null
+            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getShortJson() : null
         ];
     }
 }
