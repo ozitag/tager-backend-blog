@@ -1,6 +1,6 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Resources;
+namespace OZiTAG\Tager\Backend\Blog\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Ozerich\FileStorage\Models\File;
@@ -10,9 +10,18 @@ use OZiTAG\Tager\Backend\Seo\Models\SeoPage;
 
 class AdminPostResource extends JsonResource
 {
-    public function getCategories()
+    public function getCategoriesJson()
     {
-        return [];
+        $result = [];
+
+        foreach($this->categories as $category){
+            $result[] = [
+                'id' => $category->id,
+                'name' => $category->name
+            ];
+        }
+
+        return $result;
     }
 
     public function toArray($request)
@@ -33,7 +42,7 @@ class AdminPostResource extends JsonResource
             'pageDescription' => $this->page_description,
             'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getJson() : null,
 
-            'categories' => $this->getCategories()
+            'categories' => $this->getCategoriesJson()
         ];
     }
 }

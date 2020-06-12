@@ -7,6 +7,8 @@ use Ozerich\FileStorage\Models\File;
 
 class BlogPostCategory extends Model
 {
+    public $timestamps = false;
+    
     protected $table = 'tager_blog_post_categories';
 
     /**

@@ -66,7 +66,7 @@ class TagerBlog extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tager_blog_post_categorids');
+        Schema::dropIfExists('tager_blog_post_categories');
         Schema::dropIfExists('tager_blog_posts');
         Schema::dropIfExists('tager_blog_categories');
     }

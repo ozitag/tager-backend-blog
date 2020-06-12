@@ -6,7 +6,7 @@ use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogPostRequest;
-use OZiTAG\Tager\Backend\Blog\Resources\AdminPostResource;
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
 use OZiTAG\Tager\Backend\Core\Feature;
 
 class CreatePostFeature extends Feature

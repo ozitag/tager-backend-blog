@@ -52,8 +52,8 @@ class BlogPost extends Model
         return $this->belongsToMany(
             BlogCategory::class,
             'tager_blog_post_categories',
-            'category_id',
-            'post_id'
+            'post_id',
+            'category_id'
         );
     }
 }
