@@ -7,7 +7,7 @@ use Ozerich\FileStorage\Models\File;
 
 class BlogPostCategory extends Model
 {
-    protected $table = 'tager_blog_post_categorids';
+    protected $table = 'tager_blog_post_categories';
 
     /**
      * The attributes that are mass assignable.

@@ -2,7 +2,9 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
 use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\SuccessResource;
 
 class RemoveCategoryFeature extends Feature
 {
@@ -15,5 +17,13 @@ class RemoveCategoryFeature extends Feature
 
     public function handle()
     {
+        $model = $this->run(GetCategoryByIdJob::class, ['id' => $this->id]);
+        if (!$model) {
+            abort(404, 'Category not found');
+        }
+
+        if ($model->delete()) {
+            return new SuccessResource();
+        }
     }
 }

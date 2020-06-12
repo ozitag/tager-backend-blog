@@ -3,10 +3,13 @@
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
 
 class BlogPost extends Model
 {
+    use SoftDeletes;
+    
     protected $table = 'tager_blog_posts';
 
     /**
@@ -30,16 +33,16 @@ class BlogPost extends Model
 
     public function coverImage()
     {
-        return $this->belongsTo(File::class, 'cover_image_id');
+        return $this->hasOne(File::class, 'cover_image_id');
     }
 
     public function image()
     {
-        return $this->belongsTo(File::class, 'image_id');
+        return $this->hasOne(File::class, 'image_id');
     }
 
     public function openGraphImage()
     {
-        return $this->belongsTo(File::class, 'open_graph_image_id');
+        return $this->hasOne(File::class, 'open_graph_image_id');
     }
 }
