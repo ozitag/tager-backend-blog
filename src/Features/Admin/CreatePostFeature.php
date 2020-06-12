@@ -2,6 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use Ozerich\FileStorage\Storage\FileStorage;
+use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
@@ -11,11 +13,23 @@ use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
 
 class CreatePostFeature extends Feature
 {
-    public function handle(CreateBlogPostRequest $request, PostRepository $postRepository)
+    public function handle(CreateBlogPostRequest $request, PostRepository $postRepository, FileStorage $fileStorage)
     {
         $alias = $this->run(GetPostUrlAliasJob::class, [
             'name' => $request->title
         ]);
+
+        if ($request->image) {
+            $fileStorage->setFileScenario($request->image, TagerBlogConfig::getPostImageScenario());
+        }
+
+        if ($request->coverImage) {
+            $fileStorage->setFileScenario($request->coverImage, TagerBlogConfig::getPostCoverScenario());
+        }
+
+        if ($request->openGraphImage) {
+            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
+        }
 
         $model = $postRepository->create([
             'title' => $request->title,

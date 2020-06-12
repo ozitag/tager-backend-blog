@@ -2,6 +2,9 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use Ozerich\FileStorage\Storage\FileStorage;
+use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
+use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
@@ -17,7 +20,7 @@ class UpdatePostFeature extends Feature
         $this->id = $id;
     }
 
-    public function handle()
+    public function handle(UpdateBlogPostRequest $request, FileStorage $fileStorage)
     {
         $model = $this->run(GetPostByIdJob::class, [
             'id' => $this->id
@@ -25,6 +28,18 @@ class UpdatePostFeature extends Feature
 
         if (!$model) {
             abort(404, 'Post not found');
+        }
+
+        if ($request->image) {
+            $fileStorage->setFileScenario($request->image, TagerBlogConfig::getPostImageScenario());
+        }
+
+        if ($request->coverImage) {
+            $fileStorage->setFileScenario($request->coverImage, TagerBlogConfig::getPostCoverScenario());
+        }
+
+        if ($request->openGraphImage) {
+            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
         }
 
         $model->title = $request->title;
