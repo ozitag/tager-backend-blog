@@ -9,6 +9,7 @@ class GuestPostFullResource extends GuestPostResource
     public function toArray($request)
     {
         return array_merge(parent::toArray($request), [
+            'image' => $this->image ? $this->image->getFullJson() : null,
             'body' => $this->body,
             'pageTitle' => $this->page_title,
             'pageDescription' => $this->page_description,

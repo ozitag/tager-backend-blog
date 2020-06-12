@@ -31,7 +31,7 @@ class GuestPostResource extends JsonResource
             'title' => $this->title,
             'date' => $this->date,
             'excerpt' => $this->excerpt,
-            'coverImage' => $this->coverImage ? $this->coverImage->getShortJson() : null,
+            'coverImage' => $this->coverImage ? $this->coverImage->getFullJson() : null,
             'categories' => $this->getCategoriesJson(),
         ];
     }
