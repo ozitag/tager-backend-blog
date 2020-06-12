@@ -9,7 +9,7 @@ use Ozerich\FileStorage\Models\File;
 class BlogCategory extends Model
 {
     use SoftDeletes;
-    
+
     public $timestamps = null;
 
     protected $table = 'tager_blog_categories';
@@ -30,5 +30,15 @@ class BlogCategory extends Model
     public function openGraphImage()
     {
         return $this->belongsTo(File::class, 'open_graph_image_id');
+    }
+
+    public function posts()
+    {
+        return $this->belongsToMany(
+            BlogPost::class,
+            'tager_blog_post_categories',
+            'category_id',
+            'post_id'
+        );
     }
 }

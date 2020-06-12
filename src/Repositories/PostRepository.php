@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
+use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 
@@ -19,6 +20,9 @@ class PostRepository extends EloquentRepository
 
     public function findByCategoryId($id)
     {
-        return BlogPost::all();
+        $repository = new CategoryRepository(new BlogCategory());
+        $model = $repository->find($id);
+
+        return $model->posts()->get();
     }
 }

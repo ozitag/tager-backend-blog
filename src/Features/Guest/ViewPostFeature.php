@@ -2,9 +2,9 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
+use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestPostFullResource;
-use OZiTAG\Tager\Backend\Core\Feature;
 
 class ViewPostFeature extends Feature
 {
