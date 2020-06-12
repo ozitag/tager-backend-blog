@@ -17,8 +17,8 @@ class PostRepository extends EloquentRepository
         return BlogPost::whereUrlAlias($alias)->first();
     }
 
-    public function getByCategoryId($id)
+    public function findByCategoryId($id)
     {
-        return BlogPost::whereUrlAlias($alias)->first();
+        return BlogPost::all();
     }
 }

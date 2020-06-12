@@ -23,6 +23,6 @@ class ListPostsByCategoryFeature extends Feature
             abort(404, 'Category not found');
         }
 
-        return AdminPostResource::collection($postRepository->getByCategoryId($model->id));
+        return AdminPostResource::collection($postRepository->findByCategoryId($model->id));
     }
 }

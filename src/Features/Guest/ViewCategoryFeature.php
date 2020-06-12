@@ -2,11 +2,26 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
+use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
+use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestCategoryFullResource;
 use OZiTAG\Tager\Backend\Core\Feature;
 
 class ViewCategoryFeature extends Feature
 {
-    public function handle()
+    private $alias;
+
+    public function __construct($alias)
     {
+        $this->alias = $alias;
+    }
+
+    public function handle(CategoryRepository $categoryRepository)
+    {
+        $model = $categoryRepository->getByAlias($this->alias);
+        if (!$model) {
+            abort(404, 'Category not found');
+        }
+
+        return new GuestCategoryFullResource($model);
     }
 }
