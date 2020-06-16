@@ -56,4 +56,9 @@ class BlogPost extends Model
             'category_id'
         );
     }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('date', 'desc')->get();
+    }
 }

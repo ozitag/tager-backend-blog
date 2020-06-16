@@ -13,6 +13,16 @@ class PostRepository extends EloquentRepository
         parent::__construct($model);
     }
 
+    /**
+     * Returns all the records.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function all()
+    {
+        return $this->model->ordered()->all();
+    }
+
     public function getByAlias($alias)
     {
         return BlogPost::whereUrlAlias($alias)->first();
@@ -23,6 +33,6 @@ class PostRepository extends EloquentRepository
         $repository = new CategoryRepository(new BlogCategory());
         $model = $repository->find($id);
 
-        return $model->posts()->get();
+        return $model->posts()->orderBy('date', 'desc')->get();
     }
 }
