@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
@@ -25,7 +26,17 @@ class BlogCategory extends Model
         'page_title',
         'page_description',
         'open_graph_image_id',
+        'priority'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('priority', 'asc');
+        });
+    }
 
     public function openGraphImage()
     {

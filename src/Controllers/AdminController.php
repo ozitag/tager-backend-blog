@@ -14,6 +14,7 @@ use OZiTAG\Tager\Backend\Blog\Features\Admin\UpdateCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\UpdatePostFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ViewCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ViewPostFeature;
+use OZiTAG\Tager\Backend\Blog\Features\Admin\MoveCategoryFeature;
 
 class AdminController extends Controller
 {
@@ -35,6 +36,11 @@ class AdminController extends Controller
     public function updateCategory($id)
     {
         return $this->serve(UpdateCategoryFeature::class, ['id' => $id]);
+    }
+
+    public function moveCategory($id, $direction)
+    {
+        return $this->serve(MoveCategoryFeature::class, ['id' => $id, 'direction' => $direction]);
     }
 
     public function removeCategory($id)

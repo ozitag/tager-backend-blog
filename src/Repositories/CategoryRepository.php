@@ -12,8 +12,30 @@ class CategoryRepository extends EloquentRepository
         parent::__construct($model);
     }
 
+    /**
+     * @param string $alias
+     * @return BlogCategory|null
+     */
     public function getByAlias($alias)
     {
         return BlogCategory::whereUrlAlias($alias)->first();
+    }
+
+    /**
+     * @param integer $priority
+     * @return BlogCategory|null
+     */
+    public function findFirstWithLowerPriorityThan($priority)
+    {
+        return BlogCategory::where('priority', '<', $priority)->orderBy('priority', 'desc')->first();
+    }
+
+    /**
+     * @param integer $priority
+     * @return BlogCategory|null
+     */
+    public function findFirstWithHigherPriorityThan($priority)
+    {
+        return BlogCategory::where('priority', '>', $priority)->orderBy('priority', 'asc')->first();
     }
 }
