@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Ozerich\FileStorage\Storage;
+use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
@@ -22,12 +23,15 @@ class CreateCategoryFeature extends Feature
             $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
         }
 
+        $maxPriority = $this->run(GetPriorityForNewCategoryJob::class);
+
         $model = $categoryRepository->create([
             'name' => $request->name,
             'url_alias' => $alias,
             'page_title' => $request->pageTitle,
             'page_description' => $request->pageDescription,
-            'open_graph_image_id' => $request->openGraphImage
+            'open_graph_image_id' => $request->openGraphImage,
+            'priority' => $maxPriority + 1
         ]);
 
         return new AdminCategoryResource($model);

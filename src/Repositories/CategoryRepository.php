@@ -22,6 +22,15 @@ class CategoryRepository extends EloquentRepository
     }
 
     /**
+     * @return BlogCategory|null
+     */
+    public function findItemWithMaxPriority()
+    {
+        return BlogCategory::orderBy('priority', 'desc')->first();
+    }
+
+
+    /**
      * @param integer $priority
      * @return BlogCategory|null
      */
