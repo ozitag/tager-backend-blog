@@ -26,7 +26,6 @@ class AdminPostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'urlAlias' => $this->url_alias,
-            'websiteUrl' => '/blog/' . $this->url_alias,
             'date' => $this->date,
             'status' => $this->status,
             'excerpt' => $this->excerpt,
