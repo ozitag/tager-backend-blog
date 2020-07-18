@@ -2,7 +2,7 @@
   "name": "ozitag/tager-backend-blog",
   "description": "Blog module",
   "license": "MIT",
-  "homepage": "https://github.com/ozitag/tager-backend-mail",
+  "homepage": "https://github.com/ozitag/tager-backend-blog",
   "authors": [
     {
       "name": "Vital Ozierski <v.ozierski@ozitag.com>",
@@ -12,11 +12,8 @@
     }
   ],
   "require": {
-    "php": "^7.2.5",
-    "doctrine/dbal": "^2.10",
-    "laravel/framework": "^7.0",
-    "ozerich/laravel-filestorage-db": "^0.2",
-    "ozitag/tager-backend-core": "^0.1.2"
+    "ozitag/tager-backend-core": "^0.2",
+    "ozerich/laravel-filestorage-db": "^0.2"
   },
   "autoload": {
     "psr-4": {
