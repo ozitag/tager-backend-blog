@@ -2,10 +2,12 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Jobs;
 
+use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Blog\Models\BlogPostCategory;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 
-class MoveCategoryJob
+class MoveCategoryJob extends Job
 {
     /** @var BlogPostCategory */
     private $model;

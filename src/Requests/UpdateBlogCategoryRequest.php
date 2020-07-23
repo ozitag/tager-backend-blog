@@ -2,8 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Requests;
 
-use OZiTAG\Tager\Backend\Blog\Models\BlogPostCategory;
-
 class UpdateBlogCategoryRequest extends CreateBlogCategoryRequest
 {
     public function rules()

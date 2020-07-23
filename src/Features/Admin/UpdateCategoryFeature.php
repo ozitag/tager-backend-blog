@@ -4,7 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;

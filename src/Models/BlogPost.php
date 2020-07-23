@@ -2,7 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
-use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;

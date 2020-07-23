@@ -3,9 +3,6 @@
 namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use Ozerich\FileStorage\Models\File;
-use OZiTAG\Tager\Backend\Mail\Models\TagerMailTemplate;
-use OZiTAG\Tager\Backend\Mail\Utils\TagerMailConfig;
 
 class GuestPostResource extends JsonResource
 {

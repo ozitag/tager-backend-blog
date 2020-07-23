@@ -2,12 +2,12 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Jobs;
 
+use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostCategoryRepository;
-use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 
-class SetPostCategoriesJob
+class SetPostCategoriesJob extends Job
 {
     private $post;
 
@@ -19,7 +19,7 @@ class SetPostCategoriesJob
         $this->categoryIds = $categoryIds;
     }
 
-    public function handle(PostCategoryRepository $postCategoryRepository, CategoryRepository $categoryRepository)
+    public function handle(PostCategoryRepository $postCategoryRepository)
     {
         $postCategoryRepository->deleteByPostId($this->post->id);
 

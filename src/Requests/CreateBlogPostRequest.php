@@ -3,7 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Requests;
 
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
-use OZiTAG\Tager\Backend\Core\FormRequest;
+use OZiTAG\Tager\Backend\Core\Http\FormRequest;
 use Ozerich\FileStorage\Rules\FileRule;
 
 class CreateBlogPostRequest extends FormRequest

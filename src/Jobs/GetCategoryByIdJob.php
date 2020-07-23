@@ -2,9 +2,10 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Jobs;
 
+use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 
-class GetCategoryByIdJob
+class GetCategoryByIdJob extends Job
 {
     /** @var integer */
     private $id;

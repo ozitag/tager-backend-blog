@@ -3,7 +3,6 @@
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Ozerich\FileStorage\Models\File;
 
 class BlogPostCategory extends Model
 {

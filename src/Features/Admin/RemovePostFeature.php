@@ -3,7 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
-use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\SuccessResource;
 
 class RemovePostFeature extends Feature

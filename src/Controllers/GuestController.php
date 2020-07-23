@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
-use OZiTAG\Tager\Backend\Core\Controller;
+use OZiTAG\Tager\Backend\Core\Controllers\Controller;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\ListCategoriesFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\ListPostsByCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\ListPostsFeature;

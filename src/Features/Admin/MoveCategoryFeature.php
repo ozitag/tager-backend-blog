@@ -4,7 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\MoveCategoryJob;
-use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Core\SuccessResource;
 
 class MoveCategoryFeature extends Feature

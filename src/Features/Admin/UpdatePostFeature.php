@@ -5,7 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Core\Feature;
+use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;

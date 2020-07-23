@@ -2,8 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
-use Illuminate\Http\Resources\Json\JsonResource;
-
 class GuestPostFullResource extends GuestPostResource
 {
     public function toArray($request)

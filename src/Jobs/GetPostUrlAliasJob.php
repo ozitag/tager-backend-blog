@@ -2,11 +2,10 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Jobs;
 
-use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
-use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
+use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 
-class GetPostUrlAliasJob
+class GetPostUrlAliasJob extends Job
 {
     private $name;
 
