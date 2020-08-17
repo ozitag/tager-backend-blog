@@ -24,6 +24,7 @@ class AdminPostResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'language' => $this->language,
             'title' => $this->title,
             'urlAlias' => $this->url_alias,
             'date' => $this->date,

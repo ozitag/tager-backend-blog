@@ -10,6 +10,7 @@ class AdminCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'language' => $this->language,
             'name' => $this->name,
             'urlAlias' => $this->url_alias,
             'pageTitle' => $this->page_title,

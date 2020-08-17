@@ -3,7 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Ozerich\FileStorage\Storage;
-use OZiTAG\Tager\Backend\Blog\TagerBlogConfig;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
@@ -16,7 +16,8 @@ class CreatePostFeature extends Feature
     public function handle(CreateBlogPostRequest $request, PostRepository $postRepository, Storage $fileStorage)
     {
         $alias = $this->run(GetPostUrlAliasJob::class, [
-            'name' => $request->title
+            'name' => $request->title,
+            'language' => $request->language
         ]);
 
         if ($request->image) {
@@ -43,6 +44,7 @@ class CreatePostFeature extends Feature
             'page_title' => $request->pageTitle,
             'page_description' => $request->pageDescription,
             'open_graph_image_id' => $request->openGraphImage,
+            'language' => $request->language
         ]);
 
         $this->run(SetPostCategoriesJob::class, [

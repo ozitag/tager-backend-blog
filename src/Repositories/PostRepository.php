@@ -23,9 +23,15 @@ class PostRepository extends EloquentRepository
         return $this->model->ordered()->all();
     }
 
-    public function getByAlias($alias)
+    public function getByAlias($alias, $language = null)
     {
-        return BlogPost::whereUrlAlias($alias)->first();
+        $query = $this->model->query();
+
+        if ($language) {
+            $query->whereLanguage($language);
+        }
+
+        return $query->first();
     }
 
     public function findByCategoryId($id)

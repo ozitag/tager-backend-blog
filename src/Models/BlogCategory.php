@@ -26,7 +26,8 @@ class BlogCategory extends Model
         'page_title',
         'page_description',
         'open_graph_image_id',
-        'priority'
+        'priority',
+        'language'
     ];
 
     protected static function boot()

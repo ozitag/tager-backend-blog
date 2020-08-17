@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Requests;
 
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Http\FormRequest;
 use Ozerich\FileStorage\Rules\FileRule;
 
@@ -10,7 +11,7 @@ class CreateBlogPostRequest extends FormRequest
 {
     public function rules()
     {
-        return [
+        $result = [
             'title' => 'required|string',
             'excerpt' => 'string|nullable',
             'body' => 'required|string',
@@ -25,5 +26,11 @@ class CreateBlogPostRequest extends FormRequest
             'categories' => 'array',
             'categories.*' => 'exists:' . BlogCategory::class . ',id'
         ];
+
+        if (TagerBlogConfig::isMultiLang()) {
+            $result['language'] = 'required|string|in:' . implode(',', TagerBlogConfig::getLanguageIds());
+        }
+
+        return $result;
     }
 }

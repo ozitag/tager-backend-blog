@@ -14,6 +14,8 @@ Route::group(['prefix' => 'blog'], function () {
 });
 
 Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrators', 'auth:api']], function () {
+    Route::get('/module-info', [AdminController::class, 'moduleInfo']);
+
     Route::get('/categories', [AdminController::class, 'listCategories']);
     Route::post('/categories', [AdminController::class, 'createCategory']);
     Route::put('/categories/{id}', [AdminController::class, 'updateCategory']);

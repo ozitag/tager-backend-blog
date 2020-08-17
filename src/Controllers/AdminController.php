@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
+use OZiTAG\Tager\Backend\Blog\Features\Admin\ModuleInfoFeature;
 use OZiTAG\Tager\Backend\Core\Controllers\Controller;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\CreateCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\CreatePostFeature;
@@ -18,6 +19,11 @@ use OZiTAG\Tager\Backend\Blog\Features\Admin\MoveCategoryFeature;
 
 class AdminController extends Controller
 {
+    public function moduleInfo()
+    {
+        return $this->serve(ModuleInfoFeature::class);
+    }
+
     public function listCategories()
     {
         return $this->serve(ListCategoriesFeature::class);

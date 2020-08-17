@@ -25,9 +25,9 @@ class MoveCategoryJob extends Job
     public function handle(CategoryRepository $categoryRepository)
     {
         if ($this->direction == 'up') {
-            $other = $categoryRepository->findFirstWithLowerPriorityThan($this->model->priority);
+            $other = $categoryRepository->findFirstWithLowerPriorityThan($this->model->priority, $this->model->language);
         } else {
-            $other = $categoryRepository->findFirstWithHigherPriorityThan($this->model->priority);
+            $other = $categoryRepository->findFirstWithHigherPriorityThan($this->model->priority, $this->model->language);
         }
 
         if (!$other) {

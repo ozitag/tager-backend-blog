@@ -29,6 +29,7 @@ class BlogPost extends Model
         'page_title',
         'page_description',
         'open_graph_image_id',
+        'language'
     ];
 
     public function coverImage()

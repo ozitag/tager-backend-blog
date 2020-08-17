@@ -12,21 +12,40 @@ class CategoryRepository extends EloquentRepository
         parent::__construct($model);
     }
 
+    public function all()
+    {
+        return $this->model->query()->orderBy('language', 'asc')->get();
+    }
+
     /**
      * @param string $alias
+     * @param string|null $language
      * @return BlogCategory|null
      */
-    public function getByAlias($alias)
+    public function getByAlias($alias, $language = null)
     {
-        return BlogCategory::whereUrlAlias($alias)->first();
+        $query = $this->model::query()->whereUrlAlias($alias);
+
+        if ($language) {
+            $query = $query->whereLanguage($language);
+        }
+
+        return $query->first();
     }
 
     /**
+     * @param string|null $language
      * @return BlogCategory|null
      */
-    public function findItemWithMaxPriority()
+    public function findItemWithMaxPriority($language = null)
     {
-        return BlogCategory::orderBy('priority', 'desc')->first();
+        $query = $this->model->query();
+
+        if ($language) {
+            $query = $query->whereLanguage($language);
+        }
+
+        return $query->orderBy('priority', 'desc')->first();
     }
 
 
@@ -34,17 +53,29 @@ class CategoryRepository extends EloquentRepository
      * @param integer $priority
      * @return BlogCategory|null
      */
-    public function findFirstWithLowerPriorityThan($priority)
+    public function findFirstWithLowerPriorityThan($priority, $language)
     {
-        return BlogCategory::where('priority', '<', $priority)->orderBy('priority', 'desc')->first();
+        $query = $this->model->query();
+
+        if ($language) {
+            $query = $query->whereLanguage($language);
+        }
+
+        return $query->where('priority', '<', $priority)->orderBy('priority', 'desc')->first();
     }
 
     /**
      * @param integer $priority
      * @return BlogCategory|null
      */
-    public function findFirstWithHigherPriorityThan($priority)
+    public function findFirstWithHigherPriorityThan($priority, $language)
     {
-        return BlogCategory::where('priority', '>', $priority)->orderBy('priority', 'asc')->first();
+        $query = $this->model->query();
+
+        if ($language) {
+            $query = $query->whereLanguage($language);
+        }
+
+        return $query->where('priority', '>', $priority)->orderBy('priority', 'asc')->first();
     }
 }
