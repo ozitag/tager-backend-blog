@@ -16,7 +16,7 @@ use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 
-class AdminPostsController extends AdminCrudController
+class BlogAdminPostsController extends AdminCrudController
 {
     public function __construct(PostRepository $repository)
     {

@@ -11,7 +11,7 @@ use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 
-class AdminCategoriesController extends AdminCrudController
+class BlogAdminCategoriesController extends AdminCrudController
 {
     public $hasMoveAction = true;
 

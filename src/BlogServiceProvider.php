@@ -3,8 +3,9 @@
 namespace OZiTAG\Tager\Backend\Blog;
 
 use Illuminate\Support\ServiceProvider;
+use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettingsServiceProvider;
 
-class BlogServiceProvider extends ServiceProvider
+class BlogServiceProvider extends ModuleSettingsServiceProvider
 {
     /**
      * Register any application services.
@@ -23,6 +24,8 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        parent::boot();
+        
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         $this->loadMigrationsFrom(__DIR__ . '/../migrations');
