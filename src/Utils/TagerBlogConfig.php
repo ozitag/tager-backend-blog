@@ -40,7 +40,7 @@ class TagerBlogConfig
     public static function getLanguages()
     {
         $result = [];
-        
+
         $languages = self::config('languages', []);
 
         foreach ($languages as $language) {
@@ -48,6 +48,34 @@ class TagerBlogConfig
         }
 
         return $result;
+    }
+
+    private static function getLanguageConfig($language)
+    {
+        $languages = self::config('languages', []);
+
+        foreach ($languages as $_language) {
+            if ($_language['id'] == $language) {
+                return $_language;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $language
+     * @return bool
+     */
+    public static function isLanguageHideFromUrl($language)
+    {
+        if (self::isMultiLang() == false) {
+            return false;
+        }
+
+        $languageConfig = self::getLanguageConfig($language);
+
+        return isset($languageConfig['hide_from_url']) ? (bool)$languageConfig['hide_from_url'] : false;
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
@@ -14,7 +15,7 @@ use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 
 class ModuleInfoFeature extends Feature
 {
-    public function handle()
+    public function handle(TagerBlogUrlHelper $urlHelper)
     {
         $languages = TagerBlogConfig::getLanguages();
 
@@ -22,12 +23,16 @@ class ModuleInfoFeature extends Feature
         foreach ($languages as $language => $label) {
             $languagesResult[] = [
                 'id' => $language,
-                'name' => $label
+                'name' => $label,
+                'newCategoryAliasTemplate' => $urlHelper->getNewCategoryAliasTemplate($language),
+                'newPostAliasTemplate' => $urlHelper->getNewPostAliasTemplate($language)
             ];
         }
 
         return new JsonResource([
-            'languages' => $languagesResult
+            'languages' => $languagesResult,
+            'newCategoryAliasTemplate' => $urlHelper->getNewCategoryAliasTemplate(),
+            'newPostAliasTemplate' => $urlHelper->getNewPostAliasTemplate()
         ]);
     }
 }

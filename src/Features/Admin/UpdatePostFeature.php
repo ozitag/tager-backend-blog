@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostFullResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
@@ -60,6 +61,6 @@ class UpdatePostFeature extends Feature
             'categoryIds' => $request->categories
         ]);
 
-        return new AdminPostResource($model);
+        return new AdminPostFullResource($model);
     }
 }

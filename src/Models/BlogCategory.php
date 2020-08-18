@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
 class BlogCategory extends Model
 {
@@ -52,5 +53,10 @@ class BlogCategory extends Model
             'category_id',
             'post_id'
         );
+    }
+
+    public function getUrlAttribute()
+    {
+        return (new TagerBlogUrlHelper())->getCategoryUrl($this);
     }
 }

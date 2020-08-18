@@ -26,18 +26,11 @@ class AdminPostResource extends JsonResource
             'id' => $this->id,
             'language' => $this->language,
             'title' => $this->title,
-            'urlAlias' => $this->url_alias,
+            'url' => $this->url,
             'date' => $this->date,
             'status' => $this->status,
             'excerpt' => $this->excerpt,
-            'body' => $this->body,
             'image' => $this->image ? $this->image->getShortJson() : null,
-            'coverImage' => $this->coverImage ? $this->coverImage->getShortJson() : null,
-
-            'pageTitle' => $this->page_title,
-            'pageDescription' => $this->page_description,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getShortJson() : null,
-
             'categories' => $this->getCategoriesJson()
         ];
     }

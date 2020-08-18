@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Resources\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
 class AdminCategoryResource extends JsonResource
 {
@@ -10,12 +11,9 @@ class AdminCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'language' => $this->language,
             'name' => $this->name,
-            'urlAlias' => $this->url_alias,
-            'pageTitle' => $this->page_title,
-            'pageDescription' => $this->page_description,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getShortJson() : null
+            'language' => $this->language,
+            'url' => $this->url
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostFullResource;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
@@ -25,6 +26,6 @@ class ViewPostFeature extends Feature
             abort(404, 'Post not found');
         }
 
-        return new AdminPostResource($model);
+        return new AdminPostFullResource($model);
     }
 }

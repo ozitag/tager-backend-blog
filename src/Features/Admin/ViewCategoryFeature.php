@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryFullResource;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;
@@ -22,6 +23,6 @@ class ViewCategoryFeature extends Feature
             abort(404, 'Category not found');
         }
 
-        return new AdminCategoryResource($model);
+        return new AdminCategoryFullResource($model);
     }
 }

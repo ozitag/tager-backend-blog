@@ -4,6 +4,8 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryFullResource;
+use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminFullCategoryResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
@@ -43,6 +45,6 @@ class CreateCategoryFeature extends Feature
 
         $model = $categoryRepository->create($fields);
 
-        return new AdminCategoryResource($model);
+        return new AdminCategoryFullResource($model);
     }
 }
