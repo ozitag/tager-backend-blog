@@ -13,7 +13,7 @@
     ],
     "require": {
         "ozitag/tager-backend-core": "^1.2",
-        "ozitag/tager-backend-crud": "^1.0",
+        "ozitag/tager-backend-crud": "^1.2",
         "ozitag/tager-backend-http-cache": "^1.0",
         "ozitag/tager-backend-module-settings": "^1.0",
         "ozerich/laravel-filestorage-db": "^0.3"
