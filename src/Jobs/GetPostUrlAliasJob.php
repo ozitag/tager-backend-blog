@@ -26,7 +26,7 @@ class GetPostUrlAliasJob extends Job
         $ind = 0;
         while (true) {
             $alias = $ind === 0 ? $baseAlias : $baseAlias . '-' . $ind;
-
+            
             $exists = $postRepository->getByAlias($alias, $this->language);
             if (!$exists) {
                 return $alias;

@@ -1,9 +1,8 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
+namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
-use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostFullResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
@@ -11,27 +10,25 @@ use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
+use OZiTAG\Tager\Backend\Core\Jobs\Operation;
 
-class CreatePostFeature extends Feature
+class CreatePostOperation extends Operation
 {
-    public function handle(CreateBlogPostRequest $request, PostRepository $postRepository, Storage $fileStorage)
+    private $request;
+
+    public function __construct(CreateBlogPostRequest $request)
     {
+        $this->request = $request;
+    }
+
+    public function handle(PostRepository $postRepository, Storage $fileStorage)
+    {
+        $request = $this->request;
+
         $alias = $this->run(GetPostUrlAliasJob::class, [
             'name' => $request->title,
             'language' => $request->language
         ]);
-
-        if ($request->image) {
-            $fileStorage->setFileScenario($request->image, TagerBlogConfig::getPostImageScenario());
-        }
-
-        if ($request->coverImage) {
-            $fileStorage->setFileScenario($request->coverImage, TagerBlogConfig::getPostCoverScenario());
-        }
-
-        if ($request->openGraphImage) {
-            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
-        }
 
         $model = $postRepository->create([
             'title' => $request->title,
@@ -53,6 +50,6 @@ class CreatePostFeature extends Feature
             'categoryIds' => $request->categories
         ]);
 
-        return new AdminPostFullResource($model);
+        return $model;
     }
 }

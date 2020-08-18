@@ -59,4 +59,9 @@ class BlogCategory extends Model
     {
         return (new TagerBlogUrlHelper())->getCategoryUrl($this);
     }
+
+    public function getPostsCountAttribute()
+    {
+        return $this->posts->count();
+    }
 }

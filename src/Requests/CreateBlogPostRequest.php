@@ -6,9 +6,19 @@ use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Http\FormRequest;
 use Ozerich\FileStorage\Rules\FileRule;
+use OZiTAG\Tager\Backend\Crud\Requests\CrudFormRequest;
 
-class CreateBlogPostRequest extends FormRequest
+class CreateBlogPostRequest extends CrudFormRequest
 {
+    public function fileScenarios()
+    {
+        return [
+            'openGraphImage' => TagerBlogConfig::getOpenGraphScenario(),
+            'image' => TagerBlogConfig::getPostImageScenario(),
+            'coverImage' => TagerBlogConfig::getPostCoverScenario()
+        ];
+    }
+
     public function rules()
     {
         $result = [
@@ -19,6 +29,7 @@ class CreateBlogPostRequest extends FormRequest
             'image' => ['nullable', 'numeric', new FileRule()],
             'coverImage' => ['nullable', 'numeric', new FileRule()],
             'status' => 'required|string',
+
             'pageTitle' => 'string|nullable',
             'pageDescription' => 'string|nullable',
             'openGraphImage' => ['nullable', 'numeric', new FileRule()],

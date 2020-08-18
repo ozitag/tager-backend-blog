@@ -1,30 +1,36 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
+namespace OZiTAG\Tager\Backend\Blog\Operations;
 
+use OZiTAG\Tager\Backend\Core\Features\Feature;
+use OZiTAG\Tager\Backend\Core\Jobs\Operation;
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryFullResource;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminFullCategoryResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
 
-class CreateCategoryFeature extends Feature
+class CreateCategoryOperation extends Operation
 {
-    public function handle(CreateBlogCategoryRequest $request, CategoryRepository $categoryRepository, Storage $fileStorage)
+    private $request;
+
+    public function __construct(CreateBlogCategoryRequest $request)
     {
+        $this->request = $request;
+    }
+
+    public function handle(CategoryRepository $categoryRepository, Storage $fileStorage)
+    {
+        $request = $this->request;
+
         $alias = $this->run(GetCategoryUrlAliasJob::class, [
             'name' => $request->name,
             'language' => $request->language,
         ]);
-
-        if ($request->openGraphImage) {
-            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
-        }
 
         $maxPriority = $this->run(GetPriorityForNewCategoryJob::class, [
             'language' => TagerBlogConfig::isMultiLang() ? $request->language : null

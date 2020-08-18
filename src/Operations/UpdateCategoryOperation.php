@@ -1,9 +1,10 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
+namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
+use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryFullResource;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminFullCategoryResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -11,32 +12,31 @@ use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryByIdJob;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;
+use OZiTAG\Tager\Backend\Core\Jobs\Operation;
 
-class UpdateCategoryFeature extends Feature
+class UpdateCategoryOperation extends Operation
 {
-    private $id;
+    private $model;
 
-    public function __construct($id)
+    private $request;
+
+    public function __construct(BlogCategory $model, UpdateBlogCategoryRequest $request)
     {
-        $this->id = $id;
+        $this->model = $model;
+
+        $this->request = $request;
     }
 
-    public function handle(UpdateBlogCategoryRequest $request, Storage $fileStorage)
+    public function handle(Storage $fileStorage)
     {
-        $model = $this->run(GetCategoryByIdJob::class, ['id' => $this->id]);
-        if (!$model) {
-            abort(404, 'Category not found');
-        }
+        $model = $this->model;
+        $request = $this->request;
 
         $priority = $model->priority;
         if (TagerBlogConfig::isMultiLang() && $model->language != $request->language) {
             $priority = $this->run(GetPriorityForNewCategoryJob::class, [
                 'language' => $request->language
             ]);
-        }
-
-        if ($request->openGraphpImage) {
-            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
         }
 
         $model->name = $request->name;

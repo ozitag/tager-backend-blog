@@ -25,7 +25,7 @@ class PostRepository extends EloquentRepository
 
     public function getByAlias($alias, $language = null)
     {
-        $query = $this->model->query();
+        $query = $this->model::query()->whereUrlAlias($alias);
 
         if ($language) {
             $query->whereLanguage($language);

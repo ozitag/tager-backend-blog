@@ -25,6 +25,11 @@ class TagerBlogUrlHelper
         return $this->processLanguageTemplate($result, $language);
     }
 
+    /**
+     * @param string $template
+     * @param string $language
+     * @return string
+     */
     private function processLanguageTemplate($template, $language)
     {
         if ($language) {
@@ -65,6 +70,10 @@ class TagerBlogUrlHelper
         return $template;
     }
 
+    /**
+     * @param BlogCategory $category
+     * @return string
+     */
     public function getCategoryUrl(BlogCategory $category)
     {
         $template = $this->getCategoryUrlTemplate($category->language);
@@ -75,6 +84,10 @@ class TagerBlogUrlHelper
         return $template;
     }
 
+    /**
+     * @param BlogPost $post
+     * @return string
+     */
     public function getPostUrl(BlogPost $post)
     {
         $template = $this->getPostUrlTemplate($post->language);

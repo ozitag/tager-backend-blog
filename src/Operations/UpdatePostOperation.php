@@ -1,47 +1,34 @@
 <?php
 
-namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
+namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
-use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostFullResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
+use OZiTAG\Tager\Backend\Core\Jobs\Operation;
 
-
-class UpdatePostFeature extends Feature
+class UpdatePostOperation extends Operation
 {
     private $id;
 
-    public function __construct($id)
+    private $request;
+
+    public function __construct(BlogPost $model, UpdateBlogPostRequest $request)
     {
-        $this->id = $id;
+        $this->model = $model;
+
+        $this->request = $request;
     }
 
     public function handle(UpdateBlogPostRequest $request, Storage $fileStorage)
     {
-        $model = $this->run(GetPostByIdJob::class, [
-            'id' => $this->id
-        ]);
-
-        if (!$model) {
-            abort(404, 'Post not found');
-        }
-
-        if ($request->image) {
-            $fileStorage->setFileScenario($request->image, TagerBlogConfig::getPostImageScenario());
-        }
-
-        if ($request->coverImage) {
-            $fileStorage->setFileScenario($request->coverImage, TagerBlogConfig::getPostCoverScenario());
-        }
-
-        if ($request->openGraphImage) {
-            $fileStorage->setFileScenario($request->openGraphImage, TagerBlogConfig::getOpenGraphScenario());
-        }
+        $model = $this->model;
+        $request = $this->request;
 
         $model->title = $request->title;
         $model->url_alias = $request->urlAlias;
@@ -61,6 +48,6 @@ class UpdatePostFeature extends Feature
             'categoryIds' => $request->categories
         ]);
 
-        return new AdminPostFullResource($model);
+        return $model;
     }
 }
