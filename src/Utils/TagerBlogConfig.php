@@ -37,6 +37,15 @@ class TagerBlogConfig
         return !empty(self::config('languages', []));
     }
 
+    /**
+     * @param string $language
+     * @return bool
+     */
+    public static function isLanguageValid($language)
+    {
+        return in_array($language, self::getLanguageIds());
+    }
+
     public static function getLanguages()
     {
         $result = [];

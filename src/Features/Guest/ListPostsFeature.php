@@ -6,10 +6,16 @@ use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestPostResource;
 
-class ListPostsFeature extends Feature
+class ListPostsFeature extends BaseFeature
 {
     public function handle(PostRepository $postRepository)
     {
-        return GuestPostResource::collection($postRepository->all());
+        if ($this->language) {
+            $collection = $postRepository->getByLanguage($this->language);
+        } else {
+            $collection = $postRepository->all();
+        }
+
+        return GuestPostResource::collection($collection);
     }
 }

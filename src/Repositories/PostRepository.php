@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
+use Illuminate\Support\Collection;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
@@ -11,6 +12,15 @@ class PostRepository extends EloquentRepository
     public function __construct(BlogPost $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * @param $language
+     * @return Collection
+     */
+    public function getByLanguage($language)
+    {
+        return $this->model->where('language', '=', $language)->get();
     }
 
     /**

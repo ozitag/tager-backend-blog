@@ -6,18 +6,21 @@ use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestPostFullResource;
 
-class ViewPostFeature extends Feature
+class ViewPostFeature extends BaseFeature
 {
     private $alias;
 
-    public function __construct($alias)
+    public function __construct($alias, $language)
     {
+        parent::__construct($language);
+
         $this->alias = $alias;
     }
 
     public function handle(PostRepository $postRepository)
     {
-        $model = $postRepository->getByAlias($this->alias);
+        $model = $postRepository->getByAlias($this->alias, $this->language);
+
         if (!$model) {
             abort(404, 'Post Not Found');
         }

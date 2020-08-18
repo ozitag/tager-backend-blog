@@ -2,14 +2,21 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestCategoryResource;
 
-class ListCategoriesFeature extends Feature
+class ListCategoriesFeature extends BaseFeature
 {
     public function handle(CategoryRepository $categoryRepository)
     {
-        return GuestCategoryResource::collection($categoryRepository->all());
+        if ($this->language) {
+            $collection = $categoryRepository->getByLanguage($this->language);
+        } else {
+            $collection = $categoryRepository->all();
+        }
+
+        return GuestCategoryResource::collection($collection);
     }
 }

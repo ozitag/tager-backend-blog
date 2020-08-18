@@ -10,6 +10,7 @@ class GuestCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'language' => $this->language,
             'name' => $this->name,
             'urlAlias' => $this->url_alias
         ];

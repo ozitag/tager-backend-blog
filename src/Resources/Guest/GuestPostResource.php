@@ -24,6 +24,7 @@ class GuestPostResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'language' => $this->language,
             'urlAlias' => $this->url_alias,
             'title' => $this->title,
             'date' => $this->date,

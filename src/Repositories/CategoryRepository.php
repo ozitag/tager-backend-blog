@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
+use Illuminate\Support\Collection;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryWithPriorityMethods;
@@ -14,6 +15,15 @@ class CategoryRepository extends EloquentRepository implements IRepositoryWithPr
     public function __construct(BlogCategory $model)
     {
         parent::__construct($model);
+    }
+
+    /**
+     * @param $language
+     * @return Collection
+     */
+    public function getByLanguage($language)
+    {
+        return $this->model->where('language', '=', $language)->get();
     }
 
     /**
