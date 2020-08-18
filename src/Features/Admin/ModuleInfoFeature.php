@@ -23,16 +23,13 @@ class ModuleInfoFeature extends Feature
         foreach ($languages as $language => $label) {
             $languagesResult[] = [
                 'id' => $language,
-                'name' => $label,
-                'newCategoryAliasTemplate' => $urlHelper->getNewCategoryAliasTemplate($language),
-                'newPostAliasTemplate' => $urlHelper->getNewPostAliasTemplate($language)
+                'name' => $label
             ];
         }
 
         return new JsonResource([
-            'languages' => $languagesResult,
-            'newCategoryAliasTemplate' => $urlHelper->getNewCategoryAliasTemplate(),
-            'newPostAliasTemplate' => $urlHelper->getNewPostAliasTemplate()
+            'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
+            'languages' => $languagesResult
         ]);
     }
 }
