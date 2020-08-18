@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
 
@@ -72,5 +73,15 @@ class BlogCategory extends Model implements IModelPriorityConditional
         return [
             'language'
         ];
+    }
+
+    public function getPublicPageTitleAttribute()
+    {
+        return (new TagerBlogSeoHelper())->getCategoryTitle($this);
+    }
+
+    public function getPublicPageDescriptionAttribute()
+    {
+        return (new TagerBlogSeoHelper())->getCategoryDescription($this);
     }
 }

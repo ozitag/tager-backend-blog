@@ -5,6 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
 class BlogPost extends Model
@@ -66,5 +67,15 @@ class BlogPost extends Model
     public function getUrlAttribute()
     {
         return (new TagerBlogUrlHelper())->getPostUrl($this);
+    }
+
+    public function getPublicPageTitleAttribute()
+    {
+        return (new TagerBlogSeoHelper())->getPostTitle($this);
+    }
+
+    public function getPublicPageDescriptionAttribute()
+    {
+        return (new TagerBlogSeoHelper())->getPostDescription($this);
     }
 }

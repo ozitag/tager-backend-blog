@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Enums;
 
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
 use OZiTAG\Tager\Backend\ModuleSettings\Enums\SettingField;
 
@@ -33,7 +34,10 @@ class BlogSettingField extends SettingField
             case self::IndexOpenGraphImage:
                 return [
                     'type' => FieldType::Image,
-                    'label' => 'Блог - OpenGraph картинка'
+                    'label' => 'Блог - OpenGraph картинка',
+                    'meta' => [
+                        'scenario' => TagerBlogConfig::getOpenGraphScenario()
+                    ]
                 ];
 
             case self::CategoryTitleTemplate:

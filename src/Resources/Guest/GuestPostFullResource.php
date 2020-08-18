@@ -9,8 +9,8 @@ class GuestPostFullResource extends GuestPostResource
         return array_merge(parent::toArray($request), [
             'image' => $this->image ? $this->image->getFullJson() : null,
             'body' => $this->body,
-            'pageTitle' => $this->page_title,
-            'pageDescription' => $this->page_description,
+            'pageTitle' => $this->publicPageTitle,
+            'pageDescription' => $this->publicPageDescription,
             'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getFullJson() : null
         ]);
     }

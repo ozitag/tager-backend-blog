@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
 use Illuminate\Http\Request;
+use OZiTAG\Tager\Backend\Blog\Features\Guest\SeoParamsFeature;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Controllers\Controller;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\ListCategoriesFeature;
@@ -48,5 +49,10 @@ class GuestController extends Controller
         return $this->serve(ListPostsByCategoryFeature::class, [
             'id' => $id
         ]);
+    }
+
+    public function seoParams()
+    {
+        return $this->serve(SeoParamsFeature::class);
     }
 }
