@@ -100,4 +100,12 @@ class TagerBlogConfig
             return $lang['id'];
         }, self::config('languages', []));
     }
+
+    /**
+     * @return boolean
+     */
+    public static function isAllowSamePostUrlAliasesForDifferentLanguages()
+    {
+        return (bool)self::config('validation.allow_same_post_url_aliases_for_different_languages', false);
+    }
 }

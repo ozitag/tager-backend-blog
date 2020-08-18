@@ -30,6 +30,10 @@ class UpdatePostOperation extends Operation
         $model = $this->model;
         $request = $this->request;
 
+        if (TagerBlogConfig::isMultiLang()) {
+            $model->language = $request->language;
+        }
+
         $model->title = $request->title;
         $model->url_alias = $request->urlAlias;
         $model->excerpt = $request->excerpt;
