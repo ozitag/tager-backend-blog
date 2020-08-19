@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Requests;
 
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 
 class UpdateBlogPostRequest extends CreateBlogPostRequest
@@ -17,7 +18,8 @@ class UpdateBlogPostRequest extends CreateBlogPostRequest
         }
 
         return array_merge(parent::rules(), [
-            'urlAlias' => ['required', 'string', $uniqueRule]
+            'urlAlias' => ['required', 'string', $uniqueRule],
+            'samePosts.*' => ['exists:' . BlogPost::class . ',id,deleted_at,NULL', 'notIn:' . $this->route('id')]
         ]);
     }
 }

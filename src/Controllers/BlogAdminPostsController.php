@@ -46,6 +46,11 @@ class BlogAdminPostsController extends AdminCrudController
             'pageTitle' => 'page_title',
             'pageDescription' => 'page_description',
             'openGraphImage:file:model',
+
+            'samePosts' => [
+                'relation' => 'samePosts',
+                'as' => ['id', 'title']
+            ]
         ]));
 
         $this->setStoreAction(CreateBlogPostRequest::class, CreatePostOperation::class);

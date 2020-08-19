@@ -59,6 +59,16 @@ class BlogPost extends Model
         );
     }
 
+    public function samePosts()
+    {
+        return $this->belongsToMany(
+            static::class,
+            'tager_blog_post_same_posts',
+            'post_id',
+            'same_post_id'
+        );
+    }
+
     public function scopeOrdered($query)
     {
         return $query->orderBy('date', 'desc')->get();

@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
+use OZiTAG\Tager\Backend\Blog\Jobs\SetPostSamePostsJob;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Jobs\GetPostUrlAliasJob;
@@ -48,6 +49,11 @@ class CreatePostOperation extends Operation
         $this->run(SetPostCategoriesJob::class, [
             'post' => $model,
             'categoryIds' => $request->categories
+        ]);
+
+        $this->run(SetPostSamePostsJob::class, [
+            'post' => $model,
+            'samePostIds' => $request->samePosts
         ]);
 
         return $model;

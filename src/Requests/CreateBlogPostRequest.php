@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Requests;
 
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Http\FormRequest;
 use Ozerich\FileStorage\Rules\FileRule;
@@ -35,7 +36,10 @@ class CreateBlogPostRequest extends CrudFormRequest
             'openGraphImage' => ['nullable', 'numeric', new FileRule()],
 
             'categories' => 'array',
-            'categories.*' => 'exists:' . BlogCategory::class . ',id'
+            'categories.*' => 'exists:' . BlogCategory::class . ',id,deleted_at,NULL',
+
+            'samePosts' => 'array',
+            'samePosts.*' => 'exists:' . BlogPost::class . ',id,deleted_at,NULL'
         ];
 
         if (TagerBlogConfig::isMultiLang()) {
