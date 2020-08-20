@@ -18,11 +18,11 @@ class TagerBlogSeoHelper
         $this->moduleSettings = App::make(ModuleSettings::class);
     }
 
-    private function apply($settingField, $templateParams)
+    private function apply($settingField, $templateParams, $default = null)
     {
         $template = $this->moduleSettings->getPublicValue('blog', $settingField, FieldType::String);
         if (empty($template)) {
-            return null;
+            return $default;
         }
 
         foreach ($templateParams as $param => $value) {
@@ -45,7 +45,7 @@ class TagerBlogSeoHelper
         return $this->apply(BlogSettingField::CategoryTitleTemplate, [
             'id' => $category->id,
             'name' => $category->name
-        ]);
+        ], $category->name);
     }
 
     /**
@@ -79,7 +79,7 @@ class TagerBlogSeoHelper
             'name' => $post->name,
             'excerpt' => $post->excerpt,
             'body' => $post->body
-        ]);
+        ], $post->name);
     }
 
     /**
@@ -97,6 +97,6 @@ class TagerBlogSeoHelper
             'name' => $post->name,
             'excerpt' => $post->excerpt,
             'body' => $post->body
-        ]);
+        ], $post->excerpt);
     }
 }
