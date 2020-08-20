@@ -18,6 +18,8 @@ use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 
 class BlogAdminPostsController extends AdminCrudController
 {
+    public $hasCountAction = true;
+
     public function __construct(PostRepository $repository)
     {
         parent::__construct($repository);

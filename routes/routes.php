@@ -33,6 +33,7 @@ Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrator
     Route::put('/posts/{id}', [BlogAdminPostsController::class, 'update']);
     Route::get('/posts/{id}', [BlogAdminPostsController::class, 'view']);
     Route::delete('/posts/{id}', [BlogAdminPostsController::class, 'delete']);
+    Route::get('/posts/count', [BlogAdminPostsController::class, 'count']);
 
     Route::get('/settings', [BlogAdminSettingsController::class, 'index']);
     Route::post('/settings', [BlogAdminSettingsController::class, 'save']);
