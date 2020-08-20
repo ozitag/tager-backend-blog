@@ -3,12 +3,12 @@
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
 use OZiTAG\Tager\Backend\Blog\Models\BlogPostCategory;
-use OZiTAG\Tager\Backend\Blog\Models\BlogPostSamePost;
+use OZiTAG\Tager\Backend\Blog\Models\BlogPostRelatedPost;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 
-class PostSamePostRepository extends EloquentRepository
+class PostRelatedPostRepository extends EloquentRepository
 {
-    public function __construct(BlogPostSamePost $model)
+    public function __construct(BlogPostRelatedPost $model)
     {
         parent::__construct($model);
     }

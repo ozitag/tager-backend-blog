@@ -38,8 +38,8 @@ class CreateBlogPostRequest extends CrudFormRequest
             'categories' => 'array',
             'categories.*' => 'exists:' . BlogCategory::class . ',id,deleted_at,NULL',
 
-            'samePosts' => 'array',
-            'samePosts.*' => 'exists:' . BlogPost::class . ',id,deleted_at,NULL'
+            'relatedPosts' => 'array',
+            'relatedPosts.*' => 'exists:' . BlogPost::class . ',id,deleted_at,NULL'
         ];
 
         if (TagerBlogConfig::isMultiLang()) {

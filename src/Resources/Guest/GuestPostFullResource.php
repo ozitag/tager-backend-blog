@@ -4,12 +4,12 @@ namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
 class GuestPostFullResource extends GuestPostResource
 {
-    public function getSamePostsJson()
+    public function getRelatedPostsJson()
     {
         $result = [];
 
-        foreach ($this->samePosts as $samePost) {
-            $result[] = new GuestPostResource($samePost);
+        foreach ($this->relatedPosts as $relatedPost) {
+            $result[] = new GuestPostResource($relatedPost);
         }
 
         return $result;
@@ -24,7 +24,7 @@ class GuestPostFullResource extends GuestPostResource
             'pageTitle' => $this->publicPageTitle,
             'pageDescription' => $this->publicPageDescription,
             'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getFullJson() : null,
-            'samePosts' => $this->getSamePostsJson()
+            'relatedPosts' => $this->getRelatedPostsJson()
         ]);
     }
 }

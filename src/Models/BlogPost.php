@@ -59,13 +59,13 @@ class BlogPost extends Model
         );
     }
 
-    public function samePosts()
+    public function relatedPosts()
     {
         return $this->belongsToMany(
             static::class,
-            'tager_blog_post_same_posts',
+            'tager_blog_post_related_posts',
             'post_id',
-            'same_post_id'
+            'related_post_id'
         );
     }
 

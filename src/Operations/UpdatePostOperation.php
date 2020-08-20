@@ -3,7 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
-use OZiTAG\Tager\Backend\Blog\Jobs\SetPostSamePostsJob;
+use OZiTAG\Tager\Backend\Blog\Jobs\SetPostRelatedPostsJob;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -53,9 +53,9 @@ class UpdatePostOperation extends Operation
             'categoryIds' => $request->categories
         ]);
 
-        $this->run(SetPostSamePostsJob::class, [
+        $this->run(SetPostRelatedPostsJob::class, [
             'post' => $model,
-            'samePostIds' => $request->samePosts
+            'relatedPostIds' => $request->relatedPosts
         ]);
 
         return $model;

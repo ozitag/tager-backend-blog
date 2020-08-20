@@ -47,8 +47,8 @@ class BlogAdminPostsController extends AdminCrudController
             'pageDescription' => 'page_description',
             'openGraphImage:file:model',
 
-            'samePosts' => [
-                'relation' => 'samePosts',
+            'relatedPosts' => [
+                'relation' => 'relatedPosts',
                 'as' => ['id', 'title']
             ]
         ]));

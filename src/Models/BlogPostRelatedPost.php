@@ -8,11 +8,11 @@ use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
-class BlogPostSamePost extends Model
+class BlogPostRelatedPost extends Model
 {
     public $timestamps = false;
-    
-    protected $table = 'tager_blog_post_same_posts';
+
+    protected $table = 'tager_blog_post_related_posts';
 
     /**
      * The attributes that are mass assignable.
@@ -21,7 +21,7 @@ class BlogPostSamePost extends Model
      */
     protected $fillable = [
         'post_id',
-        'same_post_id'
+        'related_post_id'
     ];
 
     public function post()
@@ -29,8 +29,8 @@ class BlogPostSamePost extends Model
         return $this->belongsTo(self::class, 'post_id');
     }
 
-    public function samePost()
+    public function relatedPost()
     {
-        return $this->belongsTo(self::class, 'same_post_id');
+        return $this->belongsTo(self::class, 'related_post_id');
     }
 }
