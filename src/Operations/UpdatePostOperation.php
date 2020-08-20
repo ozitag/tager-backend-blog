@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostRelatedPostsJob;
+use OZiTAG\Tager\Backend\Blog\Jobs\SetPostTagsJob;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -56,6 +57,11 @@ class UpdatePostOperation extends Operation
         $this->run(SetPostRelatedPostsJob::class, [
             'post' => $model,
             'relatedPostIds' => $request->relatedPosts
+        ]);
+        
+        $this->run(SetPostTagsJob::class, [
+            'post' => $model,
+            'tags' => $request->tags
         ]);
 
         return $model;

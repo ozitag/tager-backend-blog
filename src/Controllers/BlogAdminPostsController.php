@@ -50,7 +50,9 @@ class BlogAdminPostsController extends AdminCrudController
             'relatedPosts' => [
                 'relation' => 'relatedPosts',
                 'as' => ['id', 'title']
-            ]
+            ],
+
+            'tags' => 'tagsArray'
         ]));
 
         $this->setStoreAction(CreateBlogPostRequest::class, CreatePostOperation::class);

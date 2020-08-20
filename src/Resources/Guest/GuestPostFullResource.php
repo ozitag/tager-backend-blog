@@ -24,7 +24,8 @@ class GuestPostFullResource extends GuestPostResource
             'pageTitle' => $this->publicPageTitle,
             'pageDescription' => $this->publicPageDescription,
             'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getFullJson() : null,
-            'relatedPosts' => $this->getRelatedPostsJson()
+            'relatedPosts' => $this->getRelatedPostsJson(),
+            'tags' => $this->tagsArray
         ]);
     }
 }

@@ -69,6 +69,16 @@ class BlogPost extends Model
         );
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(
+            BlogTag::class,
+            'tager_blog_post_tags',
+            'post_id',
+            'tag_id'
+        );
+    }
+
     public function scopeOrdered($query)
     {
         return $query->orderBy('date', 'desc')->get();
@@ -87,5 +97,12 @@ class BlogPost extends Model
     public function getPublicPageDescriptionAttribute()
     {
         return (new TagerBlogSeoHelper())->getPostDescription($this);
+    }
+
+    public function getTagsArrayAttribute()
+    {
+        return array_map(function ($item) {
+            return $item['tag'];
+        }, $this->tags->toArray());
     }
 }
