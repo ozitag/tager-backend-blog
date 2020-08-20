@@ -3,7 +3,9 @@
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Blog\Models\BlogTag;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 
@@ -50,5 +52,19 @@ class PostRepository extends EloquentRepository
         $model = $repository->find($id);
 
         return $model->posts()->orderBy('date', 'desc')->get();
+    }
+
+    public function getByTag(BlogTag $tag, $language = null)
+    {
+        $query = $this->model::query();
+
+        if ($language) {
+            $query->whereLanguage($language);
+        }
+
+        $query->join('tager_blog_post_tags', 'post_id', '=', 'tager_blog_posts.id');
+        $query->where('tager_blog_post_tags.tag_id', '=', $tag->id);
+
+        return $query->get();
     }
 }

@@ -69,6 +69,11 @@ class BlogPost extends Model
         );
     }
 
+    public function postTags()
+    {
+        return $this->hasMany(BlogPostTag::class, 'post_id');
+    }
+
     public function tags()
     {
         return $this->belongsToMany(

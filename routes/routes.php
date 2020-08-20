@@ -12,7 +12,8 @@ Route::group(['prefix' => 'blog'], function () {
     Route::get('/categories', [GuestController::class, 'categories']);
     Route::get('/categories/{alias}', [GuestController::class, 'viewCategory']);
     Route::get('/posts', [GuestController::class, 'posts']);
-    Route::get('/posts/{alias}', [GuestController::class, 'viewPost']);
+    Route::get('/posts/by-tag', [GuestController::class, 'postsByTag']);
+    Route::get('/posts/view/{alias}', [GuestController::class, 'viewPost']);
     Route::get('/categories/{id}/posts', [GuestController::class, 'postsByCategory']);
 });
 
