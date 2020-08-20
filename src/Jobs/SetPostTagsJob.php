@@ -39,6 +39,7 @@ class SetPostTagsJob extends Job
 
         $model = $this->tagRepository->getByTag($tag);
         if (!$model) {
+            $this->tagRepository->reset();
             $model = $this->tagRepository->fillAndSave([
                 'tag' => $tag
             ]);
