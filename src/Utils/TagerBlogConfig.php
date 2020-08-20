@@ -107,6 +107,16 @@ class TagerBlogConfig
     }
 
     /**
+     * @param $languageId
+     * @return mixed|null
+     */
+    public static function getLanguageLabel($languageId)
+    {
+        $model = self::getLanguageConfig($languageId);
+        return $model ? $model['name'] : null;
+    }
+
+    /**
      * @return boolean
      */
     public static function isAllowSamePostUrlAliasesForDifferentLanguages()
