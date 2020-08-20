@@ -26,7 +26,7 @@ class BlogAdminPostsController extends AdminCrudController
 
         $fields = [
             'id', 'language', 'title', 'url', 'date', 'status', 'excerpt',
-            'image:file:url',
+            'image' => 'coverImage:file:url',
             'categories' => [
                 'relation' => 'categories',
                 'as' => ['id', 'name']
