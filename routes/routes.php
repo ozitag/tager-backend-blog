@@ -8,7 +8,7 @@ use OZiTAG\Tager\Backend\Blog\Controllers\BlogAdminCategoriesController;
 use OZiTAG\Tager\Backend\Blog\Controllers\BlogAdminSettingsController;
 use OZiTAG\Tager\Backend\Blog\Controllers\BlogAdminPostsController;
 
-Route::group(['prefix' => 'blog'], function () {
+Route::group(['prefix' => 'blog', 'middleware' => 'api.cache'], function () {
     Route::get('/categories', [GuestController::class, 'categories']);
     Route::get('/categories/{alias}', [GuestController::class, 'viewCategory']);
     Route::get('/posts', [GuestController::class, 'posts']);
