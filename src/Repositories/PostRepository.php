@@ -69,4 +69,19 @@ class PostRepository extends EloquentRepository
 
         return $query->get();
     }
+
+    public function search($searchQuery, $language = null, $offset = 0, $limit = null)
+    {
+        $query = $this->model::query()->orderBy('date', 'desc')->skip($offset)->take($limit);
+
+        if ($language) {
+            $query->where('language', '=', $language);
+        }
+
+        $query->where('title', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('excerpt', 'LIKE', '%' . $searchQuery . '%')
+            ->orWhere('body', 'LIKE', '%' . $searchQuery . '%');
+
+        return $query->get();
+    }
 }

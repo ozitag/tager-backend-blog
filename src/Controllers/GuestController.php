@@ -4,6 +4,7 @@ namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
 use Illuminate\Http\Request;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\ListPostsByTagFeature;
+use OZiTAG\Tager\Backend\Blog\Features\Guest\SearchPostsFeature;
 use OZiTAG\Tager\Backend\Blog\Features\Guest\SeoParamsFeature;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Controllers\Controller;
@@ -70,6 +71,16 @@ class GuestController extends Controller
     {
         return $this->serve(SeoParamsFeature::class, [
             'language' => $request->get('lang')
+        ]);
+    }
+
+    public function searchPosts(Request $request)
+    {
+        return $this->serve(SearchPostsFeature::class, [
+            'query' => $request->get('query'),
+            'language' => $request->get('lang'),
+            'offset' => $request->get('offset', 0),
+            'limit' => $request->get('limit')
         ]);
     }
 }
