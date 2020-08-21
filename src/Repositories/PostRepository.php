@@ -18,11 +18,13 @@ class PostRepository extends EloquentRepository
 
     /**
      * @param $language
+     * @param integer $offset
+     * @param integer $limit
      * @return Collection
      */
-    public function getByLanguage($language)
+    public function getByLanguage($language, $offset = 0, $limit = null)
     {
-        return $this->model->where('language', '=', $language)->get();
+        return $this->model->ordered()->where('language', '=', $language)->skip($offset)->take($limit)->all();
     }
 
     /**
@@ -30,9 +32,9 @@ class PostRepository extends EloquentRepository
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function all()
+    public function all($offset = 0, $limit = null)
     {
-        return $this->model->ordered()->all();
+        return $this->model->ordered()->skip($offset)->take($limit)->all();
     }
 
     public function getByAlias($alias, $language = null)
@@ -46,17 +48,17 @@ class PostRepository extends EloquentRepository
         return $query->first();
     }
 
-    public function findByCategoryId($id)
+    public function findByCategoryId($id, $offset = 0, $limit = null)
     {
         $repository = new CategoryRepository(new BlogCategory());
         $model = $repository->find($id);
 
-        return $model->posts()->orderBy('date', 'desc')->get();
+        return $model->posts()->skip($offset)->take($limit)->orderBy('date', 'desc')->get();
     }
 
-    public function getByTag(BlogTag $tag, $language = null)
+    public function getByTag(BlogTag $tag, $language = null, $offset = 0, $limit = null)
     {
-        $query = $this->model::query();
+        $query = $this->model::query()->skip($offset)->take($limit);
 
         if ($language) {
             $query->whereLanguage($language);

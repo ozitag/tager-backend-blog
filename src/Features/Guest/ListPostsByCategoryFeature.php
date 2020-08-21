@@ -12,9 +12,17 @@ class ListPostsByCategoryFeature extends Feature
 {
     private $id;
 
-    public function __construct($id)
+    private $offset;
+
+    private $limit;
+
+    public function __construct($id, $offset, $limit)
     {
         $this->id = $id;
+
+        $this->offset = $offset;
+
+        $this->limit = $limit;
     }
 
     public function handle(CategoryRepository $categoryRepository, PostRepository $postRepository)
@@ -24,6 +32,6 @@ class ListPostsByCategoryFeature extends Feature
             abort(404, 'Category Not Found');
         }
 
-        return GuestPostResource::collection($postRepository->findByCategoryId($model->id));
+        return GuestPostResource::collection($postRepository->findByCategoryId($model->id, $this->offset, $this->limit));
     }
 }

@@ -33,7 +33,9 @@ class GuestController extends Controller
     public function posts(Request $request)
     {
         return $this->serve(ListPostsFeature::class, [
-            'language' => $request->get('lang')
+            'language' => $request->get('lang'),
+            'offset' => $request->get('offset', 0),
+            'limit' => $request->get('limit')
         ]);
     }
 
@@ -42,6 +44,8 @@ class GuestController extends Controller
         return $this->serve(ListPostsByTagFeature::class, [
             'language' => $request->get('lang'),
             'tag' => $request->get('tag'),
+            'offset' => $request->get('offset', 0),
+            'limit' => $request->get('limit')
         ]);
     }
 
@@ -53,14 +57,16 @@ class GuestController extends Controller
         ]);
     }
 
-    public function postsByCategory($id)
+    public function postsByCategory($id, Request $request)
     {
         return $this->serve(ListPostsByCategoryFeature::class, [
-            'id' => $id
+            'id' => $id,
+            'offset' => $request->get('offset', 0),
+            'limit' => $request->get('limit')
         ]);
     }
 
-    public function seoParams(Request $request)
+    public function seoParams()
     {
         return $this->serve(SeoParamsFeature::class, [
             'language' => $request->get('lang')

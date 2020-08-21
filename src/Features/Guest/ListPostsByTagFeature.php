@@ -11,9 +11,17 @@ class ListPostsByTagFeature extends BaseFeature
 {
     private $tag;
 
-    public function __construct($tag, $language)
+    private $offset;
+
+    private $limit;
+
+    public function __construct($tag, $language, $offset, $limit)
     {
         $this->tag = $tag;
+
+        $this->offset = $offset;
+
+        $this->limit = $limit;
 
         parent::__construct($language);
     }
@@ -26,6 +34,6 @@ class ListPostsByTagFeature extends BaseFeature
             return GuestPostResource::collection([]);
         }
 
-        return GuestPostResource::collection($postRepository->getByTag($tag, $this->language));
+        return GuestPostResource::collection($postRepository->getByTag($tag, $this->language, $this->offset, $this->limit));
     }
 }
