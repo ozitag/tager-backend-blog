@@ -3,7 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Utils;
 
 use Illuminate\Support\Facades\App;
-use OZiTAG\Tager\Backend\Blog\Enums\BlogSettingField;
+use OZiTAG\Tager\Backend\Blog\Fields\BlogModuleSettingField;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
@@ -42,7 +42,7 @@ class TagerBlogSeoHelper
             return $category->page_title;
         }
 
-        return $this->apply(BlogSettingField::CategoryTitleTemplate, [
+        return $this->apply(BlogModuleSettingField::CategoryTitleTemplate, [
             'id' => $category->id,
             'name' => $category->name
         ], $category->name);
@@ -58,7 +58,7 @@ class TagerBlogSeoHelper
             return $category->page_description;
         }
 
-        return $this->apply(BlogSettingField::CategoryDescriptionTemplate, [
+        return $this->apply(BlogModuleSettingField::CategoryDescriptionTemplate, [
             'id' => $category->id,
             'name' => $category->name
         ]);
@@ -74,7 +74,7 @@ class TagerBlogSeoHelper
             return $post->page_title;
         }
 
-        return $this->apply(BlogSettingField::PostTitleTemplate, [
+        return $this->apply(BlogModuleSettingField::PostTitleTemplate, [
             'id' => $post->id,
             'name' => $post->name,
             'excerpt' => $post->excerpt,
@@ -92,7 +92,7 @@ class TagerBlogSeoHelper
             return $post->page_description;
         }
 
-        return $this->apply(BlogSettingField::PostDescriptionTemplate, [
+        return $this->apply(BlogModuleSettingField::PostDescriptionTemplate, [
             'id' => $post->id,
             'name' => $post->name,
             'excerpt' => $post->excerpt,
