@@ -67,7 +67,7 @@ class GuestController extends Controller
         ]);
     }
 
-    public function seoParams()
+    public function seoParams(Request $request)
     {
         return $this->serve(SeoParamsFeature::class, [
             'language' => $request->get('lang')

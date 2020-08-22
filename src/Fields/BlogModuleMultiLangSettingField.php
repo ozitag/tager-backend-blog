@@ -4,13 +4,9 @@ namespace OZiTAG\Tager\Backend\Blog\Fields;
 
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Fields\Base\Field;
-use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
-use OZiTAG\Tager\Backend\Fields\Structures\ImageField;
-use OZiTAG\Tager\Backend\Fields\Structures\StringField;
-use OZiTAG\Tager\Backend\Fields\Structures\TextField;
 use OZiTAG\Tager\Backend\ModuleSettings\Contracts\IModuleSettingsFieldContract;
 
-class BlogSettingMultiLangField extends BlogModuleSettingField implements IModuleSettingsFieldContract
+class BlogModuleMultiLangSettingField extends BlogModuleSettingField implements IModuleSettingsFieldContract
 {
     public static function getParams(): array
     {

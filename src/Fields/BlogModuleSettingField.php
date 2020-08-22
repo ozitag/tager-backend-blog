@@ -4,7 +4,6 @@ namespace OZiTAG\Tager\Backend\Blog\Fields;
 
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Fields\Base\Field;
-use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
 use OZiTAG\Tager\Backend\Fields\Fields\ImageField;
 use OZiTAG\Tager\Backend\Fields\Fields\StringField;
 use OZiTAG\Tager\Backend\Fields\Fields\TextField;
