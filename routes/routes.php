@@ -16,6 +16,8 @@ Route::group(['prefix' => 'tager/blog', 'middleware' => 'api.cache'], function (
     Route::get('/posts/view/{alias}', [GuestController::class, 'viewPost']);
     Route::get('/categories/{id}/posts', [GuestController::class, 'postsByCategory']);
     Route::get('/posts/search', [GuestController::class, 'searchPosts']);
+    
+    Route::get('/seo-params', [GuestController::class, 'seoParams']);
 });
 
 Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrators', 'auth:api']], function () {
