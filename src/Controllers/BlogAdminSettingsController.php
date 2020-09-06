@@ -12,9 +12,9 @@ class BlogAdminSettingsController extends AdminSettingsController
     public function __construct()
     {
         if (TagerBlogConfig::isMultiLang()) {
-            parent::__construct('blog', BlogModuleMultiLangSettingField::class);
+            parent::__construct('blog', BlogModuleMultiLangSettingField::class, 'tager/blog');
         } else {
-            parent::__construct('blog', BlogModuleSettingField::class);
+            parent::__construct('blog', BlogModuleSettingField::class, 'tager/blog');
         }
     }
 }
