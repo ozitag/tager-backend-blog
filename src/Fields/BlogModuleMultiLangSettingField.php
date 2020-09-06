@@ -3,10 +3,10 @@
 namespace OZiTAG\Tager\Backend\Blog\Fields;
 
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Fields\Base\Field;
-use OZiTAG\Tager\Backend\ModuleSettings\Contracts\IModuleSettingsFieldContract;
+use OZiTAG\Tager\Backend\ModuleSettings\Contracts\IModuleSettingsFieldEnumContract;
+use OZiTAG\Tager\Backend\ModuleSettings\Structures\ModuleSettingField;
 
-class BlogModuleMultiLangSettingField extends BlogModuleSettingField implements IModuleSettingsFieldContract
+class BlogModuleMultiLangSettingField extends BlogModuleSettingField implements IModuleSettingsFieldEnumContract
 {
     public static function getParams(): array
     {
@@ -21,7 +21,7 @@ class BlogModuleMultiLangSettingField extends BlogModuleSettingField implements 
         return $result;
     }
 
-    public static function field(string $param): Field
+    public static function field(string $param): ModuleSettingField
     {
         $p = strrpos($param, '_');
         $label = substr($param, 0, $p);
