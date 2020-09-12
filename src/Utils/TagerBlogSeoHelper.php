@@ -76,10 +76,10 @@ class TagerBlogSeoHelper
 
         return $this->apply(BlogModuleSettingField::PostTitleTemplate, [
             'id' => $post->id,
-            'name' => $post->name,
+            'title' => $post->title,
             'excerpt' => $post->excerpt,
             'body' => $post->body
-        ], $post->name);
+        ], $post->title);
     }
 
     /**
@@ -94,7 +94,7 @@ class TagerBlogSeoHelper
 
         return $this->apply(BlogModuleSettingField::PostDescriptionTemplate, [
             'id' => $post->id,
-            'name' => $post->name,
+            'title' => $post->title,
             'excerpt' => $post->excerpt,
             'body' => $post->body
         ], $post->excerpt);
