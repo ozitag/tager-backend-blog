@@ -33,10 +33,25 @@ class GuestController extends Controller
 
     public function posts(Request $request)
     {
+        $ids = $request->get('ids');
+
+        if ($ids) {
+            $ids = array_map(function ($id) {
+                return is_numeric($id) ? intval($id) : null;
+            }, explode(',', $ids));
+
+            $ids = array_filter($ids, function ($id) {
+                return $id && $id > 0;
+            });
+
+            $ids = array_values(array_unique($ids));
+        }
+
         return $this->serve(ListPostsFeature::class, [
             'language' => $request->get('lang'),
             'offset' => $request->get('offset', 0),
-            'limit' => $request->get('limit')
+            'limit' => $request->get('limit'),
+            'ids' => $ids
         ]);
     }
 

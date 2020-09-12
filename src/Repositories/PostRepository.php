@@ -16,6 +16,15 @@ class PostRepository extends EloquentRepository
         parent::__construct($model);
     }
 
+    public function getByIds($ids)
+    {
+        if (empty($ids)) {
+            return [];
+        }
+
+        return $this->model->ordered()->whereIn('id', $ids)->all();
+    }
+
     /**
      * @param $language
      * @param integer $offset

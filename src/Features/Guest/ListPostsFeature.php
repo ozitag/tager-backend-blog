@@ -12,21 +12,31 @@ class ListPostsFeature extends BaseFeature
 
     private $limit;
 
-    public function __construct($language, $offset, $limit)
+    private $ids;
+
+    public function __construct($language, $offset, $limit, $ids)
     {
-        parent::__construct($language);
+        if ($ids === null) {
+            parent::__construct($language);
+        }
 
         $this->offset = $offset;
 
         $this->limit = $limit;
+
+        $this->ids = $ids;
     }
 
     public function handle(PostRepository $postRepository)
     {
-        if ($this->language) {
-            $collection = $postRepository->getByLanguage($this->language, $this->offset, $this->limit);
+        if ($this->ids !== null) {
+            $collection = $postRepository->getByIds($this->ids);
         } else {
-            $collection = $postRepository->all($this->offset, $this->limit);
+            if ($this->language) {
+                $collection = $postRepository->getByLanguage($this->language, $this->offset, $this->limit);
+            } else {
+                $collection = $postRepository->all($this->offset, $this->limit);
+            }
         }
 
         return GuestPostResource::collection($collection);
