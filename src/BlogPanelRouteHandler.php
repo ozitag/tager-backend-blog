@@ -84,7 +84,7 @@ class BlogPanelRouteHandler implements IRouteHandler
     {
         $result = new TagerRouteHandlerResult();
 
-        $result->setModel('Category', $category->title);
+        $result->setModel('Category', $category->name);
         $result->addAction('Edit Category', '/blog/categories/' . $category->id);
         $result->addAction('Category Posts', '/blog/posts?category=' . $category->id);
 
