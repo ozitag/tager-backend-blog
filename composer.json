@@ -18,6 +18,7 @@
     "ozitag/tager-backend-module-settings": "^1.1",
     "ozitag/tager-backend-fields": "^1.1",
     "ozitag/tager-backend-utils": "^1.0",
+    "ozitag/tager-backend-panel": "^1.0",
     "ozerich/laravel-filestorage-db": "^0.3"
   },
   "autoload": {

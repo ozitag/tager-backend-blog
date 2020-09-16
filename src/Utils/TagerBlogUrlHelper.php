@@ -12,8 +12,7 @@ class TagerBlogUrlHelper
      */
     private function getCategoryUrlTemplate($language = null)
     {
-        $result = (string)config('tager-blog.url_templates.category', '/category/{alias}');
-        return $this->processLanguageTemplate($result, $language);
+        return $this->processLanguageTemplate(TagerBlogConfig::getCategoryUrlTemplate(), $language);
     }
 
     /**
@@ -21,8 +20,7 @@ class TagerBlogUrlHelper
      */
     private function getPostUrlTemplate($language = null)
     {
-        $result = (string)config('tager-blog.url_templates.post', '/post/{alias}');
-        return $this->processLanguageTemplate($result, $language);
+        return $this->processLanguageTemplate(TagerBlogConfig::getPostUrlTemplate(), $language);
     }
 
     /**

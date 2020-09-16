@@ -123,4 +123,20 @@ class TagerBlogConfig
     {
         return (bool)self::config('validation.allow_same_post_url_aliases_for_different_languages', false);
     }
+
+    /**
+     * @return string
+     */
+    public static function getCategoryUrlTemplate()
+    {
+        return (string)config('tager-blog.url_templates.category', '/category/{alias}');
+    }
+
+    /**
+     * @return string
+     */
+    public static function getPostUrlTemplate()
+    {
+        return (string)config('tager-blog.url_templates.post', '/post/{alias}');
+    }
 }
