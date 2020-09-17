@@ -37,6 +37,21 @@ class PostRepository extends EloquentRepository
     }
 
     /**
+     * @param null $language
+     * @return int
+     */
+    public function getPostsCount($language = null)
+    {
+        $query = $this->model::query();
+
+        if ($language) {
+            $query->where('language', '=', $language);
+        }
+
+        return $query->count();
+    }
+
+    /**
      * Returns all the records.
      *
      * @return \Illuminate\Database\Eloquent\Collection
