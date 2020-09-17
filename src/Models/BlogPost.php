@@ -5,8 +5,10 @@ namespace OZiTAG\Tager\Backend\Blog\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
+use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
 class BlogPost extends Model
 {
@@ -69,6 +71,11 @@ class BlogPost extends Model
         );
     }
 
+    public function fields()
+    {
+        return $this->hasMany(BlogPostField::class, 'post_id');
+    }
+
     public function postTags()
     {
         return $this->hasMany(BlogPostTag::class, 'post_id');
@@ -109,5 +116,29 @@ class BlogPost extends Model
         return array_map(function ($item) {
             return $item['tag'];
         }, $this->tags->toArray());
+    }
+
+    public function getAdditionalFieldsAttribute()
+    {
+        $result = [];
+
+        foreach ($this->fields as $field) {
+            $fieldConfig = TagerBlogConfig::getPostAdditionalField($field->field);
+            if (!$fieldConfig) {
+                continue;
+            }
+
+            $fieldModel = FieldFactory::create($fieldConfig['type'], $fieldConfig['label'], $fieldConfig['meta'] ?? null);
+            $fieldModel->setName($field->field);
+            $type = $fieldModel->getTypeInstance();
+            $type->loadValueFromDatabase($field->value);
+
+            $result[] = [
+                'name' => $fieldModel->getName(),
+                'value' => $type->getAdminFullJson()
+            ];
+        }
+
+        return $result;
     }
 }

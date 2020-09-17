@@ -42,7 +42,10 @@ class CreateBlogPostRequest extends CrudFormRequest
             'relatedPosts.*' => 'exists:' . BlogPost::class . ',id,deleted_at,NULL',
 
             'tags' => 'array',
-            'tags.*' => 'string'
+            'tags.*' => 'string',
+
+            'additionalFields' => 'array',
+            'additionalFields.*.name' => 'string',
         ];
 
         if (TagerBlogConfig::isMultiLang()) {

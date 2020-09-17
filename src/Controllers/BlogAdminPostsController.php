@@ -54,7 +54,9 @@ class BlogAdminPostsController extends AdminCrudController
                 'as' => ['id', 'title']
             ],
 
-            'tags' => 'tagsArray'
+            'tags' => 'tagsArray',
+            
+            'additionalFields' => 'additionalFields'
         ]));
 
         $this->setStoreAction(CreateBlogPostRequest::class, CreatePostOperation::class);

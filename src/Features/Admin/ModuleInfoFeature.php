@@ -12,10 +12,11 @@ use OZiTAG\Tager\Backend\Blog\Jobs\GetCategoryUrlAliasJob;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminCategoryResource;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
+use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
 class ModuleInfoFeature extends Feature
 {
-    public function handle(TagerBlogUrlHelper $urlHelper)
+    private function getLanguages()
     {
         $languages = TagerBlogConfig::getLanguages();
 
@@ -26,10 +27,31 @@ class ModuleInfoFeature extends Feature
                 'name' => $label
             ];
         }
+        return $languagesResult;
+    }
 
+    private function getFields()
+    {
+        $fields = TagerBlogConfig::getPostAdditionalFields();
+
+        $fieldsResult = [];
+        foreach ($fields as $fieldName => $fieldConfig) {
+            if (!isset($fieldConfig['type']) || !isset($fieldConfig['label'])) continue;
+
+            $field = FieldFactory::create($fieldConfig['type'], $fieldConfig['label'], $fieldConfig['meta'] ?? null);
+            $field->setName($fieldName);
+            $fieldsResult[] = $field->getJson();
+        }
+
+        return $fieldsResult;
+    }
+
+    public function handle(TagerBlogUrlHelper $urlHelper)
+    {
         return new JsonResource([
             'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
-            'languages' => $languagesResult
+            'languages' => $this->getLanguages(),
+            'fields' => $this->getFields()
         ]);
     }
 }

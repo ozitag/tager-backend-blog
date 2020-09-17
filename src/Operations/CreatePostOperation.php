@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
+use OZiTAG\Tager\Backend\Blog\Jobs\SetPostAdditionalFieldsJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostRelatedPostsJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostTagsJob;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -60,6 +61,11 @@ class CreatePostOperation extends Operation
         $this->run(SetPostTagsJob::class, [
             'post' => $model,
             'tags' => $request->tags
+        ]);
+
+        $this->run(SetPostAdditionalFieldsJob::class, [
+            'post' => $model,
+            'fields' => $request->additionalFields
         ]);
 
         return $model;

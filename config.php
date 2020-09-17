@@ -23,5 +23,8 @@ return [
     ],
     'validation' => [
         'allow_same_post_url_aliases_for_different_languages' => true
-    ]
+    ],
+    'post_additional_fields' => [
+
+    ],
 ];

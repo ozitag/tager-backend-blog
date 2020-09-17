@@ -139,4 +139,22 @@ class TagerBlogConfig
     {
         return (string)config('tager-blog.url_templates.post', '/post/{alias}');
     }
+
+    /**
+     * @return array
+     */
+    public static function getPostAdditionalFields()
+    {
+        return config('tager-blog.post_additional_fields', []);
+    }
+
+    /**
+     * @param $field
+     * @return mixed|null
+     */
+    public static function getPostAdditionalField($field)
+    {
+        $fields = self::getPostAdditionalFields();
+        return $fields[$field] ?? null;
+    }
 }
