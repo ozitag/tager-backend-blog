@@ -46,12 +46,39 @@ class ModuleInfoFeature extends Feature
         return $fieldsResult;
     }
 
+    private function getShortcodes()
+    {
+        $config = TagerBlogConfig::getShortcodes();
+
+        $result = [];
+
+        foreach ($config as $code => $data) {
+            $params = isset($data['params']) && is_array($data['params']) ? $data['params'] : [];
+
+            $paramsFiltered = [];
+            foreach ($params as $id => $label) {
+                $paramsFiltered[] = [
+                    'name' => $id,
+                    'label' => $label
+                ];
+            }
+
+            $result[] = [
+                'shortcode' => $code,
+                'params' => $paramsFiltered
+            ];
+        }
+
+        return $result;
+    }
+
     public function handle(TagerBlogUrlHelper $urlHelper)
     {
         return new JsonResource([
             'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
             'languages' => $this->getLanguages(),
-            'fields' => $this->getFields()
+            'fields' => $this->getFields(),
+            'shortcodes' => $this->getShortcodes()
         ]);
     }
 }

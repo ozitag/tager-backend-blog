@@ -145,7 +145,15 @@ class TagerBlogConfig
      */
     public static function getPostAdditionalFields()
     {
-        return config('tager-blog.post_additional_fields', []);
+        return config('tager-blog.fields.post', []);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getShortcodes()
+    {
+        return config('tager-blog.shortcodes', []);
     }
 
     /**
