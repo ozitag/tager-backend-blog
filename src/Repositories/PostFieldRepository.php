@@ -22,4 +22,9 @@ class PostFieldRepository extends EloquentRepository implements IRepositoryWithP
     {
         return $this->model::query()->wherePostId($postId)->delete();
     }
+
+    public function getByPostIdAndField($postId, $field)
+    {
+        return $this->model::query()->wherePostId($postId)->whereField($field)->first();
+    }
 }
