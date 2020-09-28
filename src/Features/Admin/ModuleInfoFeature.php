@@ -64,7 +64,7 @@ class ModuleInfoFeature extends Feature
             }
 
             $result[] = [
-                'shortcode' => $code,
+                'name' => $code,
                 'params' => $paramsFiltered
             ];
         }
