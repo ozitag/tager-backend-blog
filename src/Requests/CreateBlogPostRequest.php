@@ -26,7 +26,7 @@ class CreateBlogPostRequest extends CrudFormRequest
             'title' => 'required|string',
             'excerpt' => 'string|nullable',
             'body' => 'required|string',
-            'date' => 'date',
+            'date' => 'nullable|date',
             'image' => ['nullable', 'numeric', new FileRule()],
             'coverImage' => ['nullable', 'numeric', new FileRule()],
             'status' => 'required|string',
