@@ -2,10 +2,11 @@
 
 namespace OZiTAG\Tager\Backend\Blog;
 
-use Illuminate\Support\ServiceProvider;
+use OZiTAG\Tager\Backend\Blog\Enums\BlogScope;
+use OZiTAG\Tager\Backend\Mail\Enums\MailScope;
 use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettingsServiceProvider;
-use OZiTAG\Tager\Backend\Blog\BlogPanelRouteHandler;
 use OZiTAG\Tager\Backend\Panel\TagerPanel;
+use OZiTAG\Tager\Backend\Rbac\TagerScopes;
 
 class BlogServiceProvider extends ModuleSettingsServiceProvider
 {
@@ -34,6 +35,16 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
 
         $this->publishes([
             __DIR__ . '/../config.php' => config_path('tager-blog.php'),
+        ]);
+
+        TagerScopes::registerGroup('Mail', [
+            BlogScope::Settings => 'Edit settings',
+            BlogScope::CategoriesEdit => 'Edit categories',
+            BlogScope::CategoriesCreate => 'Create categories',
+            BlogScope::CategoriesDelete => 'Delete categories',
+            BlogScope::PostsEdit => 'Edit posts',
+            BlogScope::PostsCreate => 'Create posts',
+            BlogScope::PostsDelete => 'Delete posts',
         ]);
 
         TagerPanel::registerRouteHandler('.*', BlogPanelRouteHandler::class);
