@@ -2,14 +2,15 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogTag;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
+use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
 
-class PostRepository extends EloquentRepository
+class PostRepository extends EloquentRepository implements ISearchable
 {
     public function __construct(BlogPost $model)
     {
@@ -107,5 +108,14 @@ class PostRepository extends EloquentRepository
             ->orWhere('body', 'LIKE', '%' . $searchQuery . '%');
 
         return $query->get();
+    }
+
+    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
+    {
+        $builder = $builder ? $builder : $this->model;
+
+        return $builder
+            ->orWhere('title', 'LIKE', '%' . $query . '%')
+            ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
     }
 }

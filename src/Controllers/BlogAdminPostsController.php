@@ -50,11 +50,11 @@ class BlogAdminPostsController extends AdminCrudController
             ],
 
             'tags' => 'tagsArray',
-            
+
             'additionalFields' => 'additionalFields'
         ]));
 
-        $this->setIndexAction((new IndexAction())->enablePagination());
+        $this->setIndexAction((new IndexAction())->enablePagination()->enableSearchByQuery());
 
         $this->setStoreAction(new StoreOrUpdateAction(CreateBlogPostRequest::class, CreatePostOperation::class));
 
