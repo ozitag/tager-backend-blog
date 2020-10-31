@@ -7,6 +7,7 @@ use OZiTAG\Tager\Backend\Blog\Operations\UpdatePostOperation;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
+use OZiTAG\Tager\Backend\Crud\Actions\IndexAction;
 use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
 
@@ -52,6 +53,8 @@ class BlogAdminPostsController extends AdminCrudController
             
             'additionalFields' => 'additionalFields'
         ]));
+
+        $this->setIndexAction((new IndexAction())->enablePagination());
 
         $this->setStoreAction(new StoreOrUpdateAction(CreateBlogPostRequest::class, CreatePostOperation::class));
 
