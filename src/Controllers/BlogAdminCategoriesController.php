@@ -3,6 +3,8 @@
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ListPostsByCategoryFeature;
+use OZiTAG\Tager\Backend\Crud\Actions\DeleteAction;
+use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
 use OZiTAG\Tager\Backend\Blog\Operations\CreateCategoryOperation;
 use OZiTAG\Tager\Backend\Blog\Operations\UpdateCategoryOperation;
@@ -36,11 +38,11 @@ class BlogAdminCategoriesController extends AdminCrudController
             'openGraphImage:file:model',
         ]));
 
-        $this->setStoreAction(CreateBlogCategoryRequest::class, CreateCategoryOperation::class);
+        $this->setStoreAction(new StoreOrUpdateAction(CreateBlogCategoryRequest::class, CreateCategoryOperation::class));
 
-        $this->setUpdateAction(UpdateBlogCategoryRequest::class, UpdateCategoryOperation::class);
+        $this->setUpdateAction(new StoreOrUpdateAction(UpdateBlogCategoryRequest::class, UpdateCategoryOperation::class));
 
-        $this->setDeleteAction(CheckIfCanDeleteCategoryJob::class);
+        $this->setDeleteAction(new DeleteAction(CheckIfCanDeleteCategoryJob::class));
 
         $this->setCacheNamespace('blog');
     }

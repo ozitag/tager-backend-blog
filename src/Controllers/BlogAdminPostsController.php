@@ -2,19 +2,13 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
-use OZiTAG\Tager\Backend\Blog\Features\Admin\ListPostsByCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Operations\CreatePostOperation;
 use OZiTAG\Tager\Backend\Blog\Operations\UpdatePostOperation;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
+use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
-use OZiTAG\Tager\Backend\Blog\Operations\CreateCategoryOperation;
-use OZiTAG\Tager\Backend\Blog\Operations\UpdateCategoryOperation;
-use OZiTAG\Tager\Backend\Blog\Jobs\CheckIfCanDeleteCategoryJob;
-use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
-use OZiTAG\Tager\Backend\Blog\Requests\CreateBlogCategoryRequest;
-use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 
 class BlogAdminPostsController extends AdminCrudController
 {
@@ -59,9 +53,9 @@ class BlogAdminPostsController extends AdminCrudController
             'additionalFields' => 'additionalFields'
         ]));
 
-        $this->setStoreAction(CreateBlogPostRequest::class, CreatePostOperation::class);
+        $this->setStoreAction(new StoreOrUpdateAction(CreateBlogPostRequest::class, CreatePostOperation::class));
 
-        $this->setUpdateAction(UpdateBlogPostRequest::class, UpdatePostOperation::class);
+        $this->setUpdateAction(new StoreOrUpdateAction(UpdateBlogPostRequest::class, UpdatePostOperation::class));
 
         $this->setCacheNamespace('blog');
     }
