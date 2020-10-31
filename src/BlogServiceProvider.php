@@ -37,7 +37,7 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
             __DIR__ . '/../config.php' => config_path('tager-blog.php'),
         ]);
 
-        TagerScopes::registerGroup('Mail', [
+        TagerScopes::registerGroup('Blog', [
             BlogScope::Settings => 'Edit settings',
             BlogScope::CategoriesEdit => 'Edit categories',
             BlogScope::CategoriesCreate => 'Create categories',
