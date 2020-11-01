@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
@@ -35,6 +36,15 @@ class BlogPost extends Model
         'open_graph_image_id',
         'language'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('date', 'desc');
+        });
+    }
 
     public function coverImage()
     {
@@ -89,11 +99,6 @@ class BlogPost extends Model
             'post_id',
             'tag_id'
         );
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('date', 'desc')->get();
     }
 
     public function getUrlAttribute()
