@@ -23,7 +23,7 @@ class PostRepository extends EloquentRepository implements ISearchable
             return [];
         }
 
-        return $this->model::query()->whereIn('id', $ids)->all();
+        return $this->model::query()->whereIn('id', $ids)->get();
     }
 
     /**
@@ -34,7 +34,7 @@ class PostRepository extends EloquentRepository implements ISearchable
      */
     public function getByLanguage($language, $offset = 0, $limit = null)
     {
-        return $this->model::query()->where('language', '=', $language)->skip($offset)->take($limit)->all();
+        return $this->model::query()->where('language', '=', $language)->skip($offset)->take($limit)->get();
     }
 
     /**
@@ -59,7 +59,7 @@ class PostRepository extends EloquentRepository implements ISearchable
      */
     public function all($offset = 0, $limit = null)
     {
-        return $this->model::query()->skip($offset)->take($limit)->all();
+        return $this->model::query()->skip($offset)->take($limit)->get();
     }
 
     public function getByAlias($alias, $language = null)
