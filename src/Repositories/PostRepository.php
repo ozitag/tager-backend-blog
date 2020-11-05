@@ -59,7 +59,13 @@ class PostRepository extends EloquentRepository implements ISearchable
      */
     public function all($offset = 0, $limit = null)
     {
-        return $this->model::query()->skip($offset)->take($limit)->get();
+        $query = $this->model::query();
+
+        if ($offset) $query->skip($offset);
+
+        if ($limit) $query->take($limit);
+
+        return $query->get();
     }
 
     public function getByAlias($alias, $language = null)
