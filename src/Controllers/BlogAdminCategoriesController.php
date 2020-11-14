@@ -44,7 +44,7 @@ class BlogAdminCategoriesController extends AdminCrudController
 
         $this->setDeleteAction(new DeleteAction(CheckIfCanDeleteCategoryJob::class));
 
-        $this->setCacheNamespace('blog');
+        $this->setCacheNamespace('tager/blog');
     }
 
     public function listPostsByCategory($id)

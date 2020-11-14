@@ -60,6 +60,6 @@ class BlogAdminPostsController extends AdminCrudController
 
         $this->setUpdateAction(new StoreOrUpdateAction(UpdateBlogPostRequest::class, UpdatePostOperation::class));
 
-        $this->setCacheNamespace('blog');
+        $this->setCacheNamespace('tager/blog');
     }
 }
