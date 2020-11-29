@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog;
 
+use Carbon\Carbon;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -54,7 +55,7 @@ class BlogSitemapHandler implements ISitemapHandler
         }
 
         foreach ($posts as $post) {
-            $result[] = new SitemapItem('/' . $post->url);
+            $result[] = new SitemapItem('/' . $post->url, new Carbon($post->updated_at));
         }
 
         return $result;
