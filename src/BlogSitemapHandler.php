@@ -51,11 +51,11 @@ class BlogSitemapHandler implements ISitemapHandler
         }
 
         foreach ($categories as $category) {
-            $result[] = new SitemapItem('/' . $category->url);
+            $result[] = new SitemapItem($category->url);
         }
 
         foreach ($posts as $post) {
-            $result[] = new SitemapItem('/' . $post->url, new Carbon($post->updated_at));
+            $result[] = new SitemapItem($post->url, new Carbon($post->updated_at));
         }
 
         return $result;
