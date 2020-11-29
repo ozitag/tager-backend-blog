@@ -95,4 +95,17 @@ class TagerBlogUrlHelper
 
         return $template;
     }
+
+    /**
+     * @param string|null $language
+     */
+    public function getHomeUrl($language = null)
+    {
+        $template = TagerBlogConfig::getPostHomeTemplate();
+        if (empty($template)) {
+            return null;
+        }
+
+        return $this->processLanguageTemplate($template, $language);
+    }
 }

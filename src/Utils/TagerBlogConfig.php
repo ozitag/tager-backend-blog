@@ -140,6 +140,11 @@ class TagerBlogConfig
         return (string)config('tager-blog.url_templates.post', '/post/{alias}');
     }
 
+    public static function getPostHomeTemplate()
+    {
+        return (string)config('tager-blog.url_templates.home', null);
+    }
+
     /**
      * @return array
      */

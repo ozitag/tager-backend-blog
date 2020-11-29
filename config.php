@@ -19,6 +19,7 @@ return [
         ]
     ],
     'url_templates' => [
+        'home' => '/blog/{language}',
         'category' => '/categories/{language}/{alias}',
     ],
     'validation' => [

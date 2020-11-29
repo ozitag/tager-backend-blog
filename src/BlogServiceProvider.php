@@ -7,6 +7,7 @@ use OZiTAG\Tager\Backend\Mail\Enums\MailScope;
 use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettingsServiceProvider;
 use OZiTAG\Tager\Backend\Panel\TagerPanel;
 use OZiTAG\Tager\Backend\Rbac\TagerScopes;
+use OZiTAG\Tager\Backend\Sitemap\TagerSitemap;
 
 class BlogServiceProvider extends ModuleSettingsServiceProvider
 {
@@ -48,5 +49,7 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
         ]);
 
         TagerPanel::registerRouteHandler('.*', BlogPanelRouteHandler::class);
+
+        TagerSitemap::registerHandler(BlogSitemapHandler::class);
     }
 }
