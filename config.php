@@ -19,8 +19,9 @@ return [
         ]
     ],
     'url_templates' => [
-        'home' => '/blog/{language}',
+        'index' => '/blog/{language}',
         'category' => '/categories/{language}/{alias}',
+        'post' => '/blog/{alias}',
     ],
     'validation' => [
         'allow_same_post_url_aliases_for_different_languages' => true

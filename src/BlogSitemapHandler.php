@@ -37,13 +37,13 @@ class BlogSitemapHandler implements ISitemapHandler
 
         $languages = TagerBlogConfig::getLanguageIds();
         if (empty($languages)) {
-            $homeUrl = $this->urlHelper->getHomeUrl();
+            $homeUrl = $this->urlHelper->getIndexUrl();
             if (!empty($homeUrl)) {
                 $result[] = new SitemapItem($homeUrl);
             }
         } else {
             foreach ($languages as $language) {
-                $homeUrl = $this->urlHelper->getHomeUrl($language);
+                $homeUrl = $this->urlHelper->getIndexUrl($language);
                 if (!empty($homeUrl)) {
                     $result[] = new SitemapItem($homeUrl);
                 }

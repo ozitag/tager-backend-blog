@@ -99,9 +99,9 @@ class TagerBlogUrlHelper
     /**
      * @param string|null $language
      */
-    public function getHomeUrl($language = null)
+    public function getIndexUrl($language = null)
     {
-        $template = TagerBlogConfig::getPostHomeTemplate();
+        $template = TagerBlogConfig::getPostIndexTemplate();
         if (empty($template)) {
             return null;
         }
