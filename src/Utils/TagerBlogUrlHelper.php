@@ -35,7 +35,11 @@ class TagerBlogUrlHelper
             if (!$hideFromUrl) {
                 $template = str_replace('{language}', $language, $template);
             } else {
-                $template = str_replace('{language}/', '', $template);
+                if (mb_strpos($template, '{language}/') !== false) {
+                    $template = str_replace('{language}/', '', $template);
+                } else {
+                    $template = str_replace('{language}', '', $template);
+                }
             }
         }
 
