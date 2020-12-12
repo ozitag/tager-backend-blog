@@ -103,7 +103,16 @@ class PostRepository extends EloquentRepository implements ISearchable
 
     public function search($searchQuery, $language = null, $offset = 0, $limit = null)
     {
-        $query = $this->model::query()->orderBy('date', 'desc')->skip($offset)->take($limit);
+        $query = $this->model::query()->orderBy('date', 'desc');
+
+        if ($offset !== null) {
+            $query->skip($offset);
+            $query->take(999999999);
+        }
+
+        if ($limit !== null) {
+            $query->take($limit);
+        }
 
         if ($language) {
             $query->where('language', '=', $language);
