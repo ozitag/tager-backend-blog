@@ -36,6 +36,12 @@ class SearchPostsFeature extends BaseFeature
     {
         $collection = $postRepository->search($this->query, $this->language, $this->offset, $this->limit);
 
-        return GuestPostResource::collection($collection);
+
+        $resourceClass = TagerBlogConfig::getShortResourceClass();
+        if (!empty($resourceClass)) {
+            return call_user_func($resourceClass . '::collection', $collection);
+        } else {
+            return GuestPostResource::collection($collection);
+        }
     }
 }

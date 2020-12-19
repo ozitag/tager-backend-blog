@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
@@ -32,6 +33,13 @@ class ListPostsByCategoryFeature extends Feature
             abort(404, 'Category Not Found');
         }
 
-        return GuestPostResource::collection($postRepository->findByCategoryId($model->id, $this->offset, $this->limit));
+        $collection = $postRepository->findByCategoryId($model->id, $this->offset, $this->limit);
+
+        $resourceClass = TagerBlogConfig::getShortResourceClass();
+        if (!empty($resourceClass)) {
+            return call_user_func($resourceClass . '::collection', $collection);
+        } else {
+            return GuestPostResource::collection($collection);
+        }
     }
 }

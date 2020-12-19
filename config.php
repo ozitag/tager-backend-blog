@@ -7,6 +7,10 @@ return [
         'post_image' => '',
         'open_graph' => ''
     ],
+
+    'short_resource_class' => '',
+    'full_resource_class' => '',
+
     'languages' => [
         [
             'id' => 'ru',

@@ -170,4 +170,20 @@ class TagerBlogConfig
         $fields = self::getPostAdditionalFields();
         return $fields[$field] ?? null;
     }
+
+    /**
+     * @return string
+     */
+    public static function getShortResourceClass()
+    {
+        return config('tager-blog.short_resource_class', null);
+    }
+
+    /**
+     * @return string
+     */
+    public static function getFullResourceClass()
+    {
+        return config('tager-blog.full_resource_class', null);
+    }
 }

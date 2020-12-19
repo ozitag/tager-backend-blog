@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
-use OZiTAG\Tager\Backend\Core\Features\Feature;
+use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestPostFullResource;
 
@@ -25,6 +25,12 @@ class ViewPostFeature extends BaseFeature
             abort(404, 'Post Not Found');
         }
 
-        return new GuestPostFullResource($model);
+
+        $resourceClass = TagerBlogConfig::getFullResourceClass();
+        if (!empty($resourceClass)) {
+            return new $resourceClass($model);
+        } else {
+            return new GuestPostFullResource($model);
+        }
     }
 }
