@@ -72,7 +72,7 @@ class ModuleInfoFeature extends Feature
         return $result;
     }
 
-    public function handle(TagerBlogUrlHelper $urlHelper)
+    public function handle()
     {
         return new JsonResource([
             'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
