@@ -78,7 +78,13 @@ class ModuleInfoFeature extends Feature
             'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
             'languages' => $this->getLanguages(),
             'fields' => $this->getFields(),
-            'shortcodes' => $this->getShortcodes()
+            'shortcodes' => $this->getShortcodes(),
+            'fileScenarios' => [
+                'cover' => TagerBlogConfig::getPostCoverScenario(),
+                'image' => TagerBlogConfig::getPostImageScenario(),
+                'content' => TagerBlogConfig::getPostContentScenario(),
+                'openGraph' => TagerBlogConfig::getOpenGraphScenario(),
+            ]
         ]);
     }
 }
