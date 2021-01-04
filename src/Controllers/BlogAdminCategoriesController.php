@@ -15,7 +15,7 @@ use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogCategoryRequest;
 
 class BlogAdminCategoriesController extends AdminCrudController
 {
-    public $hasMoveAction = true;
+    public bool $hasMoveAction = true;
 
     public function __construct(CategoryRepository $repository)
     {

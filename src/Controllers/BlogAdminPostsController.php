@@ -13,7 +13,7 @@ use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
 
 class BlogAdminPostsController extends AdminCrudController
 {
-    public $hasCountAction = true;
+    public bool $hasCountAction = true;
 
     public function __construct(PostRepository $repository)
     {
