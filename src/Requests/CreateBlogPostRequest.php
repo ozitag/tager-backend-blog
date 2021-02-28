@@ -27,13 +27,13 @@ class CreateBlogPostRequest extends CrudFormRequest
             'excerpt' => 'string|nullable',
             'body' => 'required|string',
             'date' => 'nullable|date',
-            'image' => ['nullable', 'numeric', new FileRule()],
-            'coverImage' => ['nullable', 'numeric', new FileRule()],
+            'image' => ['nullable', new FileRule()],
+            'coverImage' => ['nullable', new FileRule()],
             'status' => 'required|string',
 
             'pageTitle' => 'string|nullable',
             'pageDescription' => 'string|nullable',
-            'openGraphImage' => ['nullable', 'numeric', new FileRule()],
+            'openGraphImage' => ['nullable', new FileRule()],
 
             'categories' => 'array',
             'categories.*' => 'exists:' . BlogCategory::class . ',id,deleted_at,NULL',

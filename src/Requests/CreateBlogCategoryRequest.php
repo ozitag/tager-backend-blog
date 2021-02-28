@@ -22,7 +22,7 @@ class CreateBlogCategoryRequest extends CrudFormRequest
             'name' => 'required|string',
             'pageTitle' => 'string|nullable',
             'pageDescription' => 'string|nullable',
-            'openGraphImage' => ['nullable', 'numeric', new FileRule()],
+            'openGraphImage' => ['nullable', new FileRule()],
         ];
 
         if (TagerBlogConfig::isMultiLang()) {
