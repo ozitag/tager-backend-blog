@@ -39,12 +39,12 @@ class CreatePostOperation extends Operation
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'date' => $request->date,
-            'image_id' => $request->image,
-            'cover_image_id' => $request->coverImage,
+            'image_id' => Storage::fromUUIDtoId($request->image),
+            'cover_image_id' => Storage::fromUUIDtoId($request->coverImage),
             'status' => $request->status,
             'page_title' => $request->pageTitle,
             'page_description' => $request->pageDescription,
-            'open_graph_image_id' => $request->openGraphImage,
+            'open_graph_image_id' => Storage::fromUUIDtoId($request->openGraphImage),
             'language' => $request->language
         ]);
 

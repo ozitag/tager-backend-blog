@@ -9,10 +9,7 @@ use OZiTAG\Tager\Backend\Blog\Jobs\SetPostTagsJob;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Requests\UpdateBlogPostRequest;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Core\Features\Feature;
-use OZiTAG\Tager\Backend\Blog\Jobs\GetPostByIdJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostCategoriesJob;
-use OZiTAG\Tager\Backend\Blog\Resources\Admin\AdminPostResource;
 use OZiTAG\Tager\Backend\Core\Jobs\Operation;
 
 class UpdatePostOperation extends Operation
@@ -42,12 +39,12 @@ class UpdatePostOperation extends Operation
         $model->excerpt = $request->excerpt;
         $model->body = $request->body;
         $model->date = $request->date;
-        $model->image_id = $request->image;
-        $model->cover_image_id = $request->coverImage;
+        $model->image_id = Storage::fromUUIDtoId($request->image);
+        $model->cover_image_id = Storage::fromUUIDtoId($request->coverImage);
         $model->status = $request->status;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;
-        $model->open_graph_image_id = $request->openGraphImage;
+        $model->open_graph_image_id = Storage::fromUUIDtoId($request->openGraphImage);
         $model->save();
 
         $this->run(SetPostCategoriesJob::class, [
