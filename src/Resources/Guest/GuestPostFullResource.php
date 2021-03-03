@@ -34,7 +34,7 @@ class GuestPostFullResource extends GuestPostResource
                 }
             }
 
-            $fieldModel = FieldFactory::create($fieldData['type'], null, $fieldData['meta']);
+            $fieldModel = FieldFactory::create($fieldData['type'], null, $fieldData['meta'] ?? []);
             $type = $fieldModel->getTypeInstance();
             $type->loadValueFromDatabase($value);
 
