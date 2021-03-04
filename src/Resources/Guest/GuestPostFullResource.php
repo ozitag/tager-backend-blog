@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
@@ -9,10 +10,18 @@ class GuestPostFullResource extends GuestPostResource
 {
     public function getRelatedPostsJson()
     {
+        /** @var BlogPost $model */
+        $model = $this->resource;
+
         $result = [];
 
-        foreach ($this->relatedPosts as $relatedPost) {
-            $result[] = new GuestPostResource($relatedPost);
+        $resourceClass = TagerBlogConfig::getShortResourceClass();
+        foreach ($model->relatedPosts as $relatedPost) {
+            if (!empty($resourceClass)) {
+                $result[] = new $resourceClass($relatedPost);
+            } else {
+                $result[] = new GuestPostResource($relatedPost);
+            }
         }
 
         return $result;
