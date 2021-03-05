@@ -18,8 +18,6 @@ Route::group(['prefix' => 'tager/blog', 'middleware' => 'api.cache'], function (
     Route::get('/posts/view/{alias}', [GuestController::class, 'viewPost']);
     Route::get('/categories/{id}/posts', [GuestController::class, 'postsByCategory']);
     Route::get('/posts/search', [GuestController::class, 'searchPosts']);
-
-    Route::get('/seo-params', [GuestController::class, 'seoParams']);
 });
 
 Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrators', 'auth:api']], function () {
@@ -56,10 +54,5 @@ Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrator
         Route::delete('/posts/{id}', [BlogAdminPostsController::class, 'delete'])->middleware([
             AccessControlMiddleware::scopes(BlogScope::PostsDelete)
         ]);
-    });
-
-    Route::group(['middleware' => [AccessControlMiddleware::scopes(BlogScope::Settings)]], function () {
-        Route::get('/settings', [BlogAdminSettingsController::class, 'index']);
-        Route::post('/settings', [BlogAdminSettingsController::class, 'save']);
     });
 });

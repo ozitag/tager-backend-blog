@@ -3,35 +3,14 @@
 namespace OZiTAG\Tager\Backend\Blog\Utils;
 
 use Illuminate\Support\Facades\App;
-use OZiTAG\Tager\Backend\Blog\Fields\BlogModuleSettingField;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
 use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettings;
+use OZiTAG\Tager\Backend\Seo\TagerSeo;
 
 class TagerBlogSeoHelper
 {
-    private $moduleSettings;
-
-    public function __construct()
-    {
-        $this->moduleSettings = App::make(ModuleSettings::class);
-    }
-
-    private function apply($settingField, $templateParams, $default = null)
-    {
-        $template = $this->moduleSettings->getPublicValue('blog', $settingField, FieldType::String);
-        if (empty($template)) {
-            return $default;
-        }
-
-        foreach ($templateParams as $param => $value) {
-            $template = str_replace('{{' . $param . '}}', $value, $template);
-        }
-
-        return $template;
-    }
-
     /**
      * @param BlogCategory $category
      * @return string
@@ -42,10 +21,16 @@ class TagerBlogSeoHelper
             return $category->page_title;
         }
 
-        return $this->apply(BlogModuleSettingField::CategoryTitleTemplate, [
+        $params = [
             'id' => $category->id,
             'name' => $category->name
-        ], $category->name);
+        ];
+
+        if (TagerBlogConfig::isMultiLang()) {
+            return TagerSeo::getPageTitle('blog_category_' . $post->language, $params);
+        } else {
+            return TagerSeo::getPageTitle('blog_category', $params);
+        }
     }
 
     /**
@@ -58,10 +43,16 @@ class TagerBlogSeoHelper
             return $category->page_description;
         }
 
-        return $this->apply(BlogModuleSettingField::CategoryDescriptionTemplate, [
+        $params = [
             'id' => $category->id,
             'name' => $category->name
-        ]);
+        ];
+
+        if (TagerBlogConfig::isMultiLang()) {
+            return TagerSeo::getPageDescription('blog_category_' . $post->language, $params);
+        } else {
+            return TagerSeo::getPageDescription('blog_category', $params);
+        }
     }
 
     /**
@@ -74,12 +65,18 @@ class TagerBlogSeoHelper
             return $post->page_title;
         }
 
-        return $this->apply(BlogModuleSettingField::PostTitleTemplate, [
+        $params = [
             'id' => $post->id,
             'title' => $post->title,
             'excerpt' => $post->excerpt,
             'body' => $post->body
-        ], $post->title);
+        ];
+
+        if (TagerBlogConfig::isMultiLang()) {
+            return TagerSeo::getPageTitle('blog_post_' . $post->language, $params);
+        } else {
+            return TagerSeo::getPageTitle('blog_post', $params);
+        }
     }
 
     /**
@@ -92,11 +89,17 @@ class TagerBlogSeoHelper
             return $post->page_description;
         }
 
-        return $this->apply(BlogModuleSettingField::PostDescriptionTemplate, [
+        $params = [
             'id' => $post->id,
             'title' => $post->title,
             'excerpt' => $post->excerpt,
             'body' => $post->body
-        ], $post->excerpt);
+        ];
+
+        if (TagerBlogConfig::isMultiLang()) {
+            return TagerSeo::getPageDescription('blog_post_' . $post->language, $params);
+        } else {
+            return TagerSeo::getPageDescription('blog_post', $params);
+        }
     }
 }

@@ -3,7 +3,6 @@
 namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use OZiTAG\Tager\Backend\Blog\Fields\BlogModuleSettingField;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestPostResource;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -35,7 +34,6 @@ class SearchPostsFeature extends BaseFeature
     public function handle(PostRepository $postRepository)
     {
         $collection = $postRepository->search($this->query, $this->language, $this->offset, $this->limit);
-
 
         $resourceClass = TagerBlogConfig::getShortResourceClass();
         if (!empty($resourceClass)) {
