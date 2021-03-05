@@ -27,7 +27,7 @@ class TagerBlogSeoHelper
         ];
 
         if (TagerBlogConfig::isMultiLang()) {
-            return TagerSeo::getPageTitle('blog_category_' . $post->language, $params);
+            return TagerSeo::getPageTitle('blog_category_' . $category->language, $params);
         } else {
             return TagerSeo::getPageTitle('blog_category', $params);
         }
@@ -49,7 +49,7 @@ class TagerBlogSeoHelper
         ];
 
         if (TagerBlogConfig::isMultiLang()) {
-            return TagerSeo::getPageDescription('blog_category_' . $post->language, $params);
+            return TagerSeo::getPageDescription('blog_category_' . $category->language, $params);
         } else {
             return TagerSeo::getPageDescription('blog_category', $params);
         }
