@@ -53,7 +53,7 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
 
         TagerPanel::registerRouteHandler('.*', BlogPanelRouteHandler::class);
 
-        TagerSitemap::registerHandler(BlogSitemapHandler::class);
+        TagerSeo::registerSitemapHandler(BlogSitemapHandler::class);
         
         if (TagerBlogConfig::isMultiLang()) {
             foreach (TagerBlogConfig::getLanguageIds() as $languageId) {

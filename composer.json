@@ -19,7 +19,6 @@
     "ozitag/tager-backend-fields": "^1.1",
     "ozitag/tager-backend-utils": "^1.0",
     "ozitag/tager-backend-panel": "^1.0",
-    "ozitag/tager-backend-sitemap": "^1.0",
     "ozitag/tager-backend-rbac": "^1.0"
   },
   "autoload": {

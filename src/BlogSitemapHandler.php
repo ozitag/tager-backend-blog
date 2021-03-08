@@ -7,8 +7,8 @@ use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
-use OZiTAG\Tager\Backend\Sitemap\Contracts\ISitemapHandler;
-use OZiTAG\Tager\Backend\Sitemap\Structures\SitemapItem;
+use OZiTAG\Tager\Backend\Seo\Contracts\ISitemapHandler;
+use OZiTAG\Tager\Backend\Seo\Structures\SitemapItem;
 
 class BlogSitemapHandler implements ISitemapHandler
 {
