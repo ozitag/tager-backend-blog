@@ -9,13 +9,16 @@ use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
+use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
-class BlogPost extends Model
+class BlogPost extends TModel
 {
     use SoftDeletes;
 
     protected $table = 'tager_blog_posts';
+
+    static $defaultOrder = 'date desc';
 
     /**
      * The attributes that are mass assignable.
@@ -36,15 +39,6 @@ class BlogPost extends Model
         'open_graph_image_id',
         'language'
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('date', 'desc');
-        });
-    }
 
     public function coverImage()
     {

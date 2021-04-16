@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
+use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
 
-class BlogCategory extends Model implements IModelPriorityConditional
+class BlogCategory extends TModel implements IModelPriorityConditional
 {
     use SoftDeletes;
 
     public $timestamps = null;
 
     protected $table = 'tager_blog_categories';
+
+    static $defaultOrder = 'language asc, priority asc';
 
     /**
      * The attributes that are mass assignable.
@@ -32,16 +35,6 @@ class BlogCategory extends Model implements IModelPriorityConditional
         'priority',
         'language'
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('order', function (Builder $builder) {
-            $builder->orderBy('language', 'asc');
-            $builder->orderBy('priority', 'asc');
-        });
-    }
 
     public function openGraphImage()
     {
