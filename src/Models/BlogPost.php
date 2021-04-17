@@ -2,17 +2,16 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
+use OZiTAG\Tager\Backend\Core\Models\Contracts\IPublicWebModel;
 use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
-class BlogPost extends TModel
+class BlogPost extends TModel implements IPublicWebModel
 {
     use SoftDeletes;
 
@@ -94,20 +93,16 @@ class BlogPost extends TModel
             'tag_id'
         );
     }
-
-    public function getUrlAttribute()
+    
+    protected static function boot()
     {
-        return (new TagerBlogUrlHelper())->getPostUrl($this);
-    }
+        parent::boot();
 
-    public function getPublicPageTitleAttribute()
-    {
-        return (new TagerBlogSeoHelper())->getPostTitle($this);
-    }
-
-    public function getPublicPageDescriptionAttribute()
-    {
-        return (new TagerBlogSeoHelper())->getPostDescription($this);
+        static::deleted(function (self $post) {
+            $post->image()->delete();
+            $post->coverImage()->delete();
+            $post->openGraphImage()->delete();
+        });
     }
 
     public function getTagsArrayAttribute()
@@ -139,5 +134,37 @@ class BlogPost extends TModel
         }
 
         return $result;
+    }
+
+    public function getWebPageUrl(): string
+    {
+        return (new TagerBlogUrlHelper())->getPostUrl($this);
+    }
+
+    public function getWebPageTitle(): string
+    {
+        return (new TagerBlogSeoHelper())->getPostTitle($this);
+    }
+
+    public function getWebPageDescription(): ?string
+    {
+        return (new TagerBlogSeoHelper())->getPostDescription($this);
+    }
+
+    public function getWebOpenGraphImageUrl(): ?string
+    {
+        return $this->openGraphImage ? $this->openGraphImage->getUrl() : (
+        $this->image ? $this->image->getUrl() : null
+        );
+    }
+
+    public function getPanelType(): ?string
+    {
+        return __('tager-blog::panel.post');
+    }
+
+    public function getPanelTitle(): ?string
+    {
+        return $this->title;
     }
 }

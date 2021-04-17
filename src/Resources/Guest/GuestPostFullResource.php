@@ -56,12 +56,15 @@ class GuestPostFullResource extends GuestPostResource
 
     public function toArray($request)
     {
+        /** @var BlogPost $model */
+        $model = $this->resource;
+
         return array_merge(parent::toArray($request), [
-            'image' => $this->image ? $this->image->getFullJson() : null,
-            'body' => $this->body,
-            'pageTitle' => $this->publicPageTitle,
-            'pageDescription' => $this->publicPageDescription,
-            'openGraphImage' => $this->openGraphImage ? $this->openGraphImage->getFullJson() : null,
+            'image' => $model->image ? $model->image->getFullJson() : null,
+            'body' => $model->body,
+            'pageTitle' => $model->getWebPageTitle(),
+            'pageDescription' => $model->getWebPageDescription(),
+            'openGraphImage' => $model->getWebOpenGraphImageUrl(),
             'relatedPosts' => $this->getRelatedPostsJson(),
             'tags' => $this->tagsArray,
             'additionalFields' => $this->getAdditionalFields()

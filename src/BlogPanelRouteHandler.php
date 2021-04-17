@@ -53,8 +53,8 @@ class BlogPanelRouteHandler implements IRouteHandler
     {
         $result = new TagerRouteHandlerResult();
 
-        $result->setModel('Post', $post->title);
-        $result->addAction('Edit Post', '/blog/posts/' . $post->id);
+        $result->setModel($post->getPanelType(), $post->getPanelTitle());
+        $result->addAction(__('tager-blog::panel.post_edit'), '/blog/posts/' . $post->id);
 
         return $result;
     }
@@ -84,9 +84,8 @@ class BlogPanelRouteHandler implements IRouteHandler
     {
         $result = new TagerRouteHandlerResult();
 
-        $result->setModel('Category', $category->name);
-        $result->addAction('Edit Category', '/blog/categories/' . $category->id);
-        $result->addAction('Category Posts', '/blog/posts?category=' . $category->id);
+        $result->setModel($category->getPanelType(), $category->getPanelTitle());
+        $result->addAction(__('tager-blog::panel.category_edit'), '/blog/categories/' . $category->id);
 
         return $result;
     }

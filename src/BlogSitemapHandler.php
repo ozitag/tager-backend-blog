@@ -3,6 +3,8 @@
 namespace OZiTAG\Tager\Backend\Blog;
 
 use Carbon\Carbon;
+use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
@@ -30,7 +32,10 @@ class BlogSitemapHandler implements ISitemapHandler
 
     public function handle()
     {
+        /** @var BlogCategory[] $categories */
         $categories = $this->categoryRepository->all();
+
+        /** @var BlogPost[] $posts */
         $posts = $this->postRepository->all();
 
         $result = [];
@@ -51,11 +56,11 @@ class BlogSitemapHandler implements ISitemapHandler
         }
 
         foreach ($categories as $category) {
-            $result[] = new SitemapItem($category->url);
+            $result[] = new SitemapItem($category->getWebPageUrl());
         }
 
         foreach ($posts as $post) {
-            $result[] = new SitemapItem($post->url, new Carbon($post->updated_at));
+            $result[] = new SitemapItem($post->getWebPageUrl(), new Carbon($post->updated_at));
         }
 
         return $result;

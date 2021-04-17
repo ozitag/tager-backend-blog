@@ -2,16 +2,15 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
+use OZiTAG\Tager\Backend\Core\Models\Contracts\IPublicWebModel;
 use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
 
-class BlogCategory extends TModel implements IModelPriorityConditional
+class BlogCategory extends TModel implements IModelPriorityConditional, IPublicWebModel
 {
     use SoftDeletes;
 
@@ -41,6 +40,15 @@ class BlogCategory extends TModel implements IModelPriorityConditional
         return $this->belongsTo(File::class, 'open_graph_image_id');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleted(function (self $category) {
+            $category->openGraphImage()->delete();
+        });
+    }
+
     public function posts()
     {
         return $this->belongsToMany(
@@ -49,11 +57,6 @@ class BlogCategory extends TModel implements IModelPriorityConditional
             'category_id',
             'post_id'
         );
-    }
-
-    public function getUrlAttribute()
-    {
-        return (new TagerBlogUrlHelper())->getCategoryUrl($this);
     }
 
     public function getPostsCountAttribute()
@@ -68,13 +71,33 @@ class BlogCategory extends TModel implements IModelPriorityConditional
         ];
     }
 
-    public function getPublicPageTitleAttribute()
+    public function getWebPageUrl(): string
+    {
+        return (new TagerBlogUrlHelper())->getCategoryUrl($this);
+    }
+
+    public function getWebPageTitle(): string
     {
         return (new TagerBlogSeoHelper())->getCategoryTitle($this);
     }
 
-    public function getPublicPageDescriptionAttribute()
+    public function getWebPageDescription(): ?string
     {
         return (new TagerBlogSeoHelper())->getCategoryDescription($this);
+    }
+
+    public function getWebOpenGraphImageUrl(): ?string
+    {
+        return $this->openGraphImage ? $this->openGraphImage->getFullJson() : null;
+    }
+
+    public function getPanelType(): ?string
+    {
+        return __('tager-blog::panel.category');
+    }
+
+    public function getPanelTitle(): ?string
+    {
+        return $this->name;
     }
 }
