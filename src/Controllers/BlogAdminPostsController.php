@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
+use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Operations\CreatePostOperation;
 use OZiTAG\Tager\Backend\Blog\Operations\UpdatePostOperation;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostRepository;
@@ -20,7 +21,11 @@ class BlogAdminPostsController extends AdminCrudController
         parent::__construct($repository);
 
         $fields = [
-            'id', 'language', 'title', 'url', 'date', 'status', 'excerpt',
+            'id', 'language', 'title',
+            'url' => function (BlogPost $blogPost) {
+                return $blogPost->getWebPageUrl();
+            },
+            'date', 'status', 'excerpt',
             'image' => 'coverImage:file:url',
             'categories' => [
                 'relation' => 'categories',

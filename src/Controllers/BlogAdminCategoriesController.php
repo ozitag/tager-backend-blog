@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ListPostsByCategoryFeature;
+use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Crud\Actions\DeleteAction;
 use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
@@ -22,7 +23,10 @@ class BlogAdminCategoriesController extends AdminCrudController
         parent::__construct($repository);
 
         $fields = [
-            'id', 'name', 'url', 'language',
+            'id', 'name',
+            'url' => function (BlogCategory $category) {
+                return $category->getWebPageUrl();
+            }, 'language',
             'postsCount'
         ];
 
