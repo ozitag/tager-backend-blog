@@ -42,7 +42,7 @@ class SetPostAdditionalFieldsJob extends Job
             $fieldConfig = TagerBlogConfig::getPostAdditionalField($fieldName);
             if (!$fieldConfig) continue;
 
-            $fieldModel = FieldFactory::create($fieldConfig['type'], null, $fieldConfig['meta'] ?? []);
+            $fieldModel = FieldFactory::create($fieldConfig['type'], '', $fieldConfig['meta'] ?? []);
             $type = $fieldModel->getTypeInstance();
             $type->setValue($field['value']);
 
