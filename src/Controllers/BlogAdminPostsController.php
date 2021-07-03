@@ -36,8 +36,8 @@ class BlogAdminPostsController extends AdminCrudController
         $this->setResourceFields($fields);
 
         $this->setFullResourceFields(array_merge($fields, [
-            'urlTemplate' => function ($model) {
-                return str_replace($model->url_alias, '{alias}', $model->url);
+            'urlTemplate' => function (BlogPost $model) {
+                return str_replace($model->url_alias, '{alias}', $model->getWebPageUrl());
             },
             'urlAlias' => 'url_alias',
 

@@ -11,6 +11,27 @@ use OZiTAG\Tager\Backend\Core\Models\Contracts\IPublicWebModel;
 use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Fields\FieldFactory;
 
+/**
+ * Class BlogPost
+ * @package OZiTAG\Tager\Backend\Blog\Models
+ *
+ * @property string $title
+ * @property string $url_alias
+ * @property string $excerpt
+ * @property string $body
+ * @property string $date
+ * @property integer $cover_image_id
+ * @property integer $image_id
+ * @property string $status
+ * @property string $page_title
+ * @property string $page_description
+ * @property integer $open_graph_image_id
+ * @property string $language
+ *
+ * @property File $image
+ * @property File $coverImage
+ * @property File $openGraphImage
+ */
 class BlogPost extends TModel implements IPublicWebModel
 {
     use SoftDeletes;

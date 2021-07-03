@@ -10,6 +10,20 @@ use OZiTAG\Tager\Backend\Core\Models\Contracts\IPublicWebModel;
 use OZiTAG\Tager\Backend\Core\Models\TModel;
 use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
 
+/**
+ * Class BlogCategory
+ * @package OZiTAG\Tager\Backend\Blog\Models
+ *
+ * @property string $url_alias
+ * @property string $name
+ * @property string $page_title
+ * @property string $page_description
+ * @property string $open_graph_image_id
+ * @property integer $priority
+ * @property string $language
+ *
+ * @property File $openGraphImage
+ */
 class BlogCategory extends TModel implements IModelPriorityConditional, IPublicWebModel
 {
     use SoftDeletes;
