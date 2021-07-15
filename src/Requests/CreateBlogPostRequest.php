@@ -52,6 +52,15 @@ class CreateBlogPostRequest extends CrudFormRequest
             $result['language'] = 'required|string|in:' . implode(',', TagerBlogConfig::getLanguageIds());
         }
 
+        $language = TagerBlogConfig::isMultiLang() ? $this->language : 'NULL';
+
+        $uniqueUrlAliasRule = 'unique:tager_blog_posts,url_alias,' . $this->route('id', 0) . ',id,deleted_at,NULL';
+        if (TagerBlogConfig::isMultiLang() && TagerBlogConfig::isAllowSamePostUrlAliasesForDifferentLanguages()) {
+            $uniqueUrlAliasRule .= ',language,' . $language;
+        }
+
+        $result['urlAlias'] = ['required', 'string', $uniqueUrlAliasRule];
+
         return $result;
     }
 }

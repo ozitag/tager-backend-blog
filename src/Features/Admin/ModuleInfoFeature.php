@@ -75,6 +75,8 @@ class ModuleInfoFeature extends Feature
     public function handle()
     {
         return new JsonResource([
+            'urlCategoryTemplate' => config('app.url') . TagerBlogConfig::getCategoryUrlTemplate(),
+            'urlPostTemplate' => config('app.url')  . TagerBlogConfig::getPostUrlTemplate(),
             'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
             'languages' => $this->getLanguages(),
             'fields' => $this->getFields(),

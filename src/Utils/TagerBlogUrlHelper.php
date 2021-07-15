@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Utils;
 
+use Illuminate\Support\Facades\URL;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 

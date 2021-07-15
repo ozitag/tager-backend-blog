@@ -28,14 +28,9 @@ class CreatePostOperation extends Operation
     {
         $request = $this->request;
 
-        $alias = $this->run(GetPostUrlAliasJob::class, [
-            'name' => $request->title,
-            'language' => $request->language
-        ]);
-
         $model = $postRepository->create([
             'title' => $request->title,
-            'url_alias' => $alias,
+            'url_alias' => $request->urlAlias,
             'excerpt' => $request->excerpt,
             'body' => $request->body,
             'date' => $request->date,
