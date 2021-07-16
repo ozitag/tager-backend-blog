@@ -35,6 +35,7 @@ class CreateCategoryOperation extends Operation
 
         $fields = [
             'name' => $request->name,
+            'is_default' => $request->isDefault,
             'url_alias' => $alias,
             'page_title' => $request->pageTitle,
             'page_description' => $request->pageDescription,

@@ -24,9 +24,11 @@ class ModuleInfoFeature extends Feature
         foreach ($languages as $language => $label) {
             $languagesResult[] = [
                 'id' => $language,
-                'name' => $label
+                'name' => $label,
+                'defaultCategories' => []
             ];
         }
+
         return $languagesResult;
     }
 
@@ -72,7 +74,23 @@ class ModuleInfoFeature extends Feature
         return $result;
     }
 
-    public function handle()
+    private function getDefaultCategories(CategoryRepository $categoryRepository)
+    {
+        $categories = $categoryRepository->builder()->where('is_default', '=', true)->get();
+
+        $result = [];
+        foreach ($categories as $category) {
+            $result[] = [
+                'id' => $category->id,
+                'name' => $category->name,
+                'language' => $category->language,
+            ];
+        }
+
+        return $result;
+    }
+
+    public function handle(CategoryRepository $categoryRepository)
     {
         return new JsonResource([
             'urlCategoryTemplate' => config('app.url') . TagerBlogConfig::getCategoryUrlTemplate(),
@@ -80,6 +98,7 @@ class ModuleInfoFeature extends Feature
             'languages' => $this->getLanguages(),
             'fields' => $this->getFields(),
             'shortcodes' => $this->getShortcodes(),
+            'defaultCategories' => $this->getDefaultCategories($categoryRepository),
             'fileScenarios' => [
                 'cover' => TagerBlogConfig::getPostCoverScenario(),
                 'image' => TagerBlogConfig::getPostImageScenario(),

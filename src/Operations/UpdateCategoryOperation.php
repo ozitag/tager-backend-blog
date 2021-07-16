@@ -37,12 +37,19 @@ class UpdateCategoryOperation extends Operation
         }
 
         $model->name = $request->name;
+        $model->is_default = $request->isDefault;
         $model->url_alias = $request->urlAlias;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;
         $model->open_graph_image_id = $request->openGraphImage;
         $model->priority = $priority;
-        $model->language = $request->language;
+
+        if (TagerBlogConfig::isMultiLang()) {
+            $model->language = $request->language;
+        } else {
+            $model->language = null;
+        }
+
         $model->save();
 
         return $model;

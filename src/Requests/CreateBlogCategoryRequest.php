@@ -20,6 +20,7 @@ class CreateBlogCategoryRequest extends CrudFormRequest
     {
         $result = [
             'name' => 'required|string',
+            'isDefault' => 'required|boolean',
             'pageTitle' => 'string|nullable',
             'pageDescription' => 'string|nullable',
             'openGraphImage' => ['nullable', new FileRule()],

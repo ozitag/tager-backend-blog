@@ -33,6 +33,7 @@ class BlogAdminCategoriesController extends AdminCrudController
         $this->setResourceFields($fields);
 
         $this->setFullResourceFields(array_merge($fields, [
+            'isDefault' => 'is_default:boolean',
             'urlTemplate' => function (BlogCategory $model) {
                 return str_replace($model->url_alias, '{alias}', $model->getWebPageUrl());
             },

@@ -48,6 +48,7 @@ class BlogPost extends TModel implements IPublicWebModel
      * @var array
      */
     protected $fillable = [
+        'is_boolean',
         'title',
         'url_alias',
         'excerpt',

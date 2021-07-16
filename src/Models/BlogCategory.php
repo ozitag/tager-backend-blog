@@ -14,6 +14,7 @@ use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
  * Class BlogCategory
  * @package OZiTAG\Tager\Backend\Blog\Models
  *
+ * @property bool $is_default
  * @property string $url_alias
  * @property string $name
  * @property string $page_title
@@ -40,6 +41,7 @@ class BlogCategory extends TModel implements IModelPriorityConditional, IPublicW
      * @var array
      */
     protected $fillable = [
+        'is_default',
         'url_alias',
         'name',
         'page_title',
