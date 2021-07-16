@@ -41,7 +41,7 @@ class UpdatePostOperation extends Operation
         $model->date = $request->date;
         $model->cover_image_id = Storage::fromUUIDtoId($request->coverImage);
         $model->image_id = Storage::fromUUIDtoId($request->image);
-        $model->image_mobile_id = Storage::fromUUIDtoId($request->imageMobile);
+        $model->mobile_image_id = Storage::fromUUIDtoId($request->imageMobile);
         $model->status = $request->status;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;

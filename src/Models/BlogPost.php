@@ -22,7 +22,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property string $date
  * @property integer $cover_image_id
  * @property integer $image_id
- * @property integer $image_mobile_id
+ * @property integer $mobile_image_id
  * @property string $status
  * @property string $page_title
  * @property string $page_description
@@ -55,7 +55,7 @@ class BlogPost extends TModel implements IPublicWebModel
         'date',
         'cover_image_id',
         'image_id',
-        'image_mobile_id',
+        'mobile_image_id',
         'status',
         'page_title',
         'page_description',
@@ -75,7 +75,7 @@ class BlogPost extends TModel implements IPublicWebModel
 
     public function imageMobile()
     {
-        return $this->belongsTo(File::class, 'image_mobile_id');
+        return $this->belongsTo(File::class, 'mobile_image_id');
     }
 
     public function openGraphImage()
