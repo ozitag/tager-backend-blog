@@ -22,6 +22,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property string $date
  * @property integer $cover_image_id
  * @property integer $image_id
+ * @property integer $image_mobile_id
  * @property string $status
  * @property string $page_title
  * @property string $page_description
@@ -29,6 +30,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property string $language
  *
  * @property File $image
+ * @property File $imageMobile
  * @property File $coverImage
  * @property File $openGraphImage
  */
@@ -53,6 +55,7 @@ class BlogPost extends TModel implements IPublicWebModel
         'date',
         'cover_image_id',
         'image_id',
+        'image_mobile_id',
         'status',
         'page_title',
         'page_description',
@@ -68,6 +71,11 @@ class BlogPost extends TModel implements IPublicWebModel
     public function image()
     {
         return $this->belongsTo(File::class, 'image_id');
+    }
+
+    public function imageMobile()
+    {
+        return $this->belongsTo(File::class, 'image_mobile_id');
     }
 
     public function openGraphImage()
@@ -114,7 +122,7 @@ class BlogPost extends TModel implements IPublicWebModel
             'tag_id'
         );
     }
-    
+
     protected static function boot()
     {
         parent::boot();
@@ -175,7 +183,11 @@ class BlogPost extends TModel implements IPublicWebModel
     public function getWebOpenGraphImageUrl(): ?string
     {
         return $this->openGraphImage ? $this->openGraphImage->getUrl() : (
-        $this->image ? $this->image->getUrl() : null
+            $this->image ? $this->image->getUrl() : (
+                $this->coverImage ? $this->coverImage->getUrl() : (
+                    $this->imageMobile ? $this->imageMobile->getUrl() : null
+                )
+            )
         );
     }
 

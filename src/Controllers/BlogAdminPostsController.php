@@ -42,8 +42,9 @@ class BlogAdminPostsController extends AdminCrudController
             'urlAlias' => 'url_alias',
 
             'body',
-            'image:file:model',
             'coverImage:file:model',
+            'image:file:model',
+            'imageMobile:file:model',
 
             'pageTitle' => 'page_title',
             'pageDescription' => 'page_description',

@@ -39,8 +39,9 @@ class UpdatePostOperation extends Operation
         $model->excerpt = $request->excerpt;
         $model->body = $request->body;
         $model->date = $request->date;
-        $model->image_id = Storage::fromUUIDtoId($request->image);
         $model->cover_image_id = Storage::fromUUIDtoId($request->coverImage);
+        $model->image_id = Storage::fromUUIDtoId($request->image);
+        $model->image_mobile_id = Storage::fromUUIDtoId($request->imageMobile);
         $model->status = $request->status;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;
@@ -56,12 +57,11 @@ class UpdatePostOperation extends Operation
             'post' => $model,
             'relatedPostIds' => $request->relatedPosts
         ]);
-        
+
         $this->run(SetPostTagsJob::class, [
             'post' => $model,
             'tags' => $request->tags
         ]);
-
 
         $this->run(SetPostAdditionalFieldsJob::class, [
             'post' => $model,

@@ -76,14 +76,14 @@ class ModuleInfoFeature extends Feature
     {
         return new JsonResource([
             'urlCategoryTemplate' => config('app.url') . TagerBlogConfig::getCategoryUrlTemplate(),
-            'urlPostTemplate' => config('app.url')  . TagerBlogConfig::getPostUrlTemplate(),
-            'postContentImageScenario' => TagerBlogConfig::getPostContentScenario(),
+            'urlPostTemplate' => config('app.url') . TagerBlogConfig::getPostUrlTemplate(),
             'languages' => $this->getLanguages(),
             'fields' => $this->getFields(),
             'shortcodes' => $this->getShortcodes(),
             'fileScenarios' => [
                 'cover' => TagerBlogConfig::getPostCoverScenario(),
                 'image' => TagerBlogConfig::getPostImageScenario(),
+                'imageMobile' => TagerBlogConfig::getPostImageMobileScenario(),
                 'content' => TagerBlogConfig::getPostContentScenario(),
                 'openGraph' => TagerBlogConfig::getOpenGraphScenario(),
             ]

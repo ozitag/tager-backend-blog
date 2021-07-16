@@ -16,6 +16,7 @@ class CreateBlogPostRequest extends CrudFormRequest
         return [
             'openGraphImage' => TagerBlogConfig::getOpenGraphScenario(),
             'image' => TagerBlogConfig::getPostImageScenario(),
+            'imageMobile' => TagerBlogConfig::getPostImageMobileScenario(),
             'coverImage' => TagerBlogConfig::getPostCoverScenario()
         ];
     }
@@ -27,8 +28,9 @@ class CreateBlogPostRequest extends CrudFormRequest
             'excerpt' => 'string|nullable',
             'body' => 'required|string',
             'date' => 'nullable|date',
-            'image' => ['nullable', new FileRule()],
             'coverImage' => ['nullable', new FileRule()],
+            'image' => ['nullable', new FileRule()],
+            'imageMobile' => ['nullable', new FileRule()],
             'status' => 'required|string',
 
             'pageTitle' => 'string|nullable',

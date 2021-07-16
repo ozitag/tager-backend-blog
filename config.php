@@ -5,6 +5,7 @@ return [
         'post_content' => '',
         'post_cover' => '',
         'post_image' => '',
+        'post_image_mobile' => '',
         'open_graph' => ''
     ],
 

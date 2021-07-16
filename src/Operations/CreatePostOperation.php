@@ -35,6 +35,7 @@ class CreatePostOperation extends Operation
             'body' => $request->body,
             'date' => $request->date,
             'image_id' => Storage::fromUUIDtoId($request->image),
+            'image_mobile_id' => Storage::fromUUIDtoId($request->imageMobile),
             'cover_image_id' => Storage::fromUUIDtoId($request->coverImage),
             'status' => $request->status,
             'page_title' => $request->pageTitle,

@@ -61,6 +61,7 @@ class GuestPostFullResource extends GuestPostResource
 
         return array_merge(parent::toArray($request), [
             'image' => $model->image ? $model->image->getFullJson() : null,
+            'imageMobile' => $model->imageMobile ? $model->imageMobile->getFullJson() : null,
             'body' => $model->body,
             'pageTitle' => $model->getWebPageTitle(),
             'pageDescription' => $model->getWebPageDescription(),

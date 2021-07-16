@@ -24,6 +24,11 @@ class TagerBlogConfig
         return self::getStorageScenario('post_image');
     }
 
+    public static function getPostImageMobileScenario()
+    {
+        return self::getStorageScenario('post_image_mobile');
+    }
+
     public static function getPostContentScenario()
     {
         return self::getStorageScenario('post_content');
