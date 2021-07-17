@@ -27,7 +27,8 @@ class BlogAdminCategoriesController extends AdminCrudController
             'url' => function (BlogCategory $category) {
                 return $category->getWebPageUrl();
             }, 'language',
-            'postsCount'
+            'postsCount',
+            'isDefault' => 'is_default:boolean',
         ];
 
         $this->setResourceFields($fields);
