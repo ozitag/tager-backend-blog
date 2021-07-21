@@ -2,8 +2,11 @@
 
 namespace OZiTAG\Tager\Backend\Blog;
 
+use OZiTAG\Tager\Backend\Blog\Console\FlushBlogUpdateFileScenariosCommand;
 use OZiTAG\Tager\Backend\Blog\Enums\BlogScope;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
+use OZiTAG\Tager\Backend\Mail\Console\FlushMailTemplatesCommand;
+use OZiTAG\Tager\Backend\Mail\Console\ResendSkipMailCommand;
 use OZiTAG\Tager\Backend\Mail\Enums\MailScope;
 use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettingsServiceProvider;
 use OZiTAG\Tager\Backend\Panel\TagerPanel;
@@ -42,6 +45,12 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
             __DIR__ . '/../config.php' => config_path('tager-blog.php'),
         ]);
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                FlushBlogUpdateFileScenariosCommand::class
+            ]);
+        }
+        
         TagerScopes::registerGroup(__('tager-blog::scopes.group'), [
             BlogScope::CategoriesEdit => __('tager-blog::scopes.edit_categories'),
             BlogScope::CategoriesCreate => __('tager-blog::scopes.create_categories'),
