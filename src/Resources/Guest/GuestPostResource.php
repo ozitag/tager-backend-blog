@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use OZiTAG\Tager\Backend\Files\Enums\TagerFileThumbnail;
 
 class GuestPostResource extends JsonResource
 {
@@ -29,7 +30,7 @@ class GuestPostResource extends JsonResource
             'title' => $this->title,
             'date' => $this->date,
             'excerpt' => $this->excerpt,
-            'coverImage' => $this->coverImage ? $this->coverImage->getFullJson() : null,
+            'coverImage' => $this->coverImage ? $this->coverImage->getFullJson(null, false, true, [TagerFileThumbnail::AdminList, TagerFileThumbnail::AdminView]) : null,
             'categories' => $this->getCategoriesJson(),
         ];
     }
