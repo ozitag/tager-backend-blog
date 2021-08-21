@@ -2,13 +2,16 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
+use OZiTAG\Tager\Backend\Core\Repositories\IFilterable;
+use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
 use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryWithPriorityMethods;
 use OZiTAG\Tager\Backend\Crud\Traits\RepositoryPriorityMethodsTrait;
 
-class CategoryRepository extends EloquentRepository implements IRepositoryWithPriorityMethods
+class CategoryRepository extends EloquentRepository implements IRepositoryWithPriorityMethods, ISearchable, IFilterable
 {
     use RepositoryPriorityMethodsTrait;
 
@@ -40,5 +43,22 @@ class CategoryRepository extends EloquentRepository implements IRepositoryWithPr
         }
 
         return $query->first();
+    }
+
+    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
+    {
+        $builder = $builder ? $builder : $this->model;
+
+        return $builder->orWhere('name', 'LIKE', '%' . $query . '%');
+    }
+
+    public function filterByKey(Builder $builder, string $key, mixed $value): Builder
+    {
+        switch ($key) {
+            case 'language':
+                return $builder->whereIn('language', explode(',', $value));
+            default:
+                return $builder;
+        }
     }
 }

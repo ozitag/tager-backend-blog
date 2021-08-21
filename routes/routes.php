@@ -27,7 +27,6 @@ Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrator
         Route::get('/categories', [BlogAdminCategoriesController::class, 'index']);
         Route::get('/categories/{id}', [BlogAdminCategoriesController::class, 'view']);
         Route::post('/categories/move/{id}/{direction}', [BlogAdminCategoriesController::class, 'move'])->where('direction', 'up|down');
-        Route::get('/categories/{id}/posts', [BlogAdminCategoriesController::class, 'listPostsByCategory']);
 
         Route::post('/categories', [BlogAdminCategoriesController::class, 'store'])->middleware([
             AccessControlMiddleware::scopes(BlogScope::CategoriesCreate)

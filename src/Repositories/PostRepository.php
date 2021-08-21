@@ -4,13 +4,15 @@ namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogTag;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
+use OZiTAG\Tager\Backend\Core\Repositories\IFilterable;
 use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
 
-class PostRepository extends EloquentRepository implements ISearchable
+class PostRepository extends EloquentRepository implements ISearchable, IFilterable
 {
     public function __construct(BlogPost $model)
     {
@@ -132,5 +134,23 @@ class PostRepository extends EloquentRepository implements ISearchable
         return $builder
             ->orWhere('title', 'LIKE', '%' . $query . '%')
             ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
+    }
+    
+    public function filterByKey(Builder $builder, string $key, mixed $value): Builder
+    {
+        switch ($key) {
+            case 'language':
+                return $builder->whereIn('language', explode(',', $value));
+            case 'category':
+                return $builder
+                    ->join('tager_blog_post_categories', 'tager_blog_post_categories.post_id', '=', 'tager_blog_posts.id')
+                    ->whereIn('tager_blog_post_categories.category_id', explode(',', $value));
+            case 'from-date':
+                return $builder->where('date', '>=', $value);
+            case 'to-date':
+                return $builder->where('date', '<=', $value);
+            default:
+                return $builder;
+        }
     }
 }

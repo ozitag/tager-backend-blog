@@ -52,9 +52,4 @@ class BlogAdminCategoriesController extends AdminCrudController
 
         $this->setCacheNamespace('tager/blog');
     }
-
-    public function listPostsByCategory($id)
-    {
-        return $this->serve(ListPostsByCategoryFeature::class, ['id' => $id]);
-    }
 }
