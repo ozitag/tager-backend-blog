@@ -24,7 +24,7 @@ class FlushBlogUpdateFileScenariosCommand extends Command
      * @var string
      */
     protected $description = 'Flush blog';
-
+    
     public function handle(PostRepository $repository, Storage $fileStorage)
     {
         /** @var BlogPost[] $posts */
