@@ -24,7 +24,7 @@ class CreatePostOperation extends Operation
         $this->request = $request;
     }
 
-    public function handle(PostRepository $postRepository, Storage $fileStorage)
+    public function handle(PostRepository $postRepository)
     {
         $request = $this->request;
 

@@ -14,7 +14,10 @@ class GuestCategoryFullResource extends GuestCategoryResource
         return array_merge(parent::toArray($request), [
             'pageTitle' => $model->getWebPageTitle(),
             'pageDescription' => $model->getWebPageDescription(),
-            'openGraphImage' => $model->getWebOpenGraphImageUrl()
+            'openGraphImage' => $model->getWebOpenGraphImageUrl(),
+            'children' => $model->children->map(function(BlogCategory $category){
+                return new GuestCategoryResource($category);
+            })
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Kalnoy\Nestedset\NodeTrait;
 use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
@@ -20,20 +21,21 @@ use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
  * @property string $page_title
  * @property string $page_description
  * @property string $open_graph_image_id
- * @property integer $priority
  * @property string $language
  *
  * @property File $openGraphImage
  */
-class BlogCategory extends TModel implements IModelPriorityConditional, IPublicWebModel
+class BlogCategory extends TModel implements IPublicWebModel
 {
+    use NodeTrait;
+
     use SoftDeletes;
 
     public $timestamps = null;
 
     protected $table = 'tager_blog_categories';
 
-    static $defaultOrder = 'language asc, priority asc';
+    static $defaultOrder = 'language asc';
 
     /**
      * The attributes that are mass assignable.
@@ -41,19 +43,29 @@ class BlogCategory extends TModel implements IModelPriorityConditional, IPublicW
      * @var array
      */
     protected $fillable = [
+        'parent_id',
         'is_default',
         'url_alias',
         'name',
         'page_title',
         'page_description',
         'open_graph_image_id',
-        'priority',
         'language'
     ];
 
     public function openGraphImage()
     {
         return $this->belongsTo(File::class, 'open_graph_image_id');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(self::class);
+    }
+
+    public function children()
+    {
+        return $this->hasMany(self::class, 'parent_id');
     }
 
     protected static function boot()
@@ -75,16 +87,20 @@ class BlogCategory extends TModel implements IModelPriorityConditional, IPublicW
         );
     }
 
-    public function getPostsCountAttribute()
+    private function recPostsCount(self $category): int
     {
-        return $this->posts->count();
+        $result = $category->posts->count();
+
+        foreach ($category->children as $child) {
+            $result = $result + $this->recPostsCount($child);
+        }
+
+        return $result;
     }
 
-    public function getPriorityConditionalAttributes()
+    public function getPostsCountAttribute()
     {
-        return [
-            'language'
-        ];
+        return $this->recPostsCount($this);
     }
 
     public function getWebPageUrl(): string

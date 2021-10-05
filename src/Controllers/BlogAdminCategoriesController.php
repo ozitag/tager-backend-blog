@@ -5,6 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Controllers;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ListPostsByCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Crud\Actions\DeleteAction;
+use OZiTAG\Tager\Backend\Crud\Actions\IndexAction;
 use OZiTAG\Tager\Backend\Crud\Actions\StoreOrUpdateAction;
 use OZiTAG\Tager\Backend\Crud\Controllers\AdminCrudController;
 use OZiTAG\Tager\Backend\Blog\Operations\CreateCategoryOperation;
@@ -22,8 +23,19 @@ class BlogAdminCategoriesController extends AdminCrudController
     {
         parent::__construct($repository);
 
+        $this->setIndexAction((new IndexAction())->enableTree());
+
         $fields = [
-            'id', 'name',
+            'id',
+            'depth',
+            'parent' => [
+                'relation' => 'parent',
+                'as' => [
+                    'id',
+                    'name'
+                ]
+            ],
+            'name',
             'url' => function (BlogCategory $category) {
                 return $category->getWebPageUrl();
             }, 'language',

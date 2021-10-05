@@ -89,6 +89,16 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         return $model->posts()->skip($offset)->take($limit)->orderBy('date', 'desc')->get();
     }
 
+    public function findByCategoryIds(array $ids, $offset = 0, $limit = null)
+    {
+        $query = $this->model::query()->skip($offset)->take($limit);
+
+        $query->join('tager_blog_post_categories', 'post_id', '=', 'tager_blog_posts.id');
+        $query->whereIn('tager_blog_post_categories.category_id', $ids);
+
+        return $query->orderBy('date', 'desc')->get();
+    }
+
     public function getByTag(BlogTag $tag, $language = null, $offset = 0, $limit = null)
     {
         $query = $this->model::query()->skip($offset)->take($limit);
@@ -135,7 +145,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
             ->orWhere('title', 'LIKE', '%' . $query . '%')
             ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
     }
-    
+
     public function filterByKey(Builder $builder, string $key, mixed $value): Builder
     {
         switch ($key) {

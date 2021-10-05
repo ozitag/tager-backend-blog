@@ -8,13 +8,12 @@ use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Core\Repositories\IFilterable;
 use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
+use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryCrudTreeRepository;
 use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryWithPriorityMethods;
 use OZiTAG\Tager\Backend\Crud\Traits\RepositoryPriorityMethodsTrait;
 
-class CategoryRepository extends EloquentRepository implements IRepositoryWithPriorityMethods, ISearchable, IFilterable
+class CategoryRepository extends EloquentRepository implements IRepositoryCrudTreeRepository, ISearchable, IFilterable
 {
-    use RepositoryPriorityMethodsTrait;
-
     public function __construct(BlogCategory $model)
     {
         parent::__construct($model);
@@ -36,6 +35,17 @@ class CategoryRepository extends EloquentRepository implements IRepositoryWithPr
      */
     public function getByAlias($alias, $language = null)
     {
+        $alias = preg_replace('#\/+$#si', '', $alias);
+        if (empty($alias)) {
+            $alias = '/';
+        }
+
+        if (mb_substr($alias, 0, 1) !== '/') {
+            $alias = '/' . $alias;
+        }
+
+        $alias = mb_substr($alias, 1);
+
         $query = $this->model::query()->whereUrlAlias($alias);
 
         if ($language) {

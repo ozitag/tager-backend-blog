@@ -4,7 +4,6 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Admin;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use Ozerich\FileStorage\Storage;
-use OZiTAG\Tager\Backend\Blog\Jobs\GetPriorityForNewCategoryJob;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 use OZiTAG\Tager\Backend\Core\Features\Feature;

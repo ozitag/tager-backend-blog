@@ -29,20 +29,13 @@ class UpdateCategoryOperation extends Operation
         $model = $this->model;
         $request = $this->request;
 
-        $priority = $model->priority;
-        if (TagerBlogConfig::isMultiLang() && $model->language != $request->language) {
-            $priority = $this->run(GetPriorityForNewCategoryJob::class, [
-                'language' => $request->language
-            ]);
-        }
-
         $model->name = $request->name;
+        $model->parent_id = $request->parent;
         $model->is_default = $request->isDefault;
         $model->url_alias = $request->urlAlias;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;
         $model->open_graph_image_id = $request->openGraphImage;
-        $model->priority = $priority;
 
         if (TagerBlogConfig::isMultiLang()) {
             $model->language = $request->language;
