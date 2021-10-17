@@ -47,6 +47,9 @@ Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrator
         Route::post('/posts', [BlogAdminPostsController::class, 'store'])->middleware([
             AccessControlMiddleware::scopes(BlogScope::PostsCreate)
         ]);
+        Route::post('/posts/{id}/clone', [BlogAdminPostsController::class, 'clone'])->middleware([
+            AccessControlMiddleware::scopes(BlogScope::PostsCreate)
+        ]);
         Route::put('/posts/{id}', [BlogAdminPostsController::class, 'update'])->middleware([
             AccessControlMiddleware::scopes(BlogScope::PostsEdit)
         ]);

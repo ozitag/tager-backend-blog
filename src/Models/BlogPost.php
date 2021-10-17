@@ -33,6 +33,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property File $imageMobile
  * @property File $coverImage
  * @property File $openGraphImage
+ * @property BlogPostField[] $fields
  */
 class BlogPost extends TModel implements IPublicWebModel
 {

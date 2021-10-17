@@ -4,6 +4,10 @@ namespace OZiTAG\Tager\Backend\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $tag_id
+ * @property int $post_id
+ */
 class BlogPostTag extends Model
 {
     public $timestamps = false;
