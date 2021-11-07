@@ -98,6 +98,13 @@ class TagerBlogUrlHelper
         $template = str_replace('{id}', $post->id, $template);
         $template = str_replace('{alias}', $post->url_alias, $template);
 
+        if (strpos($template, '{category}') !== null) {
+            $category = $post->categories()->first();
+            if ($category) {
+                $template = str_replace('{category}', $category->url_alias, $template);
+            }
+        }
+
         return $template;
     }
 
