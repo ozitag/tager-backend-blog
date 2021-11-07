@@ -11,6 +11,7 @@ use OZiTAG\Tager\Backend\Core\Jobs\Job;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
 use OZiTAG\Tager\Backend\Blog\Repositories\PostCategoryRepository;
+use OZiTAG\Tager\Backend\Utils\Helpers\Translit;
 
 class SetPostTagsJob extends Job
 {
@@ -41,7 +42,8 @@ class SetPostTagsJob extends Job
         if (!$model) {
             $this->tagRepository->reset();
             $model = $this->tagRepository->fillAndSave([
-                'tag' => $tag
+                'tag' => $tag,
+                'url_alias' => Translit::translit($tag)
             ]);
         }
 

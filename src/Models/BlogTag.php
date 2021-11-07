@@ -8,6 +8,10 @@ use Ozerich\FileStorage\Models\File;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
+/**
+ * @property string $tag
+ * @property string $url_alias
+ */
 class BlogTag extends Model
 {
     public $timestamps = false;
@@ -20,6 +24,6 @@ class BlogTag extends Model
      * @var array
      */
     protected $fillable = [
-        'tag'
+        'tag', 'url_alias'
     ];
 }
