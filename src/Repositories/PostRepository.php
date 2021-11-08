@@ -158,9 +158,9 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
                     ->join('tager_blog_post_categories', 'tager_blog_post_categories.post_id', '=', 'tager_blog_posts.id')
                     ->whereIn('tager_blog_post_categories.category_id', explode(',', $value));
             case 'from-date':
-                return $builder->where('date', '>=', $value);
+                return $builder->where('datetime', '>=', $value);
             case 'to-date':
-                return $builder->where('date', '<=', $value);
+                return $builder->where('datetime', '<=', $value);
             default:
                 return $builder;
         }
