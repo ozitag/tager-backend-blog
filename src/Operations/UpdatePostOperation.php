@@ -38,7 +38,7 @@ class UpdatePostOperation extends Operation
         $model->url_alias = $request->urlAlias;
         $model->excerpt = $request->excerpt;
         $model->body = $request->body;
-        $model->date = $request->date;
+        $model->datetime = $request->datetime;
         $model->cover_image_id = Storage::fromUUIDtoId($request->coverImage);
         $model->image_id = Storage::fromUUIDtoId($request->image);
         $model->mobile_image_id = Storage::fromUUIDtoId($request->imageMobile);

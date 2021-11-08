@@ -33,7 +33,7 @@ class CreatePostOperation extends Operation
             'url_alias' => $request->urlAlias,
             'excerpt' => $request->excerpt,
             'body' => $request->body,
-            'date' => $request->date,
+            'datetime' => $request->datetime,
             'image_id' => Storage::fromUUIDtoId($request->image),
             'mobile_image_id' => Storage::fromUUIDtoId($request->imageMobile),
             'cover_image_id' => Storage::fromUUIDtoId($request->coverImage),

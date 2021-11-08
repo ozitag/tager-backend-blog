@@ -151,6 +151,8 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         switch ($key) {
             case 'language':
                 return $builder->whereIn('language', explode(',', $value));
+            case 'status':
+                return $builder->whereIn('status', explode(',', $value));
             case 'category':
                 return $builder
                     ->join('tager_blog_post_categories', 'tager_blog_post_categories.post_id', '=', 'tager_blog_posts.id')

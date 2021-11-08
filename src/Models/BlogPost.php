@@ -19,7 +19,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property string $url_alias
  * @property string $excerpt
  * @property string $body
- * @property string $date
+ * @property string $datetime
  * @property integer $cover_image_id
  * @property integer $image_id
  * @property integer $mobile_image_id
@@ -41,7 +41,7 @@ class BlogPost extends TModel implements IPublicWebModel
 
     protected $table = 'tager_blog_posts';
 
-    static $defaultOrder = 'date desc';
+    static $defaultOrder = 'datetime desc';
 
     /**
      * The attributes that are mass assignable.
@@ -54,7 +54,7 @@ class BlogPost extends TModel implements IPublicWebModel
         'url_alias',
         'excerpt',
         'body',
-        'date',
+        'datetime',
         'cover_image_id',
         'image_id',
         'mobile_image_id',
