@@ -5,6 +5,7 @@ namespace OZiTAG\Tager\Backend\Blog\Repositories;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use OZiTAG\Tager\Backend\Blog\Enums\BlogPostStatus;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogTag;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
@@ -19,31 +20,34 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         parent::__construct($model);
     }
 
-    public function getByIds($ids)
+    public function queryPublished(): Builder
     {
-        if (empty($ids)) {
-            return [];
-        }
-
-        return $this->model::query()->whereIn('id', $ids)->get();
+        return $this->builder()->where('status', BlogPostStatus::Published);
     }
 
-    /**
-     * @param $language
-     * @param integer $offset
-     * @param integer $limit
-     * @return Collection
-     */
-    public function getByLanguage($language, $offset = 0, $limit = null)
+    public function queryByIds(array $ids): Builder
     {
-        return $this->model::query()->where('language', '=', $language)->skip($offset)->take($limit)->get();
+        return $this->queryPublished()->whereIn('id', $ids);
     }
 
-    /**
-     * @param null $language
-     * @return int
-     */
-    public function getPostsCount($language = null)
+    public function getByIds(array $ids): Collection
+    {
+        return $this->queryByIds($ids)->get();
+    }
+
+    public function queryByLanguage(string $language, int $offset = 0, ?int $limit = null): Builder
+    {
+        return $this->queryPublished()
+            ->where('language', '=', $language)
+            ->skip($offset)->take($limit);
+    }
+
+    public function getByLanguage(string $language, int $offset = 0, ?int $limit = null): Collection
+    {
+        return $this->queryByLanguage($language, $offset, $limit)->get();
+    }
+
+    public function getPostsCount(?string $language = null): int
     {
         $query = $this->model::query();
 
@@ -54,14 +58,9 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         return $query->count();
     }
 
-    /**
-     * Returns all the records.
-     *
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public function all($offset = 0, $limit = null)
+    public function all(int $offset = 0, ?int $limit = null): Collection
     {
-        $query = $this->model::query();
+        $query = $this->queryPublished();
 
         if ($offset) $query->skip($offset);
 
@@ -70,52 +69,74 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         return $query->get();
     }
 
-    public function getByAlias($alias, $language = null)
+    public function queryByAlias(string $alias, ?string $language = null): Builder
     {
-        $query = $this->model::query()->whereUrlAlias($alias);
+        $query = $this->queryPublished()->whereUrlAlias($alias);
 
         if ($language) {
             $query->whereLanguage($language);
         }
 
-        return $query->first();
+        return $query;
     }
 
-    public function findByCategoryId($id, $offset = 0, $limit = null)
+    public function getByAlias($alias, $language = null): BlogPost
     {
-        $repository = new CategoryRepository(new BlogCategory());
-        $model = $repository->find($id);
-
-        return $model->posts()->skip($offset)->take($limit)->orderBy('date', 'desc')->get();
+        return $this->queryByAlias($alias, $language)->first();
     }
 
-    public function findByCategoryIds(array $ids, $offset = 0, $limit = null)
+    public function queryByCategoryId(int $id, int $offset, ?int $limit): Builder
     {
-        $query = $this->model::query()->skip($offset)->take($limit);
+        $query = $this->queryPublished()->skip($offset)->take($limit);
+
+        $query->join('tager_blog_post_categories', 'post_id', '=', 'tager_blog_posts.id');
+        $query->where('tager_blog_post_categories.category_id', $id);
+
+        return $query->orderBy('date', 'desc');
+    }
+
+    public function findByCategoryId(int $id, int $offset = 0, ?int $limit = null): Collection
+    {
+        return $this->queryByCategoryId($id, $offset, $limit)->get();
+    }
+
+    public function queryByCategoryIds(array $ids, int $offset, ?int $limit): Builder
+    {
+        $query = $this->queryPublished()->skip($offset)->take($limit);
 
         $query->join('tager_blog_post_categories', 'post_id', '=', 'tager_blog_posts.id');
         $query->whereIn('tager_blog_post_categories.category_id', $ids);
 
-        return $query->orderBy('date', 'desc')->get();
+        return $query->orderBy('date', 'desc');
     }
 
-    public function getByTag(BlogTag $tag, $language = null, $offset = 0, $limit = null)
+    public function findByCategoryIds(array $ids, $offset = 0, $limit = null): Collection
     {
-        $query = $this->model::query()->skip($offset)->take($limit);
+        return $this->queryByCategoryIds($ids, $offset, $limit)->get();
+    }
+
+    public function queryByTag(int $tagId, ?string $language = null, int $offset = 0, ?int $limit = null): Builder
+    {
+        $query = $this->queryPublished()->skip($offset)->take($limit);
 
         if ($language) {
             $query->whereLanguage($language);
         }
 
         $query->join('tager_blog_post_tags', 'post_id', '=', 'tager_blog_posts.id');
-        $query->where('tager_blog_post_tags.tag_id', '=', $tag->id);
+        $query->where('tager_blog_post_tags.tag_id', '=', $tagId);
 
-        return $query->get();
+        return $query;
     }
 
-    public function search($searchQuery, $language = null, $offset = 0, $limit = null)
+    public function getByTag(BlogTag $tag, $language = null, $offset = 0, $limit = null): Collection
     {
-        $query = $this->model::query()->orderBy('date', 'desc');
+        return $this->queryByTag($tag->id, $language, $offset, $limit)->get();
+    }
+
+    public function search($searchQuery, $language = null, $offset = 0, $limit = null): Collection
+    {
+        $query = $this->queryPublished()->orderBy('date', 'desc');
 
         if ($offset !== null) {
             $query->skip($offset);
