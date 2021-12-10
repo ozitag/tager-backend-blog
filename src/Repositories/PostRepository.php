@@ -92,7 +92,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         $query->join('tager_blog_post_categories', 'post_id', '=', 'tager_blog_posts.id');
         $query->where('tager_blog_post_categories.category_id', $id);
 
-        return $query->orderBy('date', 'desc');
+        return $query->orderBy('datetime', 'desc');
     }
 
     public function findByCategoryId(int $id, int $offset = 0, ?int $limit = null): Collection
@@ -107,7 +107,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         $query->join('tager_blog_post_categories', 'post_id', '=', 'tager_blog_posts.id');
         $query->whereIn('tager_blog_post_categories.category_id', $ids);
 
-        return $query->orderBy('date', 'desc');
+        return $query->orderBy('datetime', 'desc');
     }
 
     public function findByCategoryIds(array $ids, $offset = 0, $limit = null): Collection
@@ -136,7 +136,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
 
     public function search($searchQuery, $language = null, $offset = 0, $limit = null): Collection
     {
-        $query = $this->queryPublished()->orderBy('date', 'desc');
+        $query = $this->queryPublished()->orderBy('datetime', 'desc');
 
         if ($offset !== null) {
             $query->skip($offset);
