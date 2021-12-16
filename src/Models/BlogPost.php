@@ -24,6 +24,8 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * @property integer $image_id
  * @property integer $mobile_image_id
  * @property string $status
+ * @property string $archive_at
+ * @property string $publish_at
  * @property string $page_title
  * @property string $page_description
  * @property integer $open_graph_image_id
@@ -58,7 +60,7 @@ class BlogPost extends TModel implements IPublicWebModel
         'cover_image_id',
         'image_id',
         'mobile_image_id',
-        'status',
+        'status', 'archive_at', 'publish_at',
         'page_title',
         'page_description',
         'open_graph_image_id',

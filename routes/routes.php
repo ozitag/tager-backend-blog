@@ -23,38 +23,38 @@ Route::group(['prefix' => 'tager/blog', 'middleware' => 'api.cache'], function (
 Route::group(['prefix' => 'admin/blog', 'middleware' => ['passport:administrators', 'auth:api']], function () {
     Route::get('/module-info', [BlogAdminController::class, 'moduleInfo']);
 
-    Route::group(['middleware' => [AccessControlMiddleware::scopes(BlogScope::CategoriesEdit)]], function () {
+    Route::group(['middleware' => [AccessControlMiddleware::scopes(BlogScope::CategoriesEdit->value)]], function () {
         Route::get('/categories', [BlogAdminCategoriesController::class, 'index']);
         Route::get('/categories/{id}', [BlogAdminCategoriesController::class, 'view']);
         Route::post('/categories/move/{id}/{direction}', [BlogAdminCategoriesController::class, 'move'])->where('direction', 'up|down');
 
         Route::post('/categories', [BlogAdminCategoriesController::class, 'store'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::CategoriesCreate)
+            AccessControlMiddleware::scopes(BlogScope::CategoriesCreate->value)
         ]);
         Route::put('/categories/{id}', [BlogAdminCategoriesController::class, 'update'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::CategoriesEdit)
+            AccessControlMiddleware::scopes(BlogScope::CategoriesEdit->value)
         ]);
         Route::delete('/categories/{id}', [BlogAdminCategoriesController::class, 'delete'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::CategoriesDelete)
+            AccessControlMiddleware::scopes(BlogScope::CategoriesDelete->value)
         ]);
     });
 
-    Route::group(['middleware' => [AccessControlMiddleware::scopes(BlogScope::PostsEdit)]], function () {
+    Route::group(['middleware' => [AccessControlMiddleware::scopes(BlogScope::PostsEdit->value)]], function () {
         Route::get('/posts/count', [BlogAdminPostsController::class, 'count']);
         Route::get('/posts', [BlogAdminPostsController::class, 'index']);
         Route::get('/posts/{id}', [BlogAdminPostsController::class, 'view']);
 
         Route::post('/posts', [BlogAdminPostsController::class, 'store'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::PostsCreate)
+            AccessControlMiddleware::scopes(BlogScope::PostsCreate->value)
         ]);
         Route::post('/posts/{id}/clone', [BlogAdminPostsController::class, 'clone'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::PostsCreate)
+            AccessControlMiddleware::scopes(BlogScope::PostsCreate->value)
         ]);
         Route::put('/posts/{id}', [BlogAdminPostsController::class, 'update'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::PostsEdit)
+            AccessControlMiddleware::scopes(BlogScope::PostsEdit->value)
         ]);
         Route::delete('/posts/{id}', [BlogAdminPostsController::class, 'delete'])->middleware([
-            AccessControlMiddleware::scopes(BlogScope::PostsDelete)
+            AccessControlMiddleware::scopes(BlogScope::PostsDelete->value)
         ]);
     });
 });

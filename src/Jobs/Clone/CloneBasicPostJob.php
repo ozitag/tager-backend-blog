@@ -31,6 +31,8 @@ class CloneBasicPostJob extends Job
         $newPost->body = $this->model->body;
         $newPost->datetime = $this->model->datetime;
         $newPost->status = $this->model->status;
+        $newPost->archive_at = $this->model->archive_at;
+        $newPost->publish_at = $this->model->publish_at;
         $newPost->page_title = $this->model->page_title;
         $newPost->page_description = $this->model->page_description;
         $newPost->language = $this->model->language;

@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog\Operations;
 
 use Ozerich\FileStorage\Storage;
+use OZiTAG\Tager\Backend\Blog\Enums\BlogPostStatus;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostAdditionalFieldsJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostRelatedPostsJob;
 use OZiTAG\Tager\Backend\Blog\Jobs\SetPostTagsJob;
@@ -41,7 +42,9 @@ class CreatePostOperation extends Operation
             'page_title' => $request->pageTitle,
             'page_description' => $request->pageDescription,
             'open_graph_image_id' => Storage::fromUUIDtoId($request->openGraphImage),
-            'language' => $request->language
+            'language' => $request->language,
+            'publish_at' => $request->status == BlogPostStatus::Draft ? $request->publishAt : null,
+            'archive_at' => $request->status == BlogPostStatus::Published ? $request->archiveAt : null,
         ]);
 
         $this->run(SetPostCategoriesJob::class, [

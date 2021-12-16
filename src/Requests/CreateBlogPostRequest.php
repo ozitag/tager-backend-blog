@@ -33,6 +33,9 @@ class CreateBlogPostRequest extends CrudFormRequest
             'imageMobile' => ['nullable', new FileRule()],
             'status' => 'required|string',
 
+            'publish_at' => 'nullable|datetime',
+            'archive_at' => 'nullable|datetime',
+
             'pageTitle' => 'string|nullable',
             'pageDescription' => 'string|nullable',
             'openGraphImage' => ['nullable', new FileRule()],

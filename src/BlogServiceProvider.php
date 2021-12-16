@@ -3,6 +3,7 @@
 namespace OZiTAG\Tager\Backend\Blog;
 
 use OZiTAG\Tager\Backend\Blog\Console\FlushBlogUpdateFileScenariosCommand;
+use OZiTAG\Tager\Backend\Blog\Console\UpdateTagerBlogPostStatusesCommand;
 use OZiTAG\Tager\Backend\Blog\Enums\BlogScope;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Mail\Console\FlushMailTemplatesCommand;
@@ -45,19 +46,24 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
             __DIR__ . '/../config.php' => config_path('tager-blog.php'),
         ]);
 
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            $schedule->command('cron:tager-blog:update-post-statuses')->everyMinute();
+        });
+
         if ($this->app->runningInConsole()) {
             $this->commands([
-                FlushBlogUpdateFileScenariosCommand::class
+                FlushBlogUpdateFileScenariosCommand::class,
+                UpdateTagerBlogPostStatusesCommand::class,
             ]);
         }
-        
+
         TagerScopes::registerGroup(__('tager-blog::scopes.group'), [
-            BlogScope::CategoriesEdit => __('tager-blog::scopes.edit_categories'),
-            BlogScope::CategoriesCreate => __('tager-blog::scopes.create_categories'),
-            BlogScope::CategoriesDelete => __('tager-blog::scopes.delete_categories'),
-            BlogScope::PostsEdit => __('tager-blog::scopes.edit_posts'),
-            BlogScope::PostsCreate => __('tager-blog::scopes.create_posts'),
-            BlogScope::PostsDelete => __('tager-blog::scopes.delete_posts'),
+            BlogScope::CategoriesEdit->value => __('tager-blog::scopes.edit_categories'),
+            BlogScope::CategoriesCreate->value => __('tager-blog::scopes.create_categories'),
+            BlogScope::CategoriesDelete->value => __('tager-blog::scopes.delete_categories'),
+            BlogScope::PostsEdit->value => __('tager-blog::scopes.edit_posts'),
+            BlogScope::PostsCreate->value => __('tager-blog::scopes.create_posts'),
+            BlogScope::PostsDelete->value => __('tager-blog::scopes.delete_posts'),
         ]);
 
         TagerPanel::registerRouteHandler('.*', BlogPanelRouteHandler::class);

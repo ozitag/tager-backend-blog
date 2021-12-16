@@ -20,9 +20,24 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         parent::__construct($model);
     }
 
+    private function queryByStatus(BlogPostStatus $blogPostStatus): Builder
+    {
+        return $this->builder()->where('status', $blogPostStatus->value);
+    }
+
     public function queryPublished(): Builder
     {
-        return $this->builder()->where('status', BlogPostStatus::Published);
+        return $this->queryByStatus(BlogPostStatus::Published);
+    }
+
+    public function queryArchived(): Builder
+    {
+        return $this->queryByStatus(BlogPostStatus::Archived);
+    }
+
+    public function queryDraft(): Builder
+    {
+        return $this->queryByStatus(BlogPostStatus::Draft);
     }
 
     public function queryByIds(array $ids): Builder
