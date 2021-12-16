@@ -44,8 +44,8 @@ class UpdatePostOperation extends Operation
         $model->image_id = Storage::fromUUIDtoId($request->image);
         $model->mobile_image_id = Storage::fromUUIDtoId($request->imageMobile);
         $model->status = $request->status;
-        $model->publish_at = $request->status == BlogPostStatus::Draft ? $request->publishAt : null;
-        $model->archive_at = $request->status == BlogPostStatus::Published ? $request->archiveAt : null;
+        $model->publish_at = $request->status == BlogPostStatus::Draft->value ? $request->publishAt : null;
+        $model->archive_at = $request->status == BlogPostStatus::Published->value ? $request->archiveAt : null;
         $model->page_title = $request->pageTitle;
         $model->page_description = $request->pageDescription;
         $model->open_graph_image_id = Storage::fromUUIDtoId($request->openGraphImage);

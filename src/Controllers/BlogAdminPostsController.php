@@ -28,8 +28,8 @@ class BlogAdminPostsController extends AdminCrudController
             'url' => function (BlogPost $blogPost) {
                 return $blogPost->getWebPageUrl();
             },
-            'datetime',
-            'status', 'publishAt' => 'publish_at:datetime','archiveAt:datetime',
+            'datetime:datetime',
+            'status', 'publishAt' => 'publish_at:datetime', 'archiveAt' => 'archive_at:datetime',
             'excerpt',
             'image' => 'coverImage:file:url',
             'categories' => [
