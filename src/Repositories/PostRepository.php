@@ -95,7 +95,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         return $query;
     }
 
-    public function getByAlias($alias, $language = null): BlogPost
+    public function getByAlias($alias, $language = null): ?BlogPost
     {
         return $this->queryByAlias($alias, $language)->first();
     }
