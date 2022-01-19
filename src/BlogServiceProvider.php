@@ -2,19 +2,16 @@
 
 namespace OZiTAG\Tager\Backend\Blog;
 
+use Illuminate\Console\Scheduling\Schedule;
 use OZiTAG\Tager\Backend\Blog\Console\FlushBlogUpdateFileScenariosCommand;
 use OZiTAG\Tager\Backend\Blog\Console\UpdateTagerBlogPostStatusesCommand;
 use OZiTAG\Tager\Backend\Blog\Enums\BlogScope;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
-use OZiTAG\Tager\Backend\Mail\Console\FlushMailTemplatesCommand;
-use OZiTAG\Tager\Backend\Mail\Console\ResendSkipMailCommand;
-use OZiTAG\Tager\Backend\Mail\Enums\MailScope;
 use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettingsServiceProvider;
 use OZiTAG\Tager\Backend\Panel\TagerPanel;
 use OZiTAG\Tager\Backend\Rbac\TagerScopes;
 use OZiTAG\Tager\Backend\Seo\Structures\ParamsTemplate;
 use OZiTAG\Tager\Backend\Seo\TagerSeo;
-use OZiTAG\Tager\Backend\Sitemap\TagerSitemap;
 
 class BlogServiceProvider extends ModuleSettingsServiceProvider
 {
@@ -25,7 +22,9 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
      */
     public function register()
     {
-        //
+        $this->commands([
+            UpdateTagerBlogPostStatusesCommand::class
+        ]);
     }
 
     /**
