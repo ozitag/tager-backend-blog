@@ -15,6 +15,7 @@ use OZiTAG\Tager\Backend\Fields\FieldFactory;
  * Class BlogPost
  * @package OZiTAG\Tager\Backend\Blog\Models
  *
+ * @property int $id
  * @property string $title
  * @property string $url_alias
  * @property string $excerpt
