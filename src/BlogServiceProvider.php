@@ -35,8 +35,6 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        parent::boot();
-
         $this->loadRoutesFrom(__DIR__ . '/../routes/routes.php');
 
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'tager-blog');
