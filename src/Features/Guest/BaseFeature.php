@@ -4,9 +4,6 @@ namespace OZiTAG\Tager\Backend\Blog\Features\Guest;
 
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Core\Features\Feature;
-use OZiTAG\Tager\Backend\Blog\Repositories\CategoryRepository;
-use OZiTAG\Tager\Backend\Blog\Resources\Guest\GuestCategoryResource;
-use OZiTAG\Tager\Backend\Core\Validation\ValidationException;
 
 abstract class BaseFeature extends Feature
 {

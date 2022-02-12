@@ -44,7 +44,7 @@ class BlogPost extends TModel implements IPublicWebModel
 
     protected $table = 'tager_blog_posts';
 
-    static $defaultOrder = 'datetime desc';
+    static string $defaultOrder = 'datetime desc';
 
     /**
      * The attributes that are mass assignable.

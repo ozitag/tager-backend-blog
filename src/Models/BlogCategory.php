@@ -9,7 +9,6 @@ use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 use OZiTAG\Tager\Backend\Core\Models\Contracts\IPublicWebModel;
 use OZiTAG\Tager\Backend\Core\Models\TModel;
-use OZiTAG\Tager\Backend\Crud\Contracts\IModelPriorityConditional;
 
 /**
  * Class BlogCategory
@@ -35,7 +34,7 @@ class BlogCategory extends TModel implements IPublicWebModel
 
     protected $table = 'tager_blog_categories';
 
-    static $defaultOrder = 'language asc';
+    static string $defaultOrder = 'language asc';
 
     /**
      * The attributes that are mass assignable.
@@ -120,7 +119,7 @@ class BlogCategory extends TModel implements IPublicWebModel
 
     public function getWebOpenGraphImageUrl(): ?string
     {
-        return $this->openGraphImage ? $this->openGraphImage->getFullJson() : null;
+        return $this->openGraphImage?->getFullJson();
     }
 
     public function getPanelType(): ?string
