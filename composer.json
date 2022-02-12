@@ -15,7 +15,6 @@
     "ozitag/tager-backend-core": "^1.8",
     "ozitag/tager-backend-crud": "^1.6",
     "ozitag/tager-backend-http-cache": "^1.2",
-    "ozitag/tager-backend-module-settings": "^1.2",
     "ozitag/tager-backend-fields": "^1.5",
     "ozitag/tager-backend-utils": "^1.2",
     "ozitag/tager-backend-panel": "^1.0",

@@ -2,11 +2,8 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Utils;
 
-use Illuminate\Support\Facades\App;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
-use OZiTAG\Tager\Backend\Fields\Enums\FieldType;
-use OZiTAG\Tager\Backend\ModuleSettings\ModuleSettings;
 use OZiTAG\Tager\Backend\Seo\TagerSeo;
 
 class TagerBlogSeoHelper
