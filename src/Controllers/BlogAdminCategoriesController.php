@@ -2,7 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
-use OZiTAG\Tager\Backend\Blog\Features\Admin\ListPostsByCategoryFeature;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Crud\Actions\DeleteAction;
 use OZiTAG\Tager\Backend\Crud\Actions\IndexAction;

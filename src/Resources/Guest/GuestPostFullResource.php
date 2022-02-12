@@ -5,7 +5,6 @@ namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogConfig;
 use OZiTAG\Tager\Backend\Fields\FieldFactory;
-use OZiTAG\Tager\Backend\Files\Enums\TagerFileThumbnail;
 
 class GuestPostFullResource extends GuestPostResource
 {
@@ -61,8 +60,12 @@ class GuestPostFullResource extends GuestPostResource
         $model = $this->resource;
 
         return array_merge(parent::toArray($request), [
-            'image' => $model->image ? $model->image->getFullJson(null, false, true, [TagerFileThumbnail::AdminList, TagerFileThumbnail::AdminView]) : null,
-            'imageMobile' => $model->imageMobile ? $model->imageMobile->getFullJson(null, false, true, [TagerFileThumbnail::AdminList, TagerFileThumbnail::AdminView]) : null,
+            'image' => $model->image?->getFullJson(null, false, true, [
+                'tager-admin-list', 'tager-admin-view'
+            ]),
+            'imageMobile' => $model->imageMobile?->getFullJson(null, false, true, [
+                'tager-admin-list', 'tager-admin-view'
+            ]),
             'body' => $model->body,
             'pageTitle' => $model->getWebPageTitle(),
             'pageDescription' => $model->getWebPageDescription(),

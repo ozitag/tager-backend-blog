@@ -4,7 +4,6 @@ namespace OZiTAG\Tager\Backend\Blog\Resources\Guest;
 
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
-use OZiTAG\Tager\Backend\Files\Enums\TagerFileThumbnail;
 
 class GuestPostResource extends JsonResource
 {
@@ -32,7 +31,9 @@ class GuestPostResource extends JsonResource
             'date' => $this->datetime ? Carbon::parse($this->datetime)->toDate()->format('Y-m-d') : null,
             'datetime' => $this->datetime,
             'excerpt' => $this->excerpt,
-            'coverImage' => $this->coverImage ? $this->coverImage->getFullJson(null, false, true, [TagerFileThumbnail::AdminList, TagerFileThumbnail::AdminView]) : null,
+            'coverImage' => $this->coverImage?->getFullJson(null, false, true, [
+                'tager-admin-list', 'tager-admin-view'
+            ]),
             'categories' => $this->getCategoriesJson(),
         ];
     }

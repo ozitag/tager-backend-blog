@@ -2,8 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
-use OZiTAG\Tager\Backend\Blog\Settings\Controllers\AdminSettingsController;
-use OZiTAG\Tager\Backend\Blog\Settings\Enums\SettingField;
 use OZiTAG\Tager\Backend\Core\Controllers\Controller;
 use OZiTAG\Tager\Backend\Blog\Features\Admin\ModuleInfoFeature;
 

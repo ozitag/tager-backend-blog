@@ -2,7 +2,6 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Controllers;
 
-use OZiTAG\Tager\Backend\Blog\Jobs\ClonePostJob;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Blog\Operations\ClonePostOperation;
 use OZiTAG\Tager\Backend\Blog\Operations\CreatePostOperation;
