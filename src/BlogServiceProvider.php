@@ -2,6 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog;
 
+use Illuminate\Console\Scheduling\Schedule;
 use OZiTAG\Tager\Backend\Blog\Console\FlushBlogUpdateFileScenariosCommand;
 use OZiTAG\Tager\Backend\Blog\Console\UpdateTagerBlogPostStatusesCommand;
 use OZiTAG\Tager\Backend\Blog\Enums\BlogScope;
@@ -21,7 +22,9 @@ class BlogServiceProvider extends ModuleSettingsServiceProvider
      */
     public function register()
     {
-        //
+        $this->commands([
+            UpdateTagerBlogPostStatusesCommand::class
+        ]);
     }
 
     /**
