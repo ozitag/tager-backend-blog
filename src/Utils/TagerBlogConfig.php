@@ -9,32 +9,39 @@ class TagerBlogConfig
         return \config('tager-blog' . (empty($param) ? '' : '.' . $param), $default);
     }
 
-    private static function getStorageScenario($id)
+    private static function getStorageScenario($id): ?string
     {
-        return self::config('file_storage_scenarios.' . $id);
+        $result = self::config('file_storage_scenarios.' . $id);
+        if (!$result) {
+            return null;
+        } else if ($result instanceof \BackedEnum) {
+            return $result->value;
+        } else {
+            return $result;
+        }
     }
 
-    public static function getPostCoverScenario()
+    public static function getPostCoverScenario(): ?string
     {
         return self::getStorageScenario('post_cover');
     }
 
-    public static function getPostImageScenario()
+    public static function getPostImageScenario(): ?string
     {
         return self::getStorageScenario('post_image');
     }
 
-    public static function getPostImageMobileScenario()
+    public static function getPostImageMobileScenario(): ?string
     {
         return self::getStorageScenario('post_image_mobile');
     }
 
-    public static function getPostContentScenario()
+    public static function getPostContentScenario(): ?string
     {
         return self::getStorageScenario('post_content');
     }
 
-    public static function getOpenGraphScenario()
+    public static function getOpenGraphScenario(): ?string
     {
         return self::getStorageScenario('open_graph');
     }
@@ -42,7 +49,7 @@ class TagerBlogConfig
     /**
      * @return bool
      */
-    public static function isMultiLang()
+    public static function isMultiLang(): bool
     {
         return !empty(self::config('languages', []));
     }
@@ -51,12 +58,12 @@ class TagerBlogConfig
      * @param string $language
      * @return bool
      */
-    public static function isLanguageValid($language)
+    public static function isLanguageValid($language): bool
     {
         return in_array($language, self::getLanguageIds());
     }
 
-    public static function getLanguages()
+    public static function getLanguages(): array
     {
         $result = [];
 
