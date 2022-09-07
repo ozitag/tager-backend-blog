@@ -37,7 +37,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
                 return $builder->orderBy('datetime', 'asc');
             case 'datetime_desc':
                 return $builder->orderBy('datetime', 'desc');
-            case 'rating':
+            case 'status':
                 return $builder->orderByRaw('field(status, "' . BlogPostStatus::Published->value .
                     '", "' . BlogPostStatus::Draft->value .
                     '", "' . BlogPostStatus::Archived->value . '")');
