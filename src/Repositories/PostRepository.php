@@ -10,12 +10,66 @@ use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogPost;
 use OZiTAG\Tager\Backend\Core\Repositories\IFilterable;
 use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
+use OZiTAG\Tager\Backend\Core\Repositories\ISortable;
 
-class PostRepository extends EloquentRepository implements ISearchable, IFilterable
+class PostRepository extends EloquentRepository implements ISearchable, IFilterable, ISortable
 {
     public function __construct(BlogPost $model)
     {
         parent::__construct($model);
+    }
+
+    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
+    {
+        $builder = $builder ?: $this->model;
+
+        return $builder
+            ->orWhere('title', 'LIKE', '%' . $query . '%')
+            ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
+    }
+
+    public function sort(?string $sort = null, Builder $builder = null): ?Builder
+    {
+        $builder = $builder ?: $this->model;
+
+        switch ($sort) {
+            case 'datetime_asc':
+                return $builder->orderBy('datetime', 'asc');
+            case 'datetime_desc':
+                return $builder->orderBy('datetime', 'desc');
+            case 'rating':
+                return $builder->orderByRaw('field(status, "' . BlogPostStatus::Published->value .
+                    '", "' . BlogPostStatus::Draft->value .
+                    '", "' . BlogPostStatus::Archived->value . '")');
+            case 'title_asc':
+                return $builder->orderBy('title', 'asc');
+            case 'title_desc':
+                return $builder->orderBy('title', 'desc');
+            default:
+                return $builder;
+        }
+    }
+
+    public function filterByKey(Builder $builder, string $key, mixed $value): Builder
+    {
+        $builder = $builder ?: $this->model;
+
+        switch ($key) {
+            case 'language':
+                return $builder->whereIn('language', explode(',', $value));
+            case 'status':
+                return $builder->whereIn('status', explode(',', $value));
+            case 'category':
+                return $builder
+                    ->join('tager_blog_post_categories', 'tager_blog_post_categories.post_id', '=', 'tager_blog_posts.id')
+                    ->whereIn('tager_blog_post_categories.category_id', explode(',', $value));
+            case 'from-date':
+                return $builder->where('datetime', '>=', $value);
+            case 'to-date':
+                return $builder->where('datetime', '<=', $value);
+            default:
+                return $builder;
+        }
     }
 
     private function queryByStatus(BlogPostStatus $blogPostStatus): Builder
@@ -169,34 +223,5 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
             ->orWhere('body', 'LIKE', '%' . $searchQuery . '%');
 
         return $query->get();
-    }
-
-    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
-    {
-        $builder = $builder ? $builder : $this->model;
-
-        return $builder
-            ->orWhere('title', 'LIKE', '%' . $query . '%')
-            ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
-    }
-
-    public function filterByKey(Builder $builder, string $key, mixed $value): Builder
-    {
-        switch ($key) {
-            case 'language':
-                return $builder->whereIn('language', explode(',', $value));
-            case 'status':
-                return $builder->whereIn('status', explode(',', $value));
-            case 'category':
-                return $builder
-                    ->join('tager_blog_post_categories', 'tager_blog_post_categories.post_id', '=', 'tager_blog_posts.id')
-                    ->whereIn('tager_blog_post_categories.category_id', explode(',', $value));
-            case 'from-date':
-                return $builder->where('datetime', '>=', $value);
-            case 'to-date':
-                return $builder->where('datetime', '<=', $value);
-            default:
-                return $builder;
-        }
     }
 }
