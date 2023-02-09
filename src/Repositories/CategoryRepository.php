@@ -2,7 +2,7 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contract\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
