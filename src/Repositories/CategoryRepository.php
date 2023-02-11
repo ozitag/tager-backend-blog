@@ -2,15 +2,13 @@
 
 namespace OZiTAG\Tager\Backend\Blog\Repositories;
 
-use Illuminate\Contract\Database\Eloquent\Builder;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 use OZiTAG\Tager\Backend\Core\Repositories\EloquentRepository;
 use OZiTAG\Tager\Backend\Blog\Models\BlogCategory;
 use OZiTAG\Tager\Backend\Core\Repositories\IFilterable;
 use OZiTAG\Tager\Backend\Core\Repositories\ISearchable;
 use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryCrudTreeRepository;
-use OZiTAG\Tager\Backend\Crud\Contracts\IRepositoryWithPriorityMethods;
-use OZiTAG\Tager\Backend\Crud\Traits\RepositoryPriorityMethodsTrait;
 
 class CategoryRepository extends EloquentRepository implements IRepositoryCrudTreeRepository, ISearchable, IFilterable
 {
