@@ -31,7 +31,7 @@ class GuestPostResource extends JsonResource
             'date' => $this->datetime ? Carbon::parse($this->datetime)->toDate()->format('Y-m-d') : null,
             'datetime' => $this->datetime,
             'excerpt' => $this->excerpt,
-            'coverImage' => $this->coverImage?->getFullJson(null, false, true, [
+            'coverImage' => $this->coverImage?->getFullJson([
                 'tager-admin-list', 'tager-admin-view'
             ]),
             'categories' => $this->getCategoriesJson(),

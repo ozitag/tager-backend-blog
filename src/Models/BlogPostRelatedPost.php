@@ -3,10 +3,6 @@
 namespace OZiTAG\Tager\Backend\Blog\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Ozerich\FileStorage\Models\File;
-use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogSeoHelper;
-use OZiTAG\Tager\Backend\Blog\Utils\TagerBlogUrlHelper;
 
 class BlogPostRelatedPost extends Model
 {

@@ -119,7 +119,7 @@ class BlogCategory extends TModel implements IPublicWebModel
 
     public function getWebOpenGraphImageUrl(): ?string
     {
-        return $this->openGraphImage?->getFullJson();
+        return $this->openGraphImage?->getUrl();
     }
 
     public function getPanelType(): ?string

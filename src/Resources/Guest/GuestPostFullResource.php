@@ -60,10 +60,10 @@ class GuestPostFullResource extends GuestPostResource
         $model = $this->resource;
 
         return array_merge(parent::toArray($request), [
-            'image' => $model->image?->getFullJson(null, false, true, [
+            'image' => $model->image?->getFullJson( [
                 'tager-admin-list', 'tager-admin-view'
             ]),
-            'imageMobile' => $model->imageMobile?->getFullJson(null, false, true, [
+            'imageMobile' => $model->imageMobile?->getFullJson([
                 'tager-admin-list', 'tager-admin-view'
             ]),
             'body' => $model->body,
