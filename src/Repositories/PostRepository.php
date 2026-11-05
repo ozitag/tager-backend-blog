@@ -19,7 +19,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
         parent::__construct($model);
     }
 
-    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
+    public function searchByQuery(?string $query, ?Builder $builder = null): ?Builder
     {
         $builder = $builder ?: $this->model;
 
@@ -28,7 +28,7 @@ class PostRepository extends EloquentRepository implements ISearchable, IFiltera
             ->orWhere('url_alias', 'LIKE', '%' . $query . '%');
     }
 
-    public function sort(?string $sort = null, Builder $builder = null): ?Builder
+    public function sort(?string $sort = null, ?Builder $builder = null): ?Builder
     {
         $builder = $builder ?: $this->model;
 

@@ -53,7 +53,7 @@ class CategoryRepository extends EloquentRepository implements IRepositoryCrudTr
         return $query->first();
     }
 
-    public function searchByQuery(?string $query, Builder $builder = null): ?Builder
+    public function searchByQuery(?string $query, ?Builder $builder = null): ?Builder
     {
         $builder = $builder ? $builder : $this->model;
 
